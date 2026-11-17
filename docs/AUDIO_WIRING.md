@@ -1,18 +1,96 @@
-# 《夜巡》二至六章音频接线规格表（AUDIO_WIRING）
+# 《夜巡》音频接线规格
 
-生产：2026-11-17，合成脚本 `game/audio/tools/synth_audio_ch2_6.py`（沿第一章 `synth_audio.py` 本地合成体系：numpy/scipy 程序合成，零外部素材、零人声台词；人声层只有无词远人声氛围质感）。本表只给接线规格，**未改任何代码**；集成轮按本表改 `game/main.gd` 后须跑一次 Godot 导入（`--headless --import`）为新 wav 生成 `.wav.import`/uid，否则导出包不含新音（`get_stream()` 以 `res://audio/<name>.wav` 加载）。
+以 `main@4c98d67` 的素材库存和 `game/main.gd` 实际调用为准。表内覆盖 `game/audio/` 的 60 个 WAV，其中 40 个由 `game/audio/tools/synth_audio_ch2_6.py` 生成，另外 20 个为既有素材。仓库内有 60 个对应的 `.wav.import`。
 
-## 0. 全局规格（与第一章一致）
+## 格式与混音
 
-- 格式：22050 Hz、单声道、16-bit WAV；文件直落 `game/audio/`，命名沿既有短名约定（`get_stream(kind)` 的 kind 即文件名去后缀）。
-- 响度口径：环境轨 24.0s 无缝循环（2.5s 交叉淡化收尾回环）、峰值 ≤0.62、RMS 约 −18~−22 dB，经既有 `amb_players` 以 `AMBIENT_DB = -25.0` 播放、双域 0.3s 交叉淡入淡出（`start_ambience()`/`amb_targets` 机制不变）。FX 峰值 0.6~0.85，经 `play_fx(kind, db)` 以 `FX_DB = -3.0` 为默认播放；下表「播放音量」列的 dB 均为传给 `play_fx` 的参数（默认即 −3.0 不另注）。
-- QA（全件实测）：削波 0、DC 偏移 ≤0.002、FX 尾音（末 50ms RMS）≤ −30 dB（自然衰减收尾）、环境轨循环接缝差 ≤0.025（与一章 amb_realm 的 0.041 同级或更优）。
+- 二至六章合成脚本输出 22050 Hz、单声道、16 位 PCM WAV。环境轨长 24 秒，合成时以 2.5 秒交叉淡化拼接循环；脚本的峰值参数是振幅上限，与 Godot 播放增益分别计算。
+- 文件由 `get_stream(kind)` 按 `res://audio/<kind>.wav` 加载并缓存。新增或重制资源后，先从 `game/` 运行 Godot `--headless --import`，再导出。
+- 表内 dB 为播放器增益。环境声走 `YXAmb`，激活轨为 −25 dB，非激活轨为 −60 dB。游戏进行中切换现实／灵域时，双轨在约 0.3 秒内按 dB 插值。换章或换场景时由 `set_ambience_pair()` 挂载对应素材并设为向前循环。
+- 普通音效走 `YXFx`，默认 −3 dB、原始音高。独立爆响播放器也走 `YXFx`，播放器增益为默认 0 dB。设置菜单的两路总线音量叠加在上述增益上。
 
-## 1. 系统级替换（占位 → 正式）
+## 环境轨（13 件）
 
-| # | 占位现状（代码位置） | 正式文件 | 接线法 | 播放音量 |
-|---|---|---|---|---|
-| 1 | `play_gong()`（main.gd L2687）：`get_stream("drum")` + `pitch_scale=0.55` —— 开道锣一直用潮鼓降调占位 | `gong.wav`（1.80s，峰值 0.80，质心 471Hz） | `play_gong()` 改为 `get_stream("gong")`、`pitch_scale=1.0`。全部调用点自动生效：`act_sound2()` 的 else 分支（二章）、act5 `"gong"`、act6 `"gong"` 非报到路径。例外：`trio_hit6()` 的「闷响」反馈拍仍调 `play_gong()`，建议集成时给 `play_gong(db=-6.0, pitch=0.8)` 加可选参数专供该拍，勿与正式锣声同响度 | FX_DB |
-| 2 | `play_bell_low()`（L1432）：`bell.wav` + `pitch_scale=0.62` + `volume_db=-13.0` —— 应答版一直是降调近似 | `answer_bell.wav`（2.00s）/`answer_gong.wav`（2.40s）/`answer_drum.wav`（1.60s），三件同规格：低一档基频、长尾（tau 0.62~1.1）、软起音、峰值 0.62 | 新增 `play_answer(kind)`：按触发物件选件（神轿/轿铃→answer_bell、开道锣→answer_gong、潮鼓→answer_drum），`pitch_scale=1.0`。`play_bell_low()` 改为转调 `play_answer("bell")` 作兼容。逐点替换见 §3 | FX_DB（文件本身已低一档，不再叠 −13dB） |
-| 3 | `play_report6()`（report6 L4383 之后）：`drum+gong+b
-...[truncated 7899 chars]
+| 文件 | 实际触发点 | 播放增益 |
+| --- | --- | --- |
+| `amb_realm.wav` | 第一章及六章默认现实域；六章第一段重设默认对 | −25 dB |
+| `amb_spirit.wav` | 第一章及六章默认灵域；六章第一段重设默认对 | −25 dB |
+| `amb2_realm.wav` | 二章开局或续玩，现实域 | −25 dB |
+| `amb2_spirit.wav` | 二章开局或续玩，灵域 | −25 dB |
+| `amb3_realm.wav` | 三章默认现实域；离开后殿杂物间时恢复 | −25 dB |
+| `amb3_spirit.wav` | 三章默认灵域；离开后殿杂物间时恢复 | −25 dB |
+| `amb3_store.wav` | 三章附身后进入杂物间节点（旧香炉、木箱、纸轿残件、旧竹器、爆竹串），两域共用 | −25 dB |
+| `amb4_realm.wav` | 四章开局或续玩，现实域 | −25 dB |
+| `amb4_spirit.wav` | 四章开局或续玩，灵域 | −25 dB |
+| `amb5_realm.wav` | 五章开局或续玩，现实域 | −25 dB |
+| `amb5_spirit.wav` | 五章开局或续玩，灵域 | −25 dB |
+| `amb6_alley.wav` | 六章进入或续玩第五段（西巷），两域共用 | −25 dB |
+| `amb6_dawn.wav` | 六章进入或续玩第六段，且命运更新①已完成，两域共用 | −25 dB |
+
+## 响器、应答与报到（14 件）
+
+| 文件 | 实际触发点 | 播放增益 |
+| --- | --- | --- |
+| `bell.wav` | 一、二、四、五、六章神轿摇铃，三章钟；一章收束亦用铃，一章神轿部分动作 0.45 秒后再响；六章试图驱雾走普通铃 | −3 dB |
+| `drum.wav` | 各章潮鼓普通操作；四章示警第三拍；六章桥头报到、西巷三件之一 | −3 dB |
+| `gong.wav` | 二章开道锣、四至六章普通锣声；六章溪尾街与西巷报到。西巷报到条件未齐或响器重复时，改播闷响反馈 | 普通 −3 dB、音高 1.0；闷响 −6 dB、音高 0.8 |
+| `answer_bell.wav` | `play_bell_low()` 的旧入口（结局钩子、二章神轿延迟 0.5 秒）；四章借嘴与五章交易中的轿铃或其他默认映射；五章承诺拍；六章神轿铃解桥头花灯之锢 | −3 dB，音高 1.0 |
+| `answer_gong.wav` | 四章借嘴或五章交易时，触发响器为开道锣 | −3 dB，音高 1.0 |
+| `answer_drum.wav` | 四章借嘴或五章交易时，触发响器为潮鼓；六章潮鼓解开道锣或花灯之锢 | −3 dB，音高 1.0 |
+| `bridgebell.wav` | 四章桥铃示警第一拍 | −3 dB |
+| `templebell.wav` | 六章土地庙铜铃交互及该站报到 | −3 dB |
+| `deepgong.wav` | 六章西巷报到中深波锣有效计入三件时 | −3 dB |
+| `sugong.wav` | 六章西巷有效响开道锣时，与 `gong.wav` 同点叠播 | −6 dB |
+| `suona.wav` | 六章西巷三件齐后单独触发，与首遍 `report_half.wav` 同点播放 | 单独播放 −6 dB |
+| `report_half.wav` | 六章西巷三件齐时首播，2.4 秒后再播一次 | 两次均 −3 dB |
+| `report_full.wav` | 六章土地庙、溪尾街、桥头报到成功时调用 `play_report6()` | −3 dB |
+| `crackers.wav` | 一至三章爆竹操作；`play_sound("crackers")` 同时启动震屏与 `boom.wav` | −3 dB |
+
+应答按触发响器选择。素材本身已降基频，播放器无需再降调或叠加旧占位的 −13 dB。
+
+## 交互和系统反馈（33 件）
+
+| 文件 | 实际触发点 | 播放增益 |
+| --- | --- | --- |
+| `bang.wav` | 五章更梆操作 | −3 dB |
+| `beam.wav` | 一、二、三章梁／竹木物件交互 | −3 dB |
+| `boat.wav` | 四章船只交互 | −3 dB |
+| `boom.wav` | 爆竹的附加爆响；二章结束时独立触发 | 0 dB，独立播放器 |
+| `borrowmouth.wav` | 四章开启借嘴 | −3 dB |
+| `bridgerope.wav` | 四章桥栏绳交互 | −3 dB |
+| `candle.wav` | 一、三、五章烛台交互 | −3 dB |
+| `doorring_clear.wav` | 六章旧宅门口已移灯后的第二叩及之后的清响 | −3 dB |
+| `doorring_rust.wav` | 六章旧宅第一叩、未照亮时再叩及普通锈环反馈 | −3 dB |
+| `everlamp.wav` | 五、六章长明灯交互 | −3 dB |
+| `fate.wav` | 命运更新的通用反馈（由每帧检查相应演出状态时触发） | −5 dB |
+| `flag.wav` | 一、二、三、六章标旗交互 | −3 dB |
+| `horse.wav` | 纸扎马及复用该音效的纸扎人物、纸扎物交互 | −3 dB |
+| `incense.wav` | 一、二、三、五、六章香炉类交互，三章含旧香炉，六章含小香炉重燃 | −3 dB |
+| `jump.wav` | 成功跳附物件 | −7 dB |
+| `kueh.wav` | 五章红桃粿盘交互 | −3 dB |
+| `land.wav` | 附身动画中到达落点时 | −9 dB |
+| `lantern.wav` | 一、二、四、六章花灯类交互，六章用于照街、照桥和移灯照门 | −3 dB |
+| `loudspeaker.wav` | 一章扩音器交互 | −3 dB |
+| `oilpot.wav` | 五章添油壶响盖 | −3 dB |
+| `palanquin.wav` | 一、二、四、五、六章神轿互动中的轿体声，常与普通铃同点播放 | −3 dB |
+| `papercargo.wav` | 四章三类新轿纸扎物料交互 | −3 dB |
+| `porridge.wav` | 五章夜粥摊揭盖 | −3 dB |
+| `rewind.wav` | 各章进入失败阶段；点香或开始指定段落；二至五章被对手挤出时复用 | 失败 −3 dB；点香／段落提示 −7 dB；挤出 −9 dB |
+| `riverlamp.wav` | 四章河灯交互 | −3 dB |
+| `sedanrope.wav` | 四章轿绳担交互及桥栏加固 | −3 dB |
+| `shrine.wav` | 四章土地庙交互；六章土地庙小香炉重燃时叠在香火反馈上 | −3 dB |
+| `sign.wav` | 六章成功完成最后一附 | −3 dB |
+| `sticks.wav` | 一、三章签筒交互 | −3 dB |
+| `trade.wav` | 五章普通交易成立，叠在所选响器的应答上 | −3 dB |
+| `umbrella.wav` | 一、二章伞交互 | −3 dB |
+| `waitstill.wav` | 五章段落开始或对手移站时进入静候 | −3 dB |
+| `yieldcue.wav` | 五章普通交易成立，与响器应答和 `trade.wav` 同点播放 | −6 dB |
+
+五章承诺拍单发 `answer_bell.wav`，不套用普通交易的三件叠音。六章西巷报到音序为逐件触发、三件齐播放半套并叠唢呐、2.4 秒后重复半套。土地庙、溪尾街与桥头的整套报到另走 `play_report6()`。
+
+## 复核入口
+
+- 环境轨：`start_ambience()`、`set_ambience_pair()`、`ch3_store_check()`、`seg6_begin()`、`continue_game6()`。
+- 应答及交易：`play_answer()`、`answer_kind_for()`、`trade5_do()`。
+- 报到：`trio_hit6()`、`play_report6()`。
+- 本表核对素材库存和实际接线。混音响度、重复触发的听感、浏览器实际输出仍需试听。
