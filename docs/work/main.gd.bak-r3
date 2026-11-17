@@ -1,0 +1,401 @@
+extends Node2D
+
+var phase = "title"
+var current = "incense"
+var spirit = true
+var flags: Dictionary = {}
+var remaining = 240.0
+var time_scale = 1.0
+var failure_wait = 0.0
+var pickup_left = 0.0
+var dialogue = ""
+var speaker = "阿澄"
+var history: Array[String] = []
+var seen_tips: Dictionary = {}
+var font: Font
+var audio: AudioStreamPlayer
+var nodes = {
+ "incense": ["大香炉", "火星上窜", Vector2(95,350)],
+ "sticks": ["签筒", "摇→落一支签", Vector2(220,310)],
+ "candle": ["供桌烛台", "焰斜→燎金纸", Vector2(350,350)],
+ "drum": ["潮鼓", "响一声", Vector2(455,410)],
+ "palanquin": ["神轿（大老爷）", "轻晃→轿铃响", Vector2(650,395)],
+ "flag": ["标旗", "旗面抖响", Vector2(570,235)],
+ "lantern": ["花灯", "亮／旋转", Vector2(1040,180)],
+ "beam": ["灯架横木", "吱呀晃动", Vector2(1020,320)],
+ "crackers": ["鞭炮串", "燃放", Vector2(870,230)],
+ "loudspeaker": ["大声公", "播庙祝公录音「收埕」", Vector2(820,465)],
+ "horse": ["纸扎马", "马头转向", Vector2(470,515)],
+ "umbrella": ["油纸伞", "开伞", Vector2(670,535)]
+}
+var graph = {
+ "incense": ["sticks"], "sticks": ["incense","candle"],
+ "candle": ["sticks","drum"], "drum": ["candle","palanquin","horse"],
+ "palanquin": ["drum","flag","beam"], "flag": ["palanquin","umbrella"],
+ "beam": ["palanquin","lantern"], "lantern": ["beam","crackers"],
+ "crackers": ["lantern"], "horse": ["drum"],
+ "umbrella": ["flag","loudspeaker"], "loudspeaker": ["umbrella"]
+}
+
+func _ready() -> void:
+ font = load("res://font.ttc")
+ audio = AudioStreamPlayer.new()
+ add_child(audio)
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--time-scale="):
+   time_scale = maxf(0.1, float(arg.get_slice("=",1)))
+ var capture = ""
+ var capture_path = ""
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--capture="): capture = arg.get_slice("=",1)
+  if arg.begins_with("--capture-path="): capture_path = arg.get_slice("=",1)
+ if not capture.is_empty():
+  call_deferred("capture_scene",capture,capture_path)
+ queue_redraw()
+
+func say(who: String, line: String) -> void:
+ speaker = who
+ dialogue = line
+ history.append(who + "：" + line)
+ print(who + "：" + line)
+ queue_redraw()
+
+func start_game() -> void:
+ phase = "tutorial"
+ current = "incense"
+ spirit = true
+ flags = {}
+ remaining = 240.0
+ pickup_left = 0.0
+ nodes.crackers[2] = Vector2(870,230)
+ graph.beam = ["palanquin","lantern"]
+ graph.crackers = ["lantern"]
+ say("阿澄", "谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。")
+ append_tip("spirit", "这里是灵域，时间是停的。点旁边发青光的物件，就能附过去。")
+
+func start_incense() -> void:
+ if phase != "explore": return
+ phase = "playing"
+ current = "incense"
+ nodes.crackers[2] = Vector2(870,230)
+ graph.beam = ["palanquin","lantern"]
+ graph.crackers = ["lantern"]
+ remaining = 240.0
+ flags = {}
+ pickup_left = 0.0
+ say("一炷香前", "阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。")
+
+func set_spirit(value: bool) -> void:
+ spirit = value
+ if value and phase in ["tutorial","explore","playing"]:
+  append_tip("spirit", "这里是灵域，时间是停的。点旁边发青光的物件，就能附过去。")
+ queue_redraw()
+
+func jump_to(id: String) -> bool:
+ if not spirit or phase not in ["tutorial","explore","playing"]: return false
+ if id not in graph[current]: return false
+ if (current == "umbrella" and id == "loudspeaker") or (current == "loudspeaker" and id == "umbrella"):
+  if not flags.get("umbrella",false):
+   say("阿澄", "先让油纸伞张开，借风飘到戏台口。")
+   return false
+ var before_jump = dialogue
+ current = id
+ if id == "sticks" and not flags.get("heard",false):
+  flags.heard = true
+  say("庙祝公／小英", "阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。")
+ if dialogue == before_jump:
+  append_tip("possess", "附上了！按 Tab 回到现实，再按 E，就能用这个物件的本事。")
+ queue_redraw()
+ return true
+
+func act() -> void:
+ if phase not in ["tutorial","explore","playing"]: return
+ if spirit:
+  say("阿澄", "先切回现实，才可牵动物件。灵域只供观察和跳跃。")
+  return
+ match current:
+  "incense":
+   say("阿澄", "火星上窜，梁上燕子惊起。我的手……能碰到它们。")
+   if phase == "tutorial": phase = "explore"
+  "sticks":
+   if phase == "playing":
+    flags.pickup = true
+    pickup_left = 18.0
+    var first_update: bool = not flags.get("update1",false)
+    flags.update1 = true
+    say("命运更新①" if first_update else "阿弟", "签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！")
+   else: say("阿澄", "一支签落在埕边。先按 F 进入「一炷香前」，才能改写这段命运。")
+  "palanquin":
+   play_sound("bell")
+   flags.second_bell = true
+   get_tree().create_timer(0.45).timeout.connect(func(): play_sound("bell"))
+   if phase == "playing" and flags.get("pickup",false):
+    flags.safe = true
+    var first_update: bool = not flags.get("update2",false)
+    flags.update2 = true
+    say("命运更新② · 阿勇" if first_update else "阿勇", "阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】")
+   else: say("小英", "轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。")
+  "candle":
+   if phase == "playing":
+    flags.moved = true
+    flags.fuse = true
+    nodes.crackers[2] = Vector2(1090,450)
+    graph.beam = ["palanquin","lantern","crackers"]
+    graph.crackers = ["lantern","beam"]
+    say("庙祝公", "金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】")
+   else: say("阿澄", "烛焰斜向金纸。先进入一炷香前。")
+  "drum":
+   play_sound("drum")
+   if phase == "playing":
+    flags.drums = flags.get("drums",0) + 1
+    if flags.drums >= 3: fail("三下潮鼓震松主绳，原命运提前到来。")
+    else: say("阿澄", "鼓震传到灯架。再乱敲，阿弟会来不及离开……（%d／3）" % flags.drums)
+   else: say("阿澄", "鼓声惊动全埕。")
+  "flag":
+   flags.flag = true
+   say("小英／阿勇", "什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】")
+  "lantern":
+   flags.lantern = true
+   say("阿澄", "花灯亮起、缓缓旋转。灯光照清了主绳的绳结——断口整齐，纤维是被利刃齐齐割开的，绝不是磨断的。这绳……是被人割过一半的。")
+  "beam":
+   if phase != "playing":
+    say("阿澄", "横木吱呀作响。乱晃只会使它更早倒下。")
+   elif flags.get("armed",false):
+    fail("横木反复晃动，失去控制，灯架提前倒下。")
+   elif flags.get("safe",false) and flags.get("moved",false) and (flags.get("flag",false) or flags.get("cleared",false)):
+    flags.armed = true
+    say("阿澄", "横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。")
+   else:
+    remaining = maxf(0.0,remaining - 45.0)
+    flags.shakes = flags.get("shakes",0) + 1
+    say("阿澄", "横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。")
+    if flags.shakes >= 2 or remaining <= 0: fail("过早摇晃，灯架提前倒下。")
+  "crackers":
+   if not flags.get("fuse",false): say("阿澄", "引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。")
+   else:
+    play_sound("crackers")
+    if phase == "playing" and flags.get("armed",false): finish()
+    else: say("阿澄", "鞭炮炸响，但横木尚未晃松，未能放倒灯架。")
+  "loudspeaker":
+   flags.cleared = true
+   say("庙祝公录音", "收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】")
+  "horse":
+   flags.horse = true
+   say("阿澄", "纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？")
+  "umbrella":
+   flags.umbrella = true
+   say("阿澄", "油纸伞张开，随风飘向戏台口。现在可以跳到大声公。")
+ append_tip("act", "对，就是这么用物件的本事：先在灵域选好物件，Tab 回现实，按 E 动手。")
+ queue_redraw()
+
+func advance_time(delta: float) -> void:
+ if phase != "playing" or spirit: return
+ remaining -= delta * time_scale
+ if pickup_left > 0 and not flags.get("safe",false):
+  pickup_left -= delta * time_scale
+  if pickup_left <= 0:
+   flags.pickup = false
+   say("阿弟", "签捡到了……我回去绑绳。")
+ if remaining <= 0: fail("一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。")
+ queue_redraw()
+
+func fail(reason: String) -> void:
+ phase = "failure"
+ failure_wait = 5.0
+ if flags.get("safe",false):
+  say("阿澄", reason + " 阿弟已经扶轿离开落点，但未能完成安全放倒的闭环。回到香点，仍需烛台、停锣或清场，再晃横木燃放。")
+ else:
+  say("阿弟的亡魂", reason + " 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……")
+
+func retry() -> void:
+ var was_safe: bool = flags.get("safe",false)
+ start_game()
+ phase = "explore"
+ start_incense()
+ spirit = true
+ say("阿澄" if was_safe else "阿弟的亡魂", "香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。")
+
+func finish() -> void:
+ phase = "ending"
+ current = "lantern"
+ flags.ending = true
+ say("阿弟／阿澄", "若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】")
+ play_sound("bell")
+
+func play_sound(kind: String) -> void:
+ audio.stream = load("res://audio/" + kind + ".wav")
+ audio.play()
+
+func append_tip(key: String, line: String) -> void:
+ if seen_tips.get(key,false): return
+ seen_tips[key] = true
+ dialogue = dialogue + "　【" + line + "】"
+ history.append("提示：" + line)
+ queue_redraw()
+
+func objective_text() -> String:
+ if phase == "tutorial": return "试一试：按 Tab 切到现实，再按 E，用香炉的本事"
+ if phase == "explore": return "四处附身看看，准备好了按 F 点香，开始改命"
+ if phase == "playing":
+  if not flags.get("update1",false): return "救弟弟第一步：附到签筒上，回现实按 E 摇签"
+  if not flags.get("safe",false): return "趁阿弟捡签：附到神轿，回现实按 E 晃铃喊他扶轿"
+  if not flags.get("moved",false): return "附到供桌烛台按 E 燎金纸，让庙祝公把鞭炮挪到灯架脚"
+  if not (flags.get("flag",false) or flags.get("cleared",false)): return "附到标旗按 E 抖响，拖住出发锣（或用大声公清场）"
+  if not flags.get("armed",false): return "附到灯架横木按 E，把横木晃松"
+  return "最后一步：附到鞭炮串按 E 燃放，放倒灯架！"
+ if phase == "failure": return "没关系，马上重新点香，再来一次"
+ if phase == "ending": return "第一章完"
+ return ""
+
+func hint_text() -> String:
+ if phase == "title": return "按 Enter 或点一下，就能开始。"
+ if phase == "tutorial": return "你现在附在大香炉上。按 Tab 切到现实，再按 E，让火星上窜，试试手。"
+ if phase == "explore": return "在灵域点发青光的物件可以附身四处看。看够了按 F 点香，进入「一炷香前」开始改命。"
+ if phase == "playing":
+  if not flags.get("update1",false): return "先去签筒：灵域里点它附身，Tab 回现实按 E 摇签。签落下，阿弟会离开灯架去捡。"
+  if not flags.get("safe",false): return "趁阿弟捡签的空当，附到神轿上，Tab 回现实按 E 晃轿铃，阿勇会喊阿弟来扶轿，他就离开落点了。"
+  if not flags.get("moved",false): return "阿弟安全了。去供桌烛台按 E，烛火燎到金纸，庙祝公就会顺手把鞭炮挪到灯架脚边。"
+  if not (flags.get("flag",false) or flags.get("cleared",false)): return "去标旗按 E 抖响它，吸引大家注意、拖住出发锣；或者开油纸伞飘去大声公，用录音清场。"
+  if not flags.get("armed",false): return "去灯架横木按 E，把横木晃松——阿弟已离开、鞭炮已就位，现在晃才安全。"
+  return "附到架脚的鞭炮串上按 E 燃放，灯架会倒向空埕，阿弟就得救了！"
+ if phase == "failure": return "别慌，不会真死。等一下（或按 Enter）就会重新点香。记住：签筒叫人离架，神轿留人，烛台引来庙祝公挪鞭炮。"
+ if phase == "ending": return "第一章完了。按 Enter 回到标题。"
+ return "按 Tab 切换灵域／现实，灵域点物件附身，现实按 E 用物件的本事。"
+
+func show_hint() -> void:
+ say("提示", hint_text())
+
+func _process(delta: float) -> void:
+ advance_time(delta)
+ if phase == "failure":
+  failure_wait -= delta
+  if failure_wait <= 0: retry()
+
+func _unhandled_input(event: InputEvent) -> void:
+ if event is InputEventKey and event.pressed and not event.echo:
+  match event.keycode:
+   KEY_ENTER:
+    if phase == "title" or phase == "ending": start_game()
+    elif phase == "failure": retry()
+   KEY_TAB: set_spirit(not spirit)
+   KEY_E: act()
+   KEY_F: start_incense()
+   KEY_H: show_hint()
+   KEY_R:
+    if phase == "failure": retry()
+   KEY_1: time_scale = 1.0
+   KEY_4: time_scale = 4.0
+ if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+  var p = get_global_mouse_position()
+  if phase == "title": start_game(); return
+  for id in nodes:
+   if p.distance_to(nodes[id][2]) < 52:
+    jump_to(id)
+    break
+
+func text_at(pos: Vector2, value: String, size: int = 18, color: Color = Color.WHITE) -> void:
+ draw_string(font,pos,value,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
+
+func _draw() -> void:
+ if font == null: return
+ draw_rect(Rect2(0,0,1280,720),Color("0a1018") if spirit else Color("201a20"))
+ if phase == "title":
+  text_at(Vector2(420,235),"夜 巡",72,Color("a8eeeb"))
+  text_at(Vector2(395,305),"第一章 · 一炷香前",32)
+  text_at(Vector2(300,385),"溪尾村，正月十五夜。你醒来时，香刚点燃。",24)
+  text_at(Vector2(360,465),"Enter / 点击开始  ·  灰盒切片 R1",22)
+  text_at(Vector2(565,525),"怎么玩",26,Color("d8b777"))
+  text_at(Vector2(215,565),"你已经死了，是一缕鬼魂，只能附在物件上行动。",20)
+  text_at(Vector2(85,600),"Tab 切换灵域／现实：灵域里点发青光的物件跳过去附身；现实里按 E，用这个物件的本事。",20)
+  text_at(Vector2(60,635),"目标：香烧完前救下灯架底下的弟弟——让他离开，让灯架安全倒下。卡住按 F 重新点香，不会真死。",20)
+  return
+ if phase == "ending":
+  text_at(Vector2(230,180),"花灯残骸照出绳结：整齐的割痕。",28,Color("8dded7"))
+  text_at(Vector2(300,245),"远处，第二声轿铃又响了一次。",24,Color("9dabbc"))
+  text_at(Vector2(230,375),"今晚的巡境，多走了一条路。",42)
+  text_at(Vector2(525,465),"第一章完",30,Color("d8b777"))
+  text_at(Vector2(455,525),"Enter 返回标题教学",20)
+  return
+ draw_rect(Rect2(25,160,385,390),Color("35313a"))
+ draw_rect(Rect2(425,175,800,380),Color("242e38"))
+ text_at(Vector2(50,205),"老爷宫",25,Color("a99b90"))
+ text_at(Vector2(1130,530),"宫埕",24,Color("a99b90"))
+ draw_line(Vector2(1010,200),Vector2(1010,465),Color("ae8d68"),10)
+ draw_line(Vector2(1120,200),Vector2(1120,465),Color("ae8d68"),10)
+ if spirit:
+  for id in graph:
+   for other in graph[id]:
+    draw_line(nodes[id][2],nodes[other][2],Color(0.1,0.45,0.48,0.5),2)
+ for id in nodes:
+  var p: Vector2 = nodes[id][2]
+  var tint = Color("827064") if id != current else Color("d8ba7b")
+  draw_rect(Rect2(p-Vector2(36,20),Vector2(72,40)),tint)
+  if spirit: draw_circle(p,8,Color("53f7eb"))
+  if id == current: draw_arc(p,45,0,TAU,40,Color("72fff5"),3)
+  text_at(p+Vector2(-45,-30),nodes[id][0],18)
+ var npc = "阿弟：扶轿" if flags.get("safe",false) else ("阿弟：埕边捡签" if flags.get("pickup",false) else "阿弟：架下绑绳")
+ text_at(Vector2(900,505),npc,18,Color("efb88f"))
+ text_at(Vector2(30,38),"夜巡 · 一炷香前  |  " + ("灵域 · 时间停顿" if spirit else "现实 · 时间流动"),25,Color("7ae8dd"))
+ text_at(Vector2(30,77),"Tab 切换　点相邻灵核跳跃　E 使用物件　F 点香回溯　H 提示　1 / 4 时间倍率",19)
+ text_at(Vector2(30,110),"当前："+nodes[current][0]+"  ·  "+nodes[current][1],21)
+ text_at(Vector2(850,112),"香期 %03d 秒 ×%.0f" % [int(maxf(0,remaining)),time_scale],23)
+ if phase in ["tutorial","explore","playing","failure"]: text_at(Vector2(30,143),"当前该做："+objective_text(),21,Color("ffd98a"))
+ if flags.get("update1",false): text_at(Vector2(1010,143),"命运① ✓",18,Color("e8c789"))
+ if flags.get("update2",false): text_at(Vector2(1140,143),"命运② ✓",18,Color("e8c789"))
+ draw_rect(Rect2(20,574,1240,132),Color("101521"))
+ text_at(Vector2(40,606),speaker,21,Color("79e7dd"))
+ var lines = wrap_line(dialogue, sixty())
+ for i in range(mini(lines.size(),3)):
+  text_at(Vector2(40,636+i*25),lines[i],18)
+ if phase == "failure": text_at(Vector2(420,557),"命运未改 · 亡魂对话后自动重试 / Enter",22,Color("ff8f86"))
+
+func sixty() -> int:
+ return 61
+
+func wrap_line(value: String, count: int) -> Array[String]:
+ var result: Array[String] = []
+ for i in range(0,value.length(),count): result.append(value.substr(i,count))
+ return result
+
+func walk_to(target: String) -> bool:
+ set_spirit(true)
+ var paths: Array = [[current]]
+ var visited: Array = [current]
+ while not paths.is_empty():
+  var path: Array = paths.pop_front()
+  if path.back() == target:
+   for item in path.slice(1):
+    if not jump_to(item): return false
+   return true
+  for neighbor in graph[path.back()]:
+   if neighbor not in visited:
+    visited.append(neighbor)
+    var next = path.duplicate()
+    next.append(neighbor)
+    paths.append(next)
+ return false
+
+func use_at(target: String) -> void:
+ walk_to(target)
+ set_spirit(false)
+ act()
+
+func capture_scene(kind: String, path: String) -> void:
+ if DisplayServer.get_name() == "headless":
+  push_error("CAPTURE FAIL: headless display has no rendered framebuffer; use Xvfb or a real display.")
+  get_tree().quit(2)
+  return
+ start_game()
+ use_at("incense")
+ start_incense()
+ if kind == "ending":
+  for id in ["sticks","palanquin","candle","flag","beam","crackers"]: use_at(id)
+ else:
+  use_at("horse")
+  set_spirit(kind == "spirit")
+ await get_tree().process_frame
+ await get_tree().process_frame
+ await RenderingServer.frame_post_draw
+ var err = get_viewport().get_texture().get_image().save_png(path)
+ print("CAPTURE ",kind," ",path," error=",err)
+ get_tree().quit(err)

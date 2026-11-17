@@ -1,0 +1,2775 @@
+Reading prompt from stdin...
+OpenAI Codex v0.165.0
+--------
+workdir: /home/hatch
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a1e3bb-0306-7a72-a957-acf657023749
+--------
+user
+你是独立审计员，只审不改。禁止修改 ~/workspace/yexun/ 下任何文件（审计报告除外），禁止改设计稿与工程代码。
+
+审计对象：
+- 规格原件：~/workspace/yexun/DESIGN_CH1_SLICE.md（先完整读）
+- 第一轮复核：~/workspace/yexun/docs/REVIEW_R1.md
+- 第一轮交付：~/workspace/yexun/docs/DELIVERY_R1.md、~/workspace/yexun/docs/smoke_r1.log
+- 工程：~/workspace/yexun/game/（main.gd、smoke.gd、project.godot、audio/）
+- 截图：~/workspace/yexun/docs/shots/spirit_r1.png、reality_r1.png、ending_r1.png（主控补截，声称像素核验通过）
+
+审计任务，结论写 ~/workspace/yexun/docs/AUDIT_R2.md，逐项给「符合/不符/部分符合」+证据（文件:行号或日志行）：
+1. §4 物件表：12 件物件是否全部实现、位置/单一技/作用是否逐项对表；有无第 13 件物件或组合技、背包等越界实现。
+2. §5 解法链：正解 6 步、2 次命运更新、备选路径（大声公清场跳过第 5 步）、错误路径（潮鼓三下）在代码与冒烟日志中是否真实存在且顺序/前置正确，不是只在日志里打印 PASS 而无对应状态机逻辑——必须读 smoke.gd 与 main.gd 的实际断言和状态变量来判断。
+3. §6 规格：单场景 1280x720 灰盒、灵域/现实切换与时间停顿、一炷香计时与失败重试+亡者对话提示、对话底框、章末字幕原文「今晚的巡境，多走了一条路。」、鼓/铃/鞭炮三声音频文件是否存在且被代码引用。
+4. 冒烟真实性：亲自复跑冒烟命令（~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd），核对输出与 smoke_r1.log 声称的 252 项 0 失败是否一致；再亲自对 main.gd、smoke.gd 跑 --check-only 确认无 parse error。复跑结果原样记录（检查数、失败数、退出码）。
+5. 复核报告可信度：REVIEW_R1.md 声称原稿跳跃图为 10+2 两分量（伞/喇叭孤岛）——独立按设计稿 §4 连通段落复算，确认或推翻；其列出的其他漏洞（引线传火、移位后鞭炮可达、双物件终局顺序）是否属实；实现中的兼容补边（标旗—油纸伞等）是否与报告声称一致、是否改动了设计剧情设定。
+6. 截图真实性：检查 3 张 PNG 的尺寸/文件大小，判断是否为同一工程的真实画面（灵域有灵核点、现实无、章末有字幕），与 capture 日志声称是否矛盾。
+
+报告最后给总评：通过/有条件通过/不通过，并列出所有发现的问题按严重程度排序。只审不改：发现问题只记录，不许动手修。
+终端输出简短审计结论摘要即可。
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+codex
+我会先完整读取规格原件，再核对代码、报告、日志和截图，亲自复跑冒烟与语法检查；只写审计报告，不修改设计稿或工程文件。
+
+exec
+/bin/bash -lc 'cat workspace/yexun/DESIGN_CH1_SLICE.md' in /home/hatch
+ succeeded in 45ms:
+# 《夜巡》第一章切片 · 纸面设计稿 v1（2026-11-16 主控定稿，待 Codex 复核）
+
+## 0. 切片目标
+
+用一章验证三件事：①「附身＋一物一技＋连锁改命」在潮汕夜巡场景里好不好玩；
+②谜题因果不看攻略可读；③玩家通关后想看第二章。约 20 分钟、单场景、12 件物件、1 次改命。
+
+## 1. 舞台与人物
+
+- **舞台**：架空潮汕村「溪尾村」老爷宫（供奉大老爷）宫内＋宫埕，一张横版图。
+正月十五夜，营老爷出发前一炷香。刚下过雨，埕地积水反光；埕东竖着竹木**灯架**，
+挂满花灯，是今晚巡境的头灯。
+- **主角（亡魂）**：阿澄，22 岁，英歌队二槌、今晚的轿夫。今晚早些时候在戏台竹棚上
+挂灯时坠落身亡——村里当意外。灵魂在老爷宫醒来，谁也看不见他；他只记得要「等夜巡」，
+不记得自己怎么死的（全卷主线钩子，本章不揭）。
+- **阿弟**：14 岁，主角的弟弟。哥哥出事后顶他的位，此刻在灯架下给神轿绑轿绳。
+- **庙祝公**：70 岁，守宫老人，掌握出发时辰与仪轨；说话只说半句（信息源＋谜语人）。
+- **小英**：19 岁，英歌队头槌（女头槌是本村今年的新鲜事），阿澄的搭档；少数「觉得今晚不对劲」的人。
+- **阿勇**：轿夫头，嗓门大，负责喊人调度（玩法上的人物调度器）。
+
+## 2. 死亡事件（改命对象）
+
+出发锣敲到第三下时，震动＋夜风使灯架松脱的绳结彻底崩开，**灯架倒向埕心，砸中仍在架下绑绳的阿弟**。
+事后玩家在灵域能看清：灯架主绳不是磨断的——**断口整齐，是被人割过一半**（本章 plot 钩子，不点破是谁）。
+
+## 3. 系统（幽灵诡计内核，潮汕化命名）
+
+- **灵域／现实切换**：灵域时间停顿，可附身物件以青色灵核点显示；现实时间流动，
+一炷香（约 4 分钟剧情时间）烧完即死亡事件发生，未改命则自动回到香点燃处重试（无 Game Over）。
+- **附身移动**：只能在灵核点之间跳，距离有上限；两条天然连接线——彩灯电线（埕上横拉）
+与香烟（宫内香火不断），是本章的「路」。
+- **一物一技**：每件物件只有一个动作（见物件表），不做组合技、不做背包。
+- **与亡者对话**：改命失败后可与阿弟的亡魂短暂对话，得到一条指向关键物件的提示
+（本章的内置提示系统，防卡死）。
+
+## 4. 十二件可附身物件（一物一技表）
+
+| # | 物件 | 位置 | 技（单一动作） | 在解法/剧情中的作用 |
+|---|------|------|--------------|--------------------|
+| 1 | 大香炉 | 宫内正殿前 | 火星上窜 | 教学件：第一件附身物；火星惊起梁上燕子（纯氛围） |
+| 2 | 签筒 | 供桌旁 | 摇→落一支签 | 引阿弟离架的第一环（见解法②） |
+| 3 | 供桌烛台 | 供桌 | 焰斜→燎金纸 | 引庙祝公扑火、离开宫门（解法④前置） |
+| 4 | 潮鼓 | 宫门内侧 | 响一声 | 惊动全埕；错误时机敲会提前震松灯架（负反馈教学） |
+| 5 | 神轿（大老爷） | 埕心 | 轻晃→轿铃响 | 喊阿弟来扶轿（解法③）；铃响时宫内传来**第二声铃**（恐怖钩子） |
+| 6 | 标旗 | 埕西旗座 | 旗面抖响 | 吸引小英望向埕西（调度她的视线，解法⑤见证人） |
+| 7 | 花灯（灯架顶灯） | 灯架顶 | 亮／旋转 | 经电线可达灯架；亮灯照出绳结断口（调查点） |
+| 8 | 灯架横木 | 灯架中段 | 吱呀晃动 | 危险件：晃它会加速倒塌，只用于终局「提前放倒」（解法⑥时机件） |
+| 9 | 鞭炮串 | 埕柱 | 燃放 | 终局震源之一（需先由烛台火燎到引线纸才可燃放，见解法⑤） |
+| 10 | 大声公（手提喇叭） | 戏台口 | 播庙祝公录音「收埕」 | 备选调度件：可把闲人赶离埕心（非正解、但有效清场） |
+| 11 | 纸扎马 | 宫门外 | 马头转向 | 纯剧情件：头总会自己转回朝向宫门的方向（恐怖氛围，不参与解法） |
+| 12 | 油纸伞 | 埕边竹椅 | 开伞 | 致敬件＋移动中继：开伞后可随风飘到戏台口（连通大声公） |
+
+移动连通（灵核跳跃图，须无死角）：香炉—签筒—烛台（宫内近距）；烛台—潮鼓（宫门）；
+潮鼓—神轿—标旗（埕面近距）；神轿—灯架横木—花灯（轿顶攀线）；埕柱鞭炮—彩灯电线—花灯；
+竹椅油纸伞—戏台口大声公（开伞飘移）；纸扎马在宫门外，与潮鼓近距。**全图强连通，Codex 复核须验证。**
+
+## 5. 正解链（一炷香前改命，6 步、2 次命运更新）
+
+1. **** 灵魂醒于香炉，附身香炉→签筒，听庙祝公与小英对话，得知阿弟顶位、灯架今晚「绳是新换的」。
+2. **签筒「摇」**→ 一支签落在埕边。阿弟好奇，离开灯架下两步去捡签——
+**命运更新①：阿弟不在正下方了，但捡完签他还会回去绑绳。**（签文特写：「逢冲则避」——给玩家的明示暗示）
+3. **神轿「晃」**→ 轿铃响。阿勇喊：「阿弟！轿杠沉，过来扶！」阿弟跑去扶轿，彻底离开灯架落点——
+**命运更新②：落点下没人了。** 同时铃响后，宫内深处传来慢半拍的**第二声铃**，只有小英皱眉（钩子埋点）。
+4. **烛台「焰斜」**→ 燎燃供桌边金纸。庙祝公冲来扑火，顺手把挂在埕柱的鞭炮串摘下挪远防走火——
+（鞭炮被挪到灯架底座旁的石礅上——这是玩家需要的「震源就位」，因果由 NPC 之手完成，玩家只点火种。）
+5. **标旗「抖响」**→ 小英望向埕西，恰好背对埕心（让她不直视倒塌瞬间，保住「没人看清」的后续口径），
+同时旗影扫过，阿勇扶轿的手停了一拍——出发锣**不会**在此刻敲下（阻断原死亡触发：锣震）。
+6. **灯架横木「晃」＋鞭炮「燃放」**（鞭炮已被挪到架脚）→ 炸响震落本就割伤的主绳，**灯架提前倒向空埕**，
+砸碎一地花灯，无人受伤。全埕惊散，夜巡推迟。阿弟望着倒架发愣：「若我还在下头……」
+**改命完成。** 章末：玩家附回花灯残骸，灯光照出绳结断口——整齐的割痕。远处，第二声轿铃又响了一次。
+黑屏，字幕：**「今晚的巡境，多走了一条路。」** 第一章完。
+
+备选有效路径（须实现，不算错解）：先用大声公清场再放倒灯架（跳过第 5 步）；
+错误路径示例：直接敲潮鼓三下＝提前触发原命运（灯架当场倒、阿弟未离开则改命失败，进亡者对话提示）。
+
+## 6. 切片实现规格（给 Codex）
+
+- Godot 4.3，单场景 2D 横版，1280×720 基准；灰盒先行：色块＋物件名标签＋灵核点，
+逻辑全通后再换皮（换皮素材另行派单，本单不做美术精修）。
+- 必须可玩闭环：标题→教学→自由探索→进「一炷香前」→正解/备选解通关→章末字幕；
+失败→亡者对话提示→重试。
+- 对话以漫画分镜式对话框呈现（底部框＋说话人名字即可，分镜格为全量规格、切片不做）。
+- 存档不做；音效用本地合成/占位（鼓、铃、鞭炮三声必须有，可用合成音）。
+- 交付：工程目录 ~/workspace/yexun/game/，一条命令可跑（godot --path），
+附无头冒烟脚本验证主流程状态机可达通关态，＋运行截图 3 张（灵域/现实/章末）。
+
+## 7. 验收门（主控亲验＋用户真人试玩）
+
+- 主控亲验：亲自跑通正解链与一条备选链；跳跃图强连通；失败重试闭环成立；截图核对。
+- 用户试玩三问：不看攻略能解否／想玩第二章否／¥38–52 愿意买否。
+- 任一不过：停下回报，不自动扩第二章。
+
+exec
+/bin/bash -lc 'wc -l workspace/yexun/game/main.gd workspace/yexun/game/smoke.gd; ls -la workspace/yexun/docs' in /home/hatch
+ succeeded in 55ms:
+  349 workspace/yexun/game/main.gd
+  150 workspace/yexun/game/smoke.gd
+  499 total
+total 188
+drwxrws--- 1 root nogroup    426 Nov 16 09:40 .
+drwxrws--- 1 root nogroup     68 Nov 16 09:39 ..
+-rw-rw---- 1 root nogroup   2800 Nov 16 09:38 AUDIT_R1.md
+-rw-rw---- 1 root nogroup   2388 Nov 16 09:39 DELIVERY_R1.md
+-rw-rw---- 1 root nogroup   7059 Nov 16 09:39 REVIEW_R1.md
+-rw-rw---- 1 root nogroup    828 Nov 16 09:38 capture_r1.log
+-rwxrwx--- 1 root nogroup    584 Nov 16 09:38 capture_r1.sh
+-rw-rw---- 1 root nogroup     71 Nov 16 09:39 check_main.log
+-rw-rw---- 1 root nogroup     71 Nov 16 09:39 check_smoke.log
+-rw-rw---- 1 root nogroup 126297 Nov 16 09:39 codex_r1_output.log
+-rw-rw---- 1 root nogroup      0 Nov 16 09:40 codex_r2_output.log
+-rw-rw---- 1 root nogroup    114 Nov 16 09:36 design_source.sha256
+-rw-rw---- 1 root nogroup    292 Nov 16 09:36 graph_r1.log
+drwxrws--- 1 root nogroup     80 Nov 16 09:40 shots
+-rw-rw---- 1 root nogroup  16342 Nov 16 09:39 smoke_r1.log
+-rw-rw---- 1 root nogroup     71 Nov 16 09:39 startup_r1.log
+-rw-rw---- 1 root nogroup    754 Nov 16 09:38 verify_shots.py
+drwxrws--- 1 root nogroup    110 Nov 16 09:40 work
+
+exec
+/bin/bash -lc 'nl -ba workspace/yexun/game/main.gd' in /home/hatch
+ succeeded in 80ms:
+     1	extends Node2D
+     2	
+     3	var phase = "title"
+     4	var current = "incense"
+     5	var spirit = true
+     6	var flags: Dictionary = {}
+     7	var remaining = 240.0
+     8	var time_scale = 1.0
+     9	var failure_wait = 0.0
+    10	var pickup_left = 0.0
+    11	var dialogue = ""
+    12	var speaker = "阿澄"
+    13	var history: Array[String] = []
+    14	var font: Font
+    15	var audio: AudioStreamPlayer
+    16	var nodes = {
+    17	 "incense": ["大香炉", "火星上窜", Vector2(95,350)],
+    18	 "sticks": ["签筒", "摇→落一支签", Vector2(220,310)],
+    19	 "candle": ["供桌烛台", "焰斜→燎金纸", Vector2(350,350)],
+    20	 "drum": ["潮鼓", "响一声", Vector2(455,410)],
+    21	 "palanquin": ["神轿（大老爷）", "轻晃→轿铃响", Vector2(650,395)],
+    22	 "flag": ["标旗", "旗面抖响", Vector2(570,235)],
+    23	 "lantern": ["花灯", "亮／旋转", Vector2(1040,180)],
+    24	 "beam": ["灯架横木", "吱呀晃动", Vector2(1020,320)],
+    25	 "crackers": ["鞭炮串", "燃放", Vector2(870,230)],
+    26	 "loudspeaker": ["大声公", "播庙祝公录音「收埕」", Vector2(820,465)],
+    27	 "horse": ["纸扎马", "马头转向", Vector2(470,515)],
+    28	 "umbrella": ["油纸伞", "开伞", Vector2(670,535)]
+    29	}
+    30	var graph = {
+    31	 "incense": ["sticks"], "sticks": ["incense","candle"],
+    32	 "candle": ["sticks","drum"], "drum": ["candle","palanquin","horse"],
+    33	 "palanquin": ["drum","flag","beam"], "flag": ["palanquin","umbrella"],
+    34	 "beam": ["palanquin","lantern"], "lantern": ["beam","crackers"],
+    35	 "crackers": ["lantern"], "horse": ["drum"],
+    36	 "umbrella": ["flag","loudspeaker"], "loudspeaker": ["umbrella"]
+    37	}
+    38	
+    39	func _ready() -> void:
+    40	 font = load("res://font.ttc")
+    41	 audio = AudioStreamPlayer.new()
+    42	 add_child(audio)
+    43	 for arg in OS.get_cmdline_user_args():
+    44	  if arg.begins_with("--time-scale="):
+    45	   time_scale = maxf(0.1, float(arg.get_slice("=",1)))
+    46	 var capture = ""
+    47	 var capture_path = ""
+    48	 for arg in OS.get_cmdline_user_args():
+    49	  if arg.begins_with("--capture="): capture = arg.get_slice("=",1)
+    50	  if arg.begins_with("--capture-path="): capture_path = arg.get_slice("=",1)
+    51	 if not capture.is_empty():
+    52	  call_deferred("capture_scene",capture,capture_path)
+    53	 queue_redraw()
+    54	
+    55	func say(who: String, line: String) -> void:
+    56	 speaker = who
+    57	 dialogue = line
+    58	 history.append(who + "：" + line)
+    59	 print(who + "：" + line)
+    60	 queue_redraw()
+    61	
+    62	func start_game() -> void:
+    63	 phase = "tutorial"
+    64	 current = "incense"
+    65	 spirit = true
+    66	 flags = {}
+    67	 remaining = 240.0
+    68	 pickup_left = 0.0
+    69	 nodes.crackers[2] = Vector2(870,230)
+    70	 graph.beam = ["palanquin","lantern"]
+    71	 graph.crackers = ["lantern"]
+    72	 say("阿澄", "谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。")
+    73	
+    74	func start_incense() -> void:
+    75	 if phase != "explore": return
+    76	 phase = "playing"
+    77	 current = "incense"
+    78	 nodes.crackers[2] = Vector2(870,230)
+    79	 graph.beam = ["palanquin","lantern"]
+    80	 graph.crackers = ["lantern"]
+    81	 remaining = 240.0
+    82	 flags = {}
+    83	 pickup_left = 0.0
+    84	 say("一炷香前", "阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。")
+    85	
+    86	func set_spirit(value: bool) -> void:
+    87	 spirit = value
+    88	 queue_redraw()
+    89	
+    90	func jump_to(id: String) -> bool:
+    91	 if not spirit or phase not in ["tutorial","explore","playing"]: return false
+    92	 if id not in graph[current]: return false
+    93	 if (current == "umbrella" and id == "loudspeaker") or (current == "loudspeaker" and id == "umbrella"):
+    94	  if not flags.get("umbrella",false):
+    95	   say("阿澄", "先让油纸伞张开，借风飘到戏台口。")
+    96	   return false
+    97	 current = id
+    98	 if id == "sticks" and not flags.get("heard",false):
+    99	  flags.heard = true
+   100	  say("庙祝公／小英", "阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。")
+   101	 queue_redraw()
+   102	 return true
+   103	
+   104	func act() -> void:
+   105	 if phase not in ["tutorial","explore","playing"]: return
+   106	 if spirit:
+   107	  say("阿澄", "先切回现实，才可牵动物件。灵域只供观察和跳跃。")
+   108	  return
+   109	 match current:
+   110	  "incense":
+   111	   say("阿澄", "火星上窜，梁上燕子惊起。我的手……能碰到它们。")
+   112	   if phase == "tutorial": phase = "explore"
+   113	  "sticks":
+   114	   if phase == "playing":
+   115	    flags.pickup = true
+   116	    pickup_left = 18.0
+   117	    var first_update: bool = not flags.get("update1",false)
+   118	    flags.update1 = true
+   119	    say("命运更新①" if first_update else "阿弟", "签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！")
+   120	   else: say("阿澄", "一支签落在埕边。先按 F 进入「一炷香前」，才能改写这段命运。")
+   121	  "palanquin":
+   122	   play_sound("bell")
+   123	   flags.second_bell = true
+   124	   get_tree().create_timer(0.45).timeout.connect(func(): play_sound("bell"))
+   125	   if phase == "playing" and flags.get("pickup",false):
+   126	    flags.safe = true
+   127	    var first_update: bool = not flags.get("update2",false)
+   128	    flags.update2 = true
+   129	    say("命运更新② · 阿勇" if first_update else "阿勇", "阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】")
+   130	   else: say("小英", "轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。")
+   131	  "candle":
+   132	   if phase == "playing":
+   133	    flags.moved = true
+   134	    flags.fuse = true
+   135	    nodes.crackers[2] = Vector2(1090,450)
+   136	    graph.beam = ["palanquin","lantern","crackers"]
+   137	    graph.crackers = ["lantern","beam"]
+   138	    say("庙祝公", "金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】")
+   139	   else: say("阿澄", "烛焰斜向金纸。先进入一炷香前。")
+   140	  "drum":
+   141	   play_sound("drum")
+   142	   if phase == "playing":
+   143	    flags.drums = flags.get("drums",0) + 1
+   144	    if flags.drums >= 3: fail("三下潮鼓震松主绳，原命运提前到来。")
+   145	    else: say("阿澄", "鼓震传到灯架。再乱敲，阿弟会来不及离开……（%d／3）" % flags.drums)
+   146	   else: say("阿澄", "鼓声惊动全埕。")
+   147	  "flag":
+   148	   flags.flag = true
+   149	   say("小英／阿勇", "什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】")
+   150	  "lantern":
+   151	   flags.lantern = true
+   152	   say("阿澄", "花灯亮起、缓缓旋转。绳结上有一道不自然的暗影……")
+   153	  "beam":
+   154	   if phase != "playing":
+   155	    say("阿澄", "横木吱呀作响。乱晃只会使它更早倒下。")
+   156	   elif flags.get("armed",false):
+   157	    fail("横木反复晃动，失去控制，灯架提前倒下。")
+   158	   elif flags.get("safe",false) and flags.get("moved",false) and (flags.get("flag",false) or flags.get("cleared",false)):
+   159	    flags.armed = true
+   160	    say("阿澄", "横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。")
+   161	   else:
+   162	    remaining = maxf(0.0,remaining - 45.0)
+   163	    flags.shakes = flags.get("shakes",0) + 1
+   164	    say("阿澄", "横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。")
+   165	    if flags.shakes >= 2 or remaining <= 0: fail("过早摇晃，灯架提前倒下。")
+   166	  "crackers":
+   167	   if not flags.get("fuse",false): say("阿澄", "引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。")
+   168	   else:
+   169	    play_sound("crackers")
+   170	    if phase == "playing" and flags.get("armed",false): finish()
+   171	    else: say("阿澄", "鞭炮炸响，但横木尚未晃松，未能放倒灯架。")
+   172	  "loudspeaker":
+   173	   flags.cleared = true
+   174	   say("庙祝公录音", "收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】")
+   175	  "horse":
+   176	   flags.horse = true
+   177	   say("阿澄", "纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？")
+   178	  "umbrella":
+   179	   flags.umbrella = true
+   180	   say("阿澄", "油纸伞张开，随风飘向戏台口。现在可以跳到大声公。")
+   181	 queue_redraw()
+   182	
+   183	func advance_time(delta: float) -> void:
+   184	 if phase != "playing" or spirit: return
+   185	 remaining -= delta * time_scale
+   186	 if pickup_left > 0 and not flags.get("safe",false):
+   187	  pickup_left -= delta * time_scale
+   188	  if pickup_left <= 0:
+   189	   flags.pickup = false
+   190	   say("阿弟", "签捡到了……我回去绑绳。")
+   191	 if remaining <= 0: fail("一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。")
+   192	 queue_redraw()
+   193	
+   194	func fail(reason: String) -> void:
+   195	 phase = "failure"
+   196	 failure_wait = 5.0
+   197	 if flags.get("safe",false):
+   198	  say("阿澄", reason + " 阿弟已经扶轿离开落点，但未能完成安全放倒的闭环。回到香点，仍需烛台、停锣或清场，再晃横木燃放。")
+   199	 else:
+   200	  say("阿弟的亡魂", reason + " 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……")
+   201	
+   202	func retry() -> void:
+   203	 var was_safe: bool = flags.get("safe",false)
+   204	 start_game()
+   205	 phase = "explore"
+   206	 start_incense()
+   207	 spirit = true
+   208	 say("阿澄" if was_safe else "阿弟的亡魂", "香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。")
+   209	
+   210	func finish() -> void:
+   211	 phase = "ending"
+   212	 current = "lantern"
+   213	 flags.ending = true
+   214	 say("阿弟／阿澄", "若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】")
+   215	 play_sound("bell")
+   216	
+   217	func play_sound(kind: String) -> void:
+   218	 audio.stream = load("res://audio/" + kind + ".wav")
+   219	 audio.play()
+   220	
+   221	func _process(delta: float) -> void:
+   222	 advance_time(delta)
+   223	 if phase == "failure":
+   224	  failure_wait -= delta
+   225	  if failure_wait <= 0: retry()
+   226	
+   227	func _unhandled_input(event: InputEvent) -> void:
+   228	 if event is InputEventKey and event.pressed and not event.echo:
+   229	  match event.keycode:
+   230	   KEY_ENTER:
+   231	    if phase == "title" or phase == "ending": start_game()
+   232	    elif phase == "failure": retry()
+   233	   KEY_TAB: set_spirit(not spirit)
+   234	   KEY_E: act()
+   235	   KEY_F: start_incense()
+   236	   KEY_R:
+   237	    if phase == "failure": retry()
+   238	   KEY_1: time_scale = 1.0
+   239	   KEY_4: time_scale = 4.0
+   240	 if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+   241	  var p = get_global_mouse_position()
+   242	  if phase == "title": start_game(); return
+   243	  for id in nodes:
+   244	   if p.distance_to(nodes[id][2]) < 52:
+   245	    jump_to(id)
+   246	    break
+   247	
+   248	func text_at(pos: Vector2, value: String, size: int = 18, color: Color = Color.WHITE) -> void:
+   249	 draw_string(font,pos,value,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
+   250	
+   251	func _draw() -> void:
+   252	 if font == null: return
+   253	 draw_rect(Rect2(0,0,1280,720),Color("0a1018") if spirit else Color("201a20"))
+   254	 if phase == "title":
+   255	  text_at(Vector2(420,235),"夜 巡",72,Color("a8eeeb"))
+   256	  text_at(Vector2(395,305),"第一章 · 一炷香前",32)
+   257	  text_at(Vector2(300,385),"溪尾村，正月十五夜。你醒来时，香刚点燃。",24)
+   258	  text_at(Vector2(360,465),"Enter / 点击开始  ·  灰盒切片 R1",22)
+   259	  return
+   260	 if phase == "ending":
+   261	  text_at(Vector2(230,180),"花灯残骸照出绳结：整齐的割痕。",28,Color("8dded7"))
+   262	  text_at(Vector2(300,245),"远处，第二声轿铃又响了一次。",24,Color("9dabbc"))
+   263	  text_at(Vector2(230,375),"今晚的巡境，多走了一条路。",42)
+   264	  text_at(Vector2(525,465),"第一章完",30,Color("d8b777"))
+   265	  text_at(Vector2(455,525),"Enter 返回标题教学",20)
+   266	  return
+   267	 draw_rect(Rect2(25,160,385,390),Color("35313a"))
+   268	 draw_rect(Rect2(425,175,800,380),Color("242e38"))
+   269	 text_at(Vector2(50,205),"老爷宫",25,Color("a99b90"))
+   270	 text_at(Vector2(1130,530),"宫埕",24,Color("a99b90"))
+   271	 draw_line(Vector2(1010,200),Vector2(1010,465),Color("ae8d68"),10)
+   272	 draw_line(Vector2(1120,200),Vector2(1120,465),Color("ae8d68"),10)
+   273	 if spirit:
+   274	  for id in graph:
+   275	   for other in graph[id]:
+   276	    draw_line(nodes[id][2],nodes[other][2],Color(0.1,0.45,0.48,0.5),2)
+   277	 for id in nodes:
+   278	  var p: Vector2 = nodes[id][2]
+   279	  var tint = Color("827064") if id != current else Color("d8ba7b")
+   280	  draw_rect(Rect2(p-Vector2(36,20),Vector2(72,40)),tint)
+   281	  if spirit: draw_circle(p,8,Color("53f7eb"))
+   282	  if id == current: draw_arc(p,45,0,TAU,40,Color("72fff5"),3)
+   283	  text_at(p+Vector2(-45,-30),nodes[id][0],18)
+   284	 var npc = "阿弟：扶轿" if flags.get("safe",false) else ("阿弟：埕边捡签" if flags.get("pickup",false) else "阿弟：架下绑绳")
+   285	 text_at(Vector2(900,505),npc,18,Color("efb88f"))
+   286	 text_at(Vector2(30,38),"夜巡 · 一炷香前  |  " + ("灵域 · 时间停顿" if spirit else "现实 · 时间流动"),25,Color("7ae8dd"))
+   287	 text_at(Vector2(30,77),"Tab 切换　点击相邻灵核跳跃　E 使用物件　F 点香回溯　1 / 4 时间倍率",19)
+   288	 text_at(Vector2(30,110),"当前："+nodes[current][0]+"  ·  "+nodes[current][1],21)
+   289	 text_at(Vector2(850,112),"香期 %03d 秒 ×%.0f" % [int(maxf(0,remaining)),time_scale],23)
+   290	 if phase == "explore": text_at(Vector2(460,155),"自由探索 · 按 F 进入一炷香前",21,Color("e8c789"))
+   291	 if flags.get("update1",false): text_at(Vector2(30,150),"命运更新① ✓",19,Color("e8c789"))
+   292	 if flags.get("update2",false): text_at(Vector2(205,150),"命运更新② ✓",19,Color("e8c789"))
+   293	 draw_rect(Rect2(20,574,1240,132),Color("101521"))
+   294	 text_at(Vector2(40,606),speaker,21,Color("79e7dd"))
+   295	 var lines = wrap_line(dialogue, sixty())
+   296	 for i in range(mini(lines.size(),3)):
+   297	  text_at(Vector2(40,636+i*25),lines[i],18)
+   298	 if phase == "failure": text_at(Vector2(420,557),"命运未改 · 亡魂对话后自动重试 / Enter",22,Color("ff8f86"))
+   299	
+   300	func sixty() -> int:
+   301	 return 61
+   302	
+   303	func wrap_line(value: String, count: int) -> Array[String]:
+   304	 var result: Array[String] = []
+   305	 for i in range(0,value.length(),count): result.append(value.substr(i,count))
+   306	 return result
+   307	
+   308	func walk_to(target: String) -> bool:
+   309	 set_spirit(true)
+   310	 var paths: Array = [[current]]
+   311	 var visited: Array = [current]
+   312	 while not paths.is_empty():
+   313	  var path: Array = paths.pop_front()
+   314	  if path.back() == target:
+   315	   for item in path.slice(1):
+   316	    if not jump_to(item): return false
+   317	   return true
+   318	  for neighbor in graph[path.back()]:
+   319	   if neighbor not in visited:
+   320	    visited.append(neighbor)
+   321	    var next = path.duplicate()
+   322	    next.append(neighbor)
+   323	    paths.append(next)
+   324	 return false
+   325	
+   326	func use_at(target: String) -> void:
+   327	 walk_to(target)
+   328	 set_spirit(false)
+   329	 act()
+   330	
+   331	func capture_scene(kind: String, path: String) -> void:
+   332	 if DisplayServer.get_name() == "headless":
+   333	  push_error("CAPTURE FAIL: headless display has no rendered framebuffer; use Xvfb or a real display.")
+   334	  get_tree().quit(2)
+   335	  return
+   336	 start_game()
+   337	 use_at("incense")
+   338	 start_incense()
+   339	 if kind == "ending":
+   340	  for id in ["sticks","palanquin","candle","flag","beam","crackers"]: use_at(id)
+   341	 else:
+   342	  use_at("horse")
+   343	  set_spirit(kind == "spirit")
+   344	 await get_tree().process_frame
+   345	 await get_tree().process_frame
+   346	 await RenderingServer.frame_post_draw
+   347	 var err = get_viewport().get_texture().get_image().save_png(path)
+   348	 print("CAPTURE ",kind," ",path," error=",err)
+   349	 get_tree().quit(err)
+
+exec
+/bin/bash -lc 'nl -ba workspace/yexun/game/smoke.gd; cat workspace/yexun/game/project.godot; nl -ba workspace/yexun/docs/REVIEW_R1.md; nl -ba workspace/yexun/docs/DELIVERY_R1.md; cat workspace/yexun/docs/capture_r1.log' in /home/hatch
+ succeeded in 45ms:
+     1	extends SceneTree
+     2	
+     3	var game
+     4	var errors := 0
+     5	var checks := 0
+     6	const LINKS = {
+     7	 "incense": ["sticks"], "sticks": ["incense", "candle"],
+     8	 "candle": ["sticks", "drum"], "drum": ["candle", "palanquin", "horse"],
+     9	 "palanquin": ["drum", "flag", "beam"], "flag": ["palanquin", "umbrella"],
+    10	 "beam": ["palanquin", "lantern", "crackers"], "lantern": ["beam", "crackers"],
+    11	 "crackers": ["lantern", "beam"], "horse": ["drum"],
+    12	 "umbrella": ["flag", "loudspeaker"], "loudspeaker": ["umbrella"]
+    13	}
+    14	
+    15	func _initialize() -> void:
+    16	 call_deferred("run")
+    17	
+    18	func check(ok: bool, label: String) -> void:
+    19	 checks += 1
+    20	 if ok:
+    21	  print("PASS ", label)
+    22	 else:
+    23	  errors += 1
+    24	  print("FAIL ", label)
+    25	
+    26	func path_to(target: String) -> Array:
+    27	 var queue: Array = [[str(game.current)]]
+    28	 var seen: Dictionary = {}
+    29	 while not queue.is_empty():
+    30	  var path: Array = queue.pop_front()
+    31	  var node: String = path.back()
+    32	  if node == target:
+    33	   return path
+    34	  if seen.has(node):
+    35	   continue
+    36	  seen[node] = true
+    37	  for other in game.graph[node]:
+    38	   var next: Array = path.duplicate()
+    39	   next.append(other)
+    40	   queue.append(next)
+    41	 return []
+    42	
+    43	func move(target: String) -> void:
+    44	 game.set_spirit(true)
+    45	 var path: Array = path_to(target)
+    46	 check(not path.is_empty(), "BFS route to " + target)
+    47	 for index in range(1, path.size()):
+    48	  if str(game.current) == "umbrella" and str(path[index]) == "loudspeaker":
+    49	   game.set_spirit(false)
+    50	   game.act()
+    51	   game.set_spirit(true)
+    52	  var ok = game.jump_to(str(path[index]))
+    53	  check(bool(ok), "legal jump " + str(path[index - 1]) + " -> " + str(path[index]))
+    54	
+    55	func use(target: String) -> void:
+    56	 move(target)
+    57	 game.set_spirit(false)
+    58	 game.act()
+    59	 game.set_spirit(true)
+    60	
+    61	func fresh() -> void:
+    62	 if is_instance_valid(game):
+    63	  game.free()
+    64	 game = load("res://main.gd").new()
+    65	 root.add_child(game)
+    66	 game.start_game()
+    67	 game.set_spirit(false)
+    68	 game.act()
+    69	 game.start_incense()
+    70	 game.set_spirit(true)
+    71	 check(str(game.phase) == "playing", "title -> incense tutorial -> timed chapter")
+    72	
+    73	func solve(alternative: bool) -> void:
+    74	 fresh()
+    75	 use("sticks")
+    76	 check(bool(game.flags.get("update1", false)), "fate update 1 recorded")
+    77	 use("palanquin")
+    78	 check(bool(game.flags.get("update2", false)), "fate update 2 recorded")
+    79	 use("candle")
+    80	 if alternative:
+    81	  use("loudspeaker")
+    82	 else:
+    83	  use("flag")
+    84	 use("beam")
+    85	 use("crackers")
+    86	 check(str(game.phase) == "ending", "alternative ending" if alternative else "six-step canonical ending")
+    87	
+    88	func run() -> void:
+    89	 print("YEXUN R1 state-machine smoke: actual game API + legal graph jumps")
+    90	 solve(false)
+    91	 solve(true)
+    92	 fresh()
+    93	 use("drum")
+    94	 use("drum")
+    95	 check(str(game.phase) == "playing", "two drum strikes do not fail immediately")
+    96	 use("drum")
+    97	 check(str(game.phase) == "failure", "third drum strike reaches failure")
+    98	 game._process(5.1)
+    99	 check(str(game.phase) == "playing", "failure automatically retries after ghost dialogue")
+   100	 check(str(game.current) == "incense" and game.flags.is_empty(), "automatic retry resets possession and puzzle flags")
+   101	 fresh()
+   102	 var before: String = str(game.phase)
+   103	 game.set_spirit(true)
+   104	 game.advance_time(1000.0)
+   105	 check(str(game.phase) == before, "spirit realm pauses incense timer")
+   106	 game.set_spirit(false)
+   107	 game.advance_time(1000.0)
+   108	 check(str(game.phase) == "failure", "reality incense timeout reaches death event")
+   109	 fresh()
+   110	 check(not bool(game.jump_to("lantern")), "nonadjacent jump rejected")
+   111	 for node in LINKS:
+   112	  move(str(node))
+   113	  move("incense")
+   114	 check(str(game.current) == "incense", "all 12 nodes actually reachable from and return to incense")
+   115	 fresh()
+   116	 use("crackers")
+   117	 check(str(game.phase) == "playing" and not bool(game.flags.get("fuse", false)), "unprepared crackers reject ignition")
+   118	 use("sticks")
+   119	 game.set_spirit(false)
+   120	 game.advance_time(19.0)
+   121	 check(not bool(game.flags.get("pickup", false)), "Adi returns to frame when pickup window expires")
+   122	 use("palanquin")
+   123	 check(not bool(game.flags.get("safe", false)), "missed pickup window cannot silently secure Adi")
+   124	 fresh()
+   125	 use("sticks")
+   126	 use("palanquin")
+   127	 use("candle")
+   128	 use("flag")
+   129	 use("crackers")
+   130	 check(str(game.phase) == "playing", "crackers without beam preparation cannot complete chapter")
+   131	 fresh()
+   132	 use("beam")
+   133	 check(str(game.phase) == "playing" and game.remaining < 240.0, "premature beam shake accelerates collapse")
+   134	 use("beam")
+   135	 if str(game.phase) == "playing":
+   136	  use("beam")
+   137	 check(str(game.phase) == "failure", "repeated premature beam shakes fail")
+   138	 game.start_game()
+   139	 game.set_spirit(false)
+   140	 game.act()
+   141	 check(str(game.phase) == "explore", "incense tutorial opens free exploration")
+   142	 use("loudspeaker")
+   143	 game.start_incense()
+   144	 check(str(game.phase) == "playing" and str(game.current) == "incense", "starting timed chapter from distant exploration returns to incense")
+   145	 check(game.flags.is_empty() and game.remaining == 240.0, "timed chapter clears exploration effects and starts full incense")
+   146	 print("SMOKE RESULT: ", "PASS" if errors == 0 else "FAIL", " checks=", checks, " failures=", errors)
+   147	 quit(0 if errors == 0 else 1)
+   148	
+   149	
+   150	
+config_version=5
+[application]
+config/name="夜巡 · 第一章：一炷香前"
+run/main_scene="res://Main.tscn"
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+[rendering]
+renderer/rendering_method="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+     1	# 《夜巡》第一章切片 R1 设计复核
+     2	
+     3	依据：完整阅读 `DESIGN_CH1_SLICE.md` §0–§7。原件不修改。以下兼容处理均是实现补充，**待主控裁定**，不能视为原稿已有规定。
+     4	
+     5	## 1. 灵核图：有漏洞（高）
+     6	
+     7	按破折号解释为双向可跳边（若是单向，原稿未给方向，无法声称强连通）。彩灯电线是路，不是第13件可附身物件；将「鞭炮—电线—花灯」折叠为鞭炮—花灯。
+     8	
+     9	原稿邻接表：
+    10	
+    11	| 节点 | 原稿直接邻居 | 从该点可达 |
+    12	|---|---|---|
+    13	| 大香炉 | 签筒 | 主图10件 |
+    14	| 签筒 | 大香炉、烛台 | 主图10件 |
+    15	| 烛台 | 签筒、潮鼓 | 主图10件 |
+    16	| 潮鼓 | 烛台、神轿、纸扎马 | 主图10件 |
+    17	| 神轿 | 潮鼓、标旗、横木 | 主图10件 |
+    18	| 标旗 | 神轿 | 主图10件 |
+    19	| 横木 | 神轿、花灯 | 主图10件 |
+    20	| 花灯 | 横木、鞭炮（经电线） | 主图10件 |
+    21	| 鞭炮 | 花灯（经电线） | 主图10件 |
+    22	| 纸扎马 | 潮鼓 | 主图10件 |
+    23	| 油纸伞 | 大声公（开伞后） | 仅伞、喇叭2件 |
+    24	| 大声公 | 油纸伞（对双向边的宽松解释） | 仅伞、喇叭2件 |
+    25	
+    26	逐点可达结果为10+2两个分量，不强连通。纸扎马有明确接入；埕柱鞭炮通过电线接入，无孤岛；油纸伞—大声公整对与主图无边。且开伞是有条件的移动，原稿未交代返回竹椅/逆向跳的条件（中）。
+    27	
+    28	最小兼容：补「标旗—油纸伞」近距双向边；伞未开前不能跳喇叭，开伞后允许伞—喇叭双向往返，保留伞在图中的逻辑连接。不添加第13个物件。补完并开伞后12点互达；未开伞时可从主图到伞并开伞，故没有不可恢复死角。**待主控裁定**。
+    29	
+    30	## 2. 六步因果：有漏洞
+    31	
+    32	| 步 | 结论与严重程度 | 最小兼容处理（均待主控裁定） |
+    33	|---|---|---|
+    34	| 1 | 通过。香炉初始附身、近距到签筒、对话均有依据。未规定自由探索何时回到一炷香前（中） | 香炉教学后允许自由探索，单独按键进入一炷香前，重置谜题状态和计时，保留已读教学信息 |
+    35	| 2 | 有漏洞（中）。阿弟暂离但未给捡签持续时间；灵域停时与现实返回可能使第3步失效 | 现实计时的短暂捡签窗口，灵域暂停该窗口；返回后允许重摇重新召回，命运更新①只记首次 |
+    36	| 3 | 有漏洞（中）。阿弟与阿勇的调度文本成立，但未写阿弟是否必须还在捡签、扶轿持续多久 | 必须在捡签窗口晃轿；扶轿状态持续至结局。若错过可回签筒再摇；只在满足前置时记更新②。第二声铃以文本与延迟铃声呈现 |
+    37	| 4 | 有漏洞（高）。烛台在供桌，鞭炮在埕柱；表中明确要求烛台烧到引线纸，正文仅写燎金纸，未写传火路径。庙祝公扑火后「挪远」到灯架底座的安全动机也欠解释（中） | 烛台动作同一事件明确记载金纸火燎到引线纸，随后庙祝公扑灭明火并移鞭炮至石礅；引线取得可燃条件。不改变其既定目的地，不另加剧情解释 |
+    38	| 5 | 有漏洞（中）。小英背对与阿勇停一拍都短暂，玩家仍须横跨多个灵核操作终局；无窗口长度。阿勇扶轿却又控制出发锣的具体调度省略 | 旗触发后将背对/停锣保持到本轮终局；视作灵域跨点停时后的可操作窗口。用既定对白表达停手，不新增敲锣NPC |
+    39	| 6 | 有漏洞（高）。鞭炮移动后原电线连边未说明还在；玩家可能到不了架脚。横木和鞭炮不能同时附身，「＋」未给顺序、时限、阈值 | 移动后保留花灯—鞭炮通路，并补横木—架脚鞭炮近距双向边；先晃横木形成持续的松动准备，再去燃放。必须阿弟扶轿、鞭炮移位且引线可燃、旗帜窗口或喇叭清场，才安全提前放倒；不要求同时按两个技能 |
+    40	
+    41	原稿没有给横木乱晃几次、鼓三下与锣三下各自计数如何互动。兼容中分别计数，不让正常终局的一次晃立即致死；重复危险晃动触发原死亡事件（详见第4项）。
+    42	
+    43	## 3. 备选：有漏洞（高）
+    44	
+    45	原稿明确只跳过第5步；大声公清场不能自动完成引线可燃、鞭炮移至底座、横木松动。到大声公的图路不通（第1项）。「闲人」是否包含阿弟与扶轿人员也未定义（中）。
+    46	
+    47	最小兼容：保留第2、3、4步及第6步；喇叭只替换第5步的安全调度窗口（清埕、停发锣），不替代阿弟离架与震源就位。路线为标旗→伞（开）→大声公，返程逆行。角色清场的细节不扩写设定，仅以安全窗口记账。正解仍保留小英背对的口径；备选用清场撤离保证她不在倒塌现场。**待主控裁定**。
+    48	
+    49	## 4. 错误与计时：有漏洞（中）
+    50	
+    51	- 潮鼓从初始主图即可到达，三次动作可达提前原死亡。若阿弟已扶轿，原文「阿弟未离开则失败」意味着不应仍写阿弟被砸死。兼容：鼓三下触发倒塌；未离架为死亡失败，已离架但未完整改命为未达安全闭环的回溯失败，不新增阿弟死亡描述。两种失败对白区分。**待主控裁定**。
+    52	- 横木在主图可达；第一次晃用于终局准备，第二次盲晃触发失控倒塌，以实现加速负反馈。一次正常晃不扣掉必需的安全操作机会。阈值为实现补充，**待主控裁定**。
+    53	- 一炷香默认240剧情秒，可配置加速；仅现实流逝，灵域暂停。超时未改命进入既定死亡/回溯逻辑；阿弟已避开时不虚构死亡。失败保留短暂亡者提示展示，随后自动重置至香点燃处；仅死亡分支由阿弟亡魂发言，安全未闭环分支由阿澄自语提示。**待主控裁定**。
+    54	- 花灯调查、纸马回头、第二铃不消耗必需步骤，不阻塞正解。章末花灯残骸照割痕，维持原剧情，不揭凶手。
+    55	
+    56	## 复核总判定
+    57	
+    58	**有漏洞，不能宣称原稿强连通或六步已无歧义。** 高风险集中在伞/喇叭孤岛、引线传火、移位后鞭炮可达与双物件终局顺序。采用上述显式兼容后可形成可玩闭环；这是工程验证的前提，仍待主控裁定设计补充。未改写原设计稿，也不扩大第二章。真人盲玩可读性、第二章意愿和定价接受度无法用自动冒烟代替。
+    59	
+    60	## R1 实装细化记录（仍待主控裁定）
+    61	
+    62	- 危险横木晃动每次减少45剧情秒，第二次过早晃动导致失败；满足安全前置后第一次晃为终局准备，准备后再晃同样视为失控，防止无限晃不受负反馈。45秒为工程阈值，并非原稿数字。
+    63	- 点香统一回大香炉并重置动态鞭炮位置/边及探索效果，避免在大声公处清除开伞状态形成困死。
+    64	- 捡签窗口为18现实剧情秒；默认香期240秒，支持1倍/4倍与启动参数。所有这些具体时长均属兼容实现参数。
+    65	- 截图因运行环境禁止创建显示套接字尚未完成，不能把代码审阅和无头通过等同实际画面验收。
+     1	# 《夜巡》第一章切片 R1 交付说明
+     2	
+     3	设计复核与Godot工程已完成；截图验收未完成，不能宣称三步全部通过。
+     4	
+     5	复核结论：原稿图有10+2两个分量，伞/喇叭与主图不通；引线传火、移位后鞭炮可达、双物件终局顺序及NPC短暂窗口缺条件。详见 REVIEW_R1.md，最小兼容处理均标「待主控裁定」。原件SHA256复验未变。
+     6	
+     7	工程：game/project.godot、Main.tscn、main.gd、smoke.gd、font.ttc、audio/drum.wav、bell.wav、crackers.wav。单场景1280×720，12物件灰盒、标题/教学/自由探索/点香、双域、附身图、一物一技、底框对白、两次命运更新、两解通关、错误失败自动回溯、三文本恐怖钩子及合成音效已接线。
+     8	
+     9	启动：
+    10	```sh
+    11	~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path ~/workspace/yexun/game
+    12	```
+    13	Enter或点击开始；Tab切灵域/现实，灵域点击相邻物件跳跃，现实E施技；香炉教学后F进入一炷香前。1/4切倍率；默认240剧情秒，启动可追加 `-- --time-scale=4`。失败5秒后自动回香点，Enter可提前重试。不存档。
+    14	
+    15	自动验证：main.gd、smoke.gd逐文件check-only通过；最终 smoke_r1.log 为 PASS checks=252 failures=0，包含正解、备选、鼓三下、自动重试、12节点实际双向可达、捡签窗口、时间暂停/超时及探索点香重置。独立审读见 AUDIT_R1.md（该审读采样时241项；最终扩展至252项）。无头主场景启动见 startup_r1.log。
+    16	
+    17	冒烟复跑：
+    18	```sh
+    19	~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd > ~/workspace/yexun/docs/smoke_r1.log 2>&1
+    20	```
+    21	
+    22	截图预定路径 docs/shots/{spirit,reality,ending}_r1.png，当前目录为空。Xvfb创建显示套接字失败；现环境无DISPLAY、无/dev/dri；headless为dummy渲染，不能用于实际截图。详见 capture_r1.log。已准备 capture_r1.sh 和 verify_shots.py，在允许显示的环境运行 `xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh`，将自动截图并检验尺寸/字节数/非纯色和非黑像素占比。未伪造图片。
+    23	
+    24	未完成：3张真实游戏截图及像素/目视验收；有渲染窗口的交互验收、实际扬声器听验；主控对兼容处理裁定与真人盲玩三问。未扩展第二章，无美术精修、无存档。
+截图状态：FAIL / 未完成，不存在可交付PNG。
+/tmp: 512M，约84K占用；已设工程.tmp作为TMPDIR。
+实际尝试：Xvfb :91 -screen 0 1280x720x24 -nolisten tcp
+结果：_XSERVTransSocketCreateListener: failed to bind listener
+Cannot establish any listening sockets
+当前环境禁止套接字创建，无DISPLAY，无/dev/dri。
+后备尝试：Godot --display-driver headless --rendering-method gl_compatibility -- --capture=spirit ...
+结果：dummy渲染没有frame_post_draw，无法取得真实渲染图；已终止进程。
+未生成替代图或虚构截图；文件大小与非纯色占比验收尚未执行。
+在允许显示的主机复跑：xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh
+上述脚本逐张取得实际Godot viewport并自动核验大小、尺寸、非纯色和非黑占比。
+
+exec
+/bin/bash -lc "find workspace/yexun/game -maxdepth 3 -type f -printf '%p %s bytes\\n'; nl -ba workspace/yexun/DESIGN_CH1_SLICE.md; nl -ba workspace/yexun/docs/smoke_r1.log; nl -ba workspace/yexun/docs/capture_r1.sh; nl -ba workspace/yexun/docs/verify_shots.py" in /home/hatch
+ succeeded in 140ms:
+workspace/yexun/game/audio/drum.wav 52964 bytes
+workspace/yexun/game/audio/bell.wav 52964 bytes
+workspace/yexun/game/audio/crackers.wav 52964 bytes
+workspace/yexun/game/audio/crackers.wav.import 488 bytes
+workspace/yexun/game/audio/bell.wav.import 476 bytes
+workspace/yexun/game/audio/drum.wav.import 475 bytes
+workspace/yexun/game/smoke.gd 4957 bytes
+workspace/yexun/game/font.ttc 19484784 bytes
+workspace/yexun/game/project.godot 336 bytes
+workspace/yexun/game/Main.tscn 156 bytes
+workspace/yexun/game/main.gd 14668 bytes
+workspace/yexun/game/import.log 505 bytes
+workspace/yexun/game/.godot/.gdignore 1 bytes
+workspace/yexun/game/.godot/editor/font.ttc-af900358a58a718e8adc3a2b2ced48da.fontdata-folding-2a438ead768fbf7c4205b27279363212.cfg 49 bytes
+workspace/yexun/game/.godot/editor/crackers.wav-ed202e010322344066de40747cb0248d.sample-folding-dce2708cddb570f4d0afd74e8a254d9c.cfg 49 bytes
+workspace/yexun/game/.godot/editor/drum.wav-6ef3d0b67cf1ad6cc112cbc7f80786ad.sample-folding-ce4647eb0d21c5d508004cf8d6003d5c.cfg 49 bytes
+workspace/yexun/game/.godot/editor/bell.wav-bbca3f7e09c31602b4ae4d54f1b9f74d.sample-folding-6f716f00aa777846af7203d19e2f9d00.cfg 49 bytes
+workspace/yexun/game/.godot/editor/filesystem_cache8 648 bytes
+workspace/yexun/game/.godot/editor/Main.tscn-folding-bcb0d2eb5949c52b6a65bfe9de3e985b.cfg 108 bytes
+workspace/yexun/game/.godot/editor/project_metadata.cfg 146 bytes
+workspace/yexun/game/.godot/imported/font.ttc-af900358a58a718e8adc3a2b2ced48da.fontdata 16281981 bytes
+workspace/yexun/game/.godot/imported/font.ttc-af900358a58a718e8adc3a2b2ced48da.md5 91 bytes
+workspace/yexun/game/.godot/imported/crackers.wav-ed202e010322344066de40747cb0248d.sample 53294 bytes
+workspace/yexun/game/.godot/imported/drum.wav-6ef3d0b67cf1ad6cc112cbc7f80786ad.sample 53294 bytes
+workspace/yexun/game/.godot/imported/bell.wav-bbca3f7e09c31602b4ae4d54f1b9f74d.sample 53294 bytes
+workspace/yexun/game/.godot/imported/bell.wav-bbca3f7e09c31602b4ae4d54f1b9f74d.md5 91 bytes
+workspace/yexun/game/.godot/imported/crackers.wav-ed202e010322344066de40747cb0248d.md5 91 bytes
+workspace/yexun/game/.godot/imported/drum.wav-6ef3d0b67cf1ad6cc112cbc7f80786ad.md5 91 bytes
+workspace/yexun/game/.godot/global_script_class_cache.cfg 27 bytes
+workspace/yexun/game/.godot/uid_cache.bin 130 bytes
+workspace/yexun/game/.godot/scene_groups_cache.cfg 0 bytes
+workspace/yexun/game/font.ttc.import 679 bytes
+     1	# 《夜巡》第一章切片 · 纸面设计稿 v1（2026-11-16 主控定稿，待 Codex 复核）
+     2	
+     3	## 0. 切片目标
+     4	
+     5	用一章验证三件事：①「附身＋一物一技＋连锁改命」在潮汕夜巡场景里好不好玩；
+     6	②谜题因果不看攻略可读；③玩家通关后想看第二章。约 20 分钟、单场景、12 件物件、1 次改命。
+     7	
+     8	## 1. 舞台与人物
+     9	
+    10	- **舞台**：架空潮汕村「溪尾村」老爷宫（供奉大老爷）宫内＋宫埕，一张横版图。
+    11	正月十五夜，营老爷出发前一炷香。刚下过雨，埕地积水反光；埕东竖着竹木**灯架**，
+    12	挂满花灯，是今晚巡境的头灯。
+    13	- **主角（亡魂）**：阿澄，22 岁，英歌队二槌、今晚的轿夫。今晚早些时候在戏台竹棚上
+    14	挂灯时坠落身亡——村里当意外。灵魂在老爷宫醒来，谁也看不见他；他只记得要「等夜巡」，
+    15	不记得自己怎么死的（全卷主线钩子，本章不揭）。
+    16	- **阿弟**：14 岁，主角的弟弟。哥哥出事后顶他的位，此刻在灯架下给神轿绑轿绳。
+    17	- **庙祝公**：70 岁，守宫老人，掌握出发时辰与仪轨；说话只说半句（信息源＋谜语人）。
+    18	- **小英**：19 岁，英歌队头槌（女头槌是本村今年的新鲜事），阿澄的搭档；少数「觉得今晚不对劲」的人。
+    19	- **阿勇**：轿夫头，嗓门大，负责喊人调度（玩法上的人物调度器）。
+    20	
+    21	## 2. 死亡事件（改命对象）
+    22	
+    23	出发锣敲到第三下时，震动＋夜风使灯架松脱的绳结彻底崩开，**灯架倒向埕心，砸中仍在架下绑绳的阿弟**。
+    24	事后玩家在灵域能看清：灯架主绳不是磨断的——**断口整齐，是被人割过一半**（本章 plot 钩子，不点破是谁）。
+    25	
+    26	## 3. 系统（幽灵诡计内核，潮汕化命名）
+    27	
+    28	- **灵域／现实切换**：灵域时间停顿，可附身物件以青色灵核点显示；现实时间流动，
+    29	一炷香（约 4 分钟剧情时间）烧完即死亡事件发生，未改命则自动回到香点燃处重试（无 Game Over）。
+    30	- **附身移动**：只能在灵核点之间跳，距离有上限；两条天然连接线——彩灯电线（埕上横拉）
+    31	与香烟（宫内香火不断），是本章的「路」。
+    32	- **一物一技**：每件物件只有一个动作（见物件表），不做组合技、不做背包。
+    33	- **与亡者对话**：改命失败后可与阿弟的亡魂短暂对话，得到一条指向关键物件的提示
+    34	（本章的内置提示系统，防卡死）。
+    35	
+    36	## 4. 十二件可附身物件（一物一技表）
+    37	
+    38	| # | 物件 | 位置 | 技（单一动作） | 在解法/剧情中的作用 |
+    39	|---|------|------|--------------|--------------------|
+    40	| 1 | 大香炉 | 宫内正殿前 | 火星上窜 | 教学件：第一件附身物；火星惊起梁上燕子（纯氛围） |
+    41	| 2 | 签筒 | 供桌旁 | 摇→落一支签 | 引阿弟离架的第一环（见解法②） |
+    42	| 3 | 供桌烛台 | 供桌 | 焰斜→燎金纸 | 引庙祝公扑火、离开宫门（解法④前置） |
+    43	| 4 | 潮鼓 | 宫门内侧 | 响一声 | 惊动全埕；错误时机敲会提前震松灯架（负反馈教学） |
+    44	| 5 | 神轿（大老爷） | 埕心 | 轻晃→轿铃响 | 喊阿弟来扶轿（解法③）；铃响时宫内传来**第二声铃**（恐怖钩子） |
+    45	| 6 | 标旗 | 埕西旗座 | 旗面抖响 | 吸引小英望向埕西（调度她的视线，解法⑤见证人） |
+    46	| 7 | 花灯（灯架顶灯） | 灯架顶 | 亮／旋转 | 经电线可达灯架；亮灯照出绳结断口（调查点） |
+    47	| 8 | 灯架横木 | 灯架中段 | 吱呀晃动 | 危险件：晃它会加速倒塌，只用于终局「提前放倒」（解法⑥时机件） |
+    48	| 9 | 鞭炮串 | 埕柱 | 燃放 | 终局震源之一（需先由烛台火燎到引线纸才可燃放，见解法⑤） |
+    49	| 10 | 大声公（手提喇叭） | 戏台口 | 播庙祝公录音「收埕」 | 备选调度件：可把闲人赶离埕心（非正解、但有效清场） |
+    50	| 11 | 纸扎马 | 宫门外 | 马头转向 | 纯剧情件：头总会自己转回朝向宫门的方向（恐怖氛围，不参与解法） |
+    51	| 12 | 油纸伞 | 埕边竹椅 | 开伞 | 致敬件＋移动中继：开伞后可随风飘到戏台口（连通大声公） |
+    52	
+    53	移动连通（灵核跳跃图，须无死角）：香炉—签筒—烛台（宫内近距）；烛台—潮鼓（宫门）；
+    54	潮鼓—神轿—标旗（埕面近距）；神轿—灯架横木—花灯（轿顶攀线）；埕柱鞭炮—彩灯电线—花灯；
+    55	竹椅油纸伞—戏台口大声公（开伞飘移）；纸扎马在宫门外，与潮鼓近距。**全图强连通，Codex 复核须验证。**
+    56	
+    57	## 5. 正解链（一炷香前改命，6 步、2 次命运更新）
+    58	
+    59	1. **** 灵魂醒于香炉，附身香炉→签筒，听庙祝公与小英对话，得知阿弟顶位、灯架今晚「绳是新换的」。
+    60	2. **签筒「摇」**→ 一支签落在埕边。阿弟好奇，离开灯架下两步去捡签——
+    61	**命运更新①：阿弟不在正下方了，但捡完签他还会回去绑绳。**（签文特写：「逢冲则避」——给玩家的明示暗示）
+    62	3. **神轿「晃」**→ 轿铃响。阿勇喊：「阿弟！轿杠沉，过来扶！」阿弟跑去扶轿，彻底离开灯架落点——
+    63	**命运更新②：落点下没人了。** 同时铃响后，宫内深处传来慢半拍的**第二声铃**，只有小英皱眉（钩子埋点）。
+    64	4. **烛台「焰斜」**→ 燎燃供桌边金纸。庙祝公冲来扑火，顺手把挂在埕柱的鞭炮串摘下挪远防走火——
+    65	（鞭炮被挪到灯架底座旁的石礅上——这是玩家需要的「震源就位」，因果由 NPC 之手完成，玩家只点火种。）
+    66	5. **标旗「抖响」**→ 小英望向埕西，恰好背对埕心（让她不直视倒塌瞬间，保住「没人看清」的后续口径），
+    67	同时旗影扫过，阿勇扶轿的手停了一拍——出发锣**不会**在此刻敲下（阻断原死亡触发：锣震）。
+    68	6. **灯架横木「晃」＋鞭炮「燃放」**（鞭炮已被挪到架脚）→ 炸响震落本就割伤的主绳，**灯架提前倒向空埕**，
+    69	砸碎一地花灯，无人受伤。全埕惊散，夜巡推迟。阿弟望着倒架发愣：「若我还在下头……」
+    70	**改命完成。** 章末：玩家附回花灯残骸，灯光照出绳结断口——整齐的割痕。远处，第二声轿铃又响了一次。
+    71	黑屏，字幕：**「今晚的巡境，多走了一条路。」** 第一章完。
+    72	
+    73	备选有效路径（须实现，不算错解）：先用大声公清场再放倒灯架（跳过第 5 步）；
+    74	错误路径示例：直接敲潮鼓三下＝提前触发原命运（灯架当场倒、阿弟未离开则改命失败，进亡者对话提示）。
+    75	
+    76	## 6. 切片实现规格（给 Codex）
+    77	
+    78	- Godot 4.3，单场景 2D 横版，1280×720 基准；灰盒先行：色块＋物件名标签＋灵核点，
+    79	逻辑全通后再换皮（换皮素材另行派单，本单不做美术精修）。
+    80	- 必须可玩闭环：标题→教学→自由探索→进「一炷香前」→正解/备选解通关→章末字幕；
+    81	失败→亡者对话提示→重试。
+    82	- 对话以漫画分镜式对话框呈现（底部框＋说话人名字即可，分镜格为全量规格、切片不做）。
+    83	- 存档不做；音效用本地合成/占位（鼓、铃、鞭炮三声必须有，可用合成音）。
+    84	- 交付：工程目录 ~/workspace/yexun/game/，一条命令可跑（godot --path），
+    85	附无头冒烟脚本验证主流程状态机可达通关态，＋运行截图 3 张（灵域/现实/章末）。
+    86	
+    87	## 7. 验收门（主控亲验＋用户真人试玩）
+    88	
+    89	- 主控亲验：亲自跑通正解链与一条备选链；跳跃图强连通；失败重试闭环成立；截图核对。
+    90	- 用户试玩三问：不看攻略能解否／想玩第二章否／¥38–52 愿意买否。
+    91	- 任一不过：停下回报，不自动扩第二章。
+     1	Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+     2	
+     3	YEXUN R1 state-machine smoke: actual game API + legal graph jumps
+     4	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+     5	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+     6	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+     7	PASS title -> incense tutorial -> timed chapter
+     8	PASS BFS route to sticks
+     9	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+    10	PASS legal jump incense -> sticks
+    11	命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+    12	PASS fate update 1 recorded
+    13	PASS BFS route to palanquin
+    14	PASS legal jump sticks -> candle
+    15	PASS legal jump candle -> drum
+    16	PASS legal jump drum -> palanquin
+    17	命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+    18	PASS fate update 2 recorded
+    19	PASS BFS route to candle
+    20	PASS legal jump palanquin -> drum
+    21	PASS legal jump drum -> candle
+    22	庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+    23	PASS BFS route to flag
+    24	PASS legal jump candle -> drum
+    25	PASS legal jump drum -> palanquin
+    26	PASS legal jump palanquin -> flag
+    27	小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+    28	PASS BFS route to beam
+    29	PASS legal jump flag -> palanquin
+    30	PASS legal jump palanquin -> beam
+    31	阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+    32	PASS BFS route to crackers
+    33	PASS legal jump beam -> crackers
+    34	阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+    35	PASS six-step canonical ending
+    36	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+    37	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+    38	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    39	PASS title -> incense tutorial -> timed chapter
+    40	PASS BFS route to sticks
+    41	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+    42	PASS legal jump incense -> sticks
+    43	命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+    44	PASS fate update 1 recorded
+    45	PASS BFS route to palanquin
+    46	PASS legal jump sticks -> candle
+    47	PASS legal jump candle -> drum
+    48	PASS legal jump drum -> palanquin
+    49	命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+    50	PASS fate update 2 recorded
+    51	PASS BFS route to candle
+    52	PASS legal jump palanquin -> drum
+    53	PASS legal jump drum -> candle
+    54	庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+    55	PASS BFS route to loudspeaker
+    56	PASS legal jump candle -> drum
+    57	PASS legal jump drum -> palanquin
+    58	PASS legal jump palanquin -> flag
+    59	PASS legal jump flag -> umbrella
+    60	阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+    61	PASS legal jump umbrella -> loudspeaker
+    62	庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+    63	PASS BFS route to beam
+    64	PASS legal jump loudspeaker -> umbrella
+    65	PASS legal jump umbrella -> flag
+    66	PASS legal jump flag -> palanquin
+    67	PASS legal jump palanquin -> beam
+    68	阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+    69	PASS BFS route to crackers
+    70	PASS legal jump beam -> crackers
+    71	阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+    72	PASS alternative ending
+    73	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+    74	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+    75	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    76	PASS title -> incense tutorial -> timed chapter
+    77	PASS BFS route to drum
+    78	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+    79	PASS legal jump incense -> sticks
+    80	PASS legal jump sticks -> candle
+    81	PASS legal jump candle -> drum
+    82	阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（1／3）
+    83	PASS BFS route to drum
+    84	阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（2／3）
+    85	PASS two drum strikes do not fail immediately
+    86	PASS BFS route to drum
+    87	阿弟的亡魂：三下潮鼓震松主绳，原命运提前到来。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+    88	PASS third drum strike reaches failure
+    89	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+    90	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    91	阿弟的亡魂：香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。
+    92	PASS failure automatically retries after ghost dialogue
+    93	PASS automatic retry resets possession and puzzle flags
+    94	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+    95	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+    96	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    97	PASS title -> incense tutorial -> timed chapter
+    98	PASS spirit realm pauses incense timer
+    99	阿弟的亡魂：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+   100	PASS reality incense timeout reaches death event
+   101	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+   102	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+   103	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+   104	PASS title -> incense tutorial -> timed chapter
+   105	PASS nonadjacent jump rejected
+   106	PASS BFS route to incense
+   107	PASS BFS route to incense
+   108	PASS BFS route to sticks
+   109	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+   110	PASS legal jump incense -> sticks
+   111	PASS BFS route to incense
+   112	PASS legal jump sticks -> incense
+   113	PASS BFS route to candle
+   114	PASS legal jump incense -> sticks
+   115	PASS legal jump sticks -> candle
+   116	PASS BFS route to incense
+   117	PASS legal jump candle -> sticks
+   118	PASS legal jump sticks -> incense
+   119	PASS BFS route to drum
+   120	PASS legal jump incense -> sticks
+   121	PASS legal jump sticks -> candle
+   122	PASS legal jump candle -> drum
+   123	PASS BFS route to incense
+   124	PASS legal jump drum -> candle
+   125	PASS legal jump candle -> sticks
+   126	PASS legal jump sticks -> incense
+   127	PASS BFS route to palanquin
+   128	PASS legal jump incense -> sticks
+   129	PASS legal jump sticks -> candle
+   130	PASS legal jump candle -> drum
+   131	PASS legal jump drum -> palanquin
+   132	PASS BFS route to incense
+   133	PASS legal jump palanquin -> drum
+   134	PASS legal jump drum -> candle
+   135	PASS legal jump candle -> sticks
+   136	PASS legal jump sticks -> incense
+   137	PASS BFS route to flag
+   138	PASS legal jump incense -> sticks
+   139	PASS legal jump sticks -> candle
+   140	PASS legal jump candle -> drum
+   141	PASS legal jump drum -> palanquin
+   142	PASS legal jump palanquin -> flag
+   143	PASS BFS route to incense
+   144	PASS legal jump flag -> palanquin
+   145	PASS legal jump palanquin -> drum
+   146	PASS legal jump drum -> candle
+   147	PASS legal jump candle -> sticks
+   148	PASS legal jump sticks -> incense
+   149	PASS BFS route to beam
+   150	PASS legal jump incense -> sticks
+   151	PASS legal jump sticks -> candle
+   152	PASS legal jump candle -> drum
+   153	PASS legal jump drum -> palanquin
+   154	PASS legal jump palanquin -> beam
+   155	PASS BFS route to incense
+   156	PASS legal jump beam -> palanquin
+   157	PASS legal jump palanquin -> drum
+   158	PASS legal jump drum -> candle
+   159	PASS legal jump candle -> sticks
+   160	PASS legal jump sticks -> incense
+   161	PASS BFS route to lantern
+   162	PASS legal jump incense -> sticks
+   163	PASS legal jump sticks -> candle
+   164	PASS legal jump candle -> drum
+   165	PASS legal jump drum -> palanquin
+   166	PASS legal jump palanquin -> beam
+   167	PASS legal jump beam -> lantern
+   168	PASS BFS route to incense
+   169	PASS legal jump lantern -> beam
+   170	PASS legal jump beam -> palanquin
+   171	PASS legal jump palanquin -> drum
+   172	PASS legal jump drum -> candle
+   173	PASS legal jump candle -> sticks
+   174	PASS legal jump sticks -> incense
+   175	PASS BFS route to crackers
+   176	PASS legal jump incense -> sticks
+   177	PASS legal jump sticks -> candle
+   178	PASS legal jump candle -> drum
+   179	PASS legal jump drum -> palanquin
+   180	PASS legal jump palanquin -> beam
+   181	PASS legal jump beam -> lantern
+   182	PASS legal jump lantern -> crackers
+   183	PASS BFS route to incense
+   184	PASS legal jump crackers -> lantern
+   185	PASS legal jump lantern -> beam
+   186	PASS legal jump beam -> palanquin
+   187	PASS legal jump palanquin -> drum
+   188	PASS legal jump drum -> candle
+   189	PASS legal jump candle -> sticks
+   190	PASS legal jump sticks -> incense
+   191	PASS BFS route to horse
+   192	PASS legal jump incense -> sticks
+   193	PASS legal jump sticks -> candle
+   194	PASS legal jump candle -> drum
+   195	PASS legal jump drum -> horse
+   196	PASS BFS route to incense
+   197	PASS legal jump horse -> drum
+   198	PASS legal jump drum -> candle
+   199	PASS legal jump candle -> sticks
+   200	PASS legal jump sticks -> incense
+   201	PASS BFS route to umbrella
+   202	PASS legal jump incense -> sticks
+   203	PASS legal jump sticks -> candle
+   204	PASS legal jump candle -> drum
+   205	PASS legal jump drum -> palanquin
+   206	PASS legal jump palanquin -> flag
+   207	PASS legal jump flag -> umbrella
+   208	PASS BFS route to incense
+   209	PASS legal jump umbrella -> flag
+   210	PASS legal jump flag -> palanquin
+   211	PASS legal jump palanquin -> drum
+   212	PASS legal jump drum -> candle
+   213	PASS legal jump candle -> sticks
+   214	PASS legal jump sticks -> incense
+   215	PASS BFS route to loudspeaker
+   216	PASS legal jump incense -> sticks
+   217	PASS legal jump sticks -> candle
+   218	PASS legal jump candle -> drum
+   219	PASS legal jump drum -> palanquin
+   220	PASS legal jump palanquin -> flag
+   221	PASS legal jump flag -> umbrella
+   222	阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+   223	PASS legal jump umbrella -> loudspeaker
+   224	PASS BFS route to incense
+   225	PASS legal jump loudspeaker -> umbrella
+   226	PASS legal jump umbrella -> flag
+   227	PASS legal jump flag -> palanquin
+   228	PASS legal jump palanquin -> drum
+   229	PASS legal jump drum -> candle
+   230	PASS legal jump candle -> sticks
+   231	PASS legal jump sticks -> incense
+   232	PASS all 12 nodes actually reachable from and return to incense
+   233	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+   234	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+   235	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+   236	PASS title -> incense tutorial -> timed chapter
+   237	PASS BFS route to crackers
+   238	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+   239	PASS legal jump incense -> sticks
+   240	PASS legal jump sticks -> candle
+   241	PASS legal jump candle -> drum
+   242	PASS legal jump drum -> palanquin
+   243	PASS legal jump palanquin -> beam
+   244	PASS legal jump beam -> lantern
+   245	PASS legal jump lantern -> crackers
+   246	阿澄：引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。
+   247	PASS unprepared crackers reject ignition
+   248	PASS BFS route to sticks
+   249	PASS legal jump crackers -> lantern
+   250	PASS legal jump lantern -> beam
+   251	PASS legal jump beam -> palanquin
+   252	PASS legal jump palanquin -> drum
+   253	PASS legal jump drum -> candle
+   254	PASS legal jump candle -> sticks
+   255	命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+   256	阿弟：签捡到了……我回去绑绳。
+   257	PASS Adi returns to frame when pickup window expires
+   258	PASS BFS route to palanquin
+   259	PASS legal jump sticks -> candle
+   260	PASS legal jump candle -> drum
+   261	PASS legal jump drum -> palanquin
+   262	小英：轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。
+   263	PASS missed pickup window cannot silently secure Adi
+   264	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+   265	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+   266	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+   267	PASS title -> incense tutorial -> timed chapter
+   268	PASS BFS route to sticks
+   269	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+   270	PASS legal jump incense -> sticks
+   271	命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+   272	PASS BFS route to palanquin
+   273	PASS legal jump sticks -> candle
+   274	PASS legal jump candle -> drum
+   275	PASS legal jump drum -> palanquin
+   276	命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+   277	PASS BFS route to candle
+   278	PASS legal jump palanquin -> drum
+   279	PASS legal jump drum -> candle
+   280	庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+   281	PASS BFS route to flag
+   282	PASS legal jump candle -> drum
+   283	PASS legal jump drum -> palanquin
+   284	PASS legal jump palanquin -> flag
+   285	小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+   286	PASS BFS route to crackers
+   287	PASS legal jump flag -> palanquin
+   288	PASS legal jump palanquin -> beam
+   289	PASS legal jump beam -> crackers
+   290	阿澄：鞭炮炸响，但横木尚未晃松，未能放倒灯架。
+   291	PASS crackers without beam preparation cannot complete chapter
+   292	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+   293	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+   294	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+   295	PASS title -> incense tutorial -> timed chapter
+   296	PASS BFS route to beam
+   297	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+   298	PASS legal jump incense -> sticks
+   299	PASS legal jump sticks -> candle
+   300	PASS legal jump candle -> drum
+   301	PASS legal jump drum -> palanquin
+   302	PASS legal jump palanquin -> beam
+   303	阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+   304	PASS premature beam shake accelerates collapse
+   305	PASS BFS route to beam
+   306	阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+   307	阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+   308	PASS repeated premature beam shakes fail
+   309	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+   310	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+   311	PASS incense tutorial opens free exploration
+   312	PASS BFS route to loudspeaker
+   313	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+   314	PASS legal jump incense -> sticks
+   315	PASS legal jump sticks -> candle
+   316	PASS legal jump candle -> drum
+   317	PASS legal jump drum -> palanquin
+   318	PASS legal jump palanquin -> flag
+   319	PASS legal jump flag -> umbrella
+   320	阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+   321	PASS legal jump umbrella -> loudspeaker
+   322	庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+   323	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+   324	PASS starting timed chapter from distant exploration returns to incense
+   325	PASS timed chapter clears exploration effects and starts full incense
+   326	SMOKE RESULT: PASS checks=252 failures=0
+     1	#!/usr/bin/env bash
+     2	set -euo pipefail
+     3	ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+     4	GODOT="$HOME/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64"
+     5	export TMPDIR="$ROOT/game/.tmp"
+     6	mkdir -p "$TMPDIR" "$ROOT/docs/shots"
+     7	df -h /tmp
+     8	if [[ -z "${DISPLAY:-}" ]]; then
+     9	  echo 'FAIL: no DISPLAY. Run this script through xvfb-run -a on a host permitting X sockets.' >&2
+    10	  exit 2
+    11	fi
+    12	for kind in spirit reality ending; do
+    13	  timeout 30 "$GODOT" --path "$ROOT/game" --audio-driver Dummy -- --capture="$kind" --capture-path="$ROOT/docs/shots/${kind}_r1.png"
+    14	done
+    15	python3 "$ROOT/docs/verify_shots.py"
+     1	from pathlib import Path
+     2	from collections import Counter
+     3	from PIL import Image
+     4	root = Path(__file__).parent / 'shots'
+     5	for kind in ('spirit', 'reality', 'ending'):
+     6	    path = root / (kind + '_r1.png')
+     7	    image = Image.open(path).convert('RGB')
+     8	    counts = Counter(image.getdata())
+     9	    pixels = image.width * image.height
+    10	    nonuniform = 1 - counts.most_common(1)[0][1] / pixels
+    11	    nonblack = sum(count for color, count in counts.items() if max(color) > 24) / pixels
+    12	    ok = image.size == (1280, 720) and path.stat().st_size > 5000 and nonuniform > .01 and nonblack > .01
+    13	    print(f'{"PASS" if ok else "FAIL"} {path.name}: {path.stat().st_size} bytes; nonuniform={nonuniform:.4%}; nonblack={nonblack:.4%}')
+    14	    if not ok:
+    15	        raise SystemExit(1)
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+import pathlib,hashlib,json
+p=pathlib.Path('/home/hatch/workspace/yexun')
+s={str(f.relative_to(p)):hashlib.sha256(f.read_bytes()).hexdigest() for f in p.rglob('*') if f.is_file() and f.suffix not in ['.log']}
+pathlib.Path('/tmp/yexun_r2_baseline.json').write_text(json.dumps(s))
+PY
+" in /home/hatch
+ succeeded in 437ms:
+exec
+/bin/bash -lc '~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --check-only --script res://main.gd' in /home/hatch
+exec
+/bin/bash -lc '~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd' in /home/hatch
+exec
+/bin/bash -lc '~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --check-only --script res://smoke.gd' in /home/hatch
+ succeeded in 1534ms:
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+
+ succeeded in 1538ms:
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+
+ succeeded in 3393ms:
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+YEXUN R1 state-machine smoke: actual game API + legal graph jumps
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to beam
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS six-step canonical ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to loudspeaker
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+PASS BFS route to beam
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS alternative ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to drum
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（1／3）
+PASS BFS route to drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（2／3）
+PASS two drum strikes do not fail immediately
+PASS BFS route to drum
+阿弟的亡魂：三下潮鼓震松主绳，原命运提前到来。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS third drum strike reaches failure
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+阿弟的亡魂：香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。
+PASS failure automatically retries after ghost dialogue
+PASS automatic retry resets possession and puzzle flags
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS spirit realm pauses incense timer
+阿弟的亡魂：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS reality incense timeout reaches death event
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS nonadjacent jump rejected
+PASS BFS route to incense
+PASS BFS route to incense
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS BFS route to incense
+PASS legal jump sticks -> incense
+PASS BFS route to candle
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS BFS route to incense
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to drum
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS BFS route to incense
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to palanquin
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS BFS route to incense
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to flag
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS BFS route to incense
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to beam
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS BFS route to incense
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to lantern
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS BFS route to incense
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to crackers
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+PASS BFS route to incense
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to horse
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> horse
+PASS BFS route to incense
+PASS legal jump horse -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to umbrella
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+PASS BFS route to incense
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to loudspeaker
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+PASS BFS route to incense
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS all 12 nodes actually reachable from and return to incense
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to crackers
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+阿澄：引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。
+PASS unprepared crackers reject ignition
+PASS BFS route to sticks
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+阿弟：签捡到了……我回去绑绳。
+PASS Adi returns to frame when pickup window expires
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+小英：轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。
+PASS missed pickup window cannot silently secure Adi
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to crackers
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> crackers
+阿澄：鞭炮炸响，但横木尚未晃松，未能放倒灯架。
+PASS crackers without beam preparation cannot complete chapter
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to beam
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+PASS premature beam shake accelerates collapse
+PASS BFS route to beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS repeated premature beam shakes fail
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+PASS incense tutorial opens free exploration
+PASS BFS route to loudspeaker
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS starting timed chapter from distant exploration returns to incense
+PASS timed chapter clears exploration effects and starts full incense
+SMOKE RESULT: PASS checks=252 failures=0
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from PIL import Image
+from pathlib import Path
+from collections import Counter
+import wave,hashlib
+root=Path('/home/hatch/workspace/yexun')
+for p in sorted((root/'docs/shots').glob('*.png')):
+ im=Image.open(p).convert('RGB'); c=Counter(im.getdata()); n=im.width*im.height
+ print(p.name,im.size,p.stat().st_size,'bytes','nonuniform=',1-c.most_common(1)[0][1]/n,'nonblack=',sum(v for k,v in c.items() if max(k)>24)/n,'cyan-core-pixels=',c[(83,247,235)])
+ print('sha256',hashlib.sha256(p.read_bytes()).hexdigest())
+for p in sorted((root/'game/audio').glob('*.wav')):
+ with wave.open(str(p)) as w: print(p.name,p.stat().st_size,'bytes',w.getparams(),'duration',w.getnframes()/w.getframerate())
+print((root/'game/Main.tscn').read_text())
+PY" in /home/hatch
+ succeeded in 1274ms:
+ending_r1.png (1280, 720) 49420 bytes nonuniform= 0.018702256944444495 nonblack= 1.0 cyan-core-pixels= 0
+sha256 7b36f45cdeb2eb3c4b4ced4dc373a905d706d16e1e628ff320296f0c1f38377b
+reality_r1.png (1280, 720) 78409 bytes nonuniform= 0.6844986979166667 nonblack= 1.0 cyan-core-pixels= 0
+sha256 2fd388aa04233f97748455e43a527b916d312dee1a4dec13d5da112ac8702fd7
+spirit_r1.png (1280, 720) 81236 bytes nonuniform= 0.6846299913194445 nonblack= 0.6846299913194445 cyan-core-pixels= 2496
+sha256 68cffdaf7fb5e5c082cfdb19e6ed7fce889b6ab0d0b65d2963e5fc574d78d17b
+bell.wav 52964 bytes _wave_params(nchannels=1, sampwidth=2, framerate=22050, nframes=26460, comptype='NONE', compname='not compressed') duration 1.2
+crackers.wav 52964 bytes _wave_params(nchannels=1, sampwidth=2, framerate=22050, nframes=26460, comptype='NONE', compname='not compressed') duration 1.2
+drum.wav 52964 bytes _wave_params(nchannels=1, sampwidth=2, framerate=22050, nframes=26460, comptype='NONE', compname='not compressed') duration 1.2
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://main.gd" id="1"]
+[node name="NightPatrol" type="Node2D"]
+script = ExtResource("1")
+
+
+codex
+原稿的跳跃图确实分成 10+2 两个分量，实现已补上标旗—油纸伞的连边。三张 PNG 均能正常读取，画面与代码吻合；但 capture 日志和交付说明仍写着“截图未完成”，证据记录存在冲突。正在核对复跑结果及状态机的前置条件。
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+import re,pathlib,json,hashlib
+p=pathlib.Path('/home/hatch/workspace/yexun')
+old=json.loads(pathlib.Path('/tmp/yexun_r2_baseline.json').read_text())
+new={str(f.relative_to(p)):hashlib.sha256(f.read_bytes()).hexdigest() for f in p.rglob('*') if f.is_file() and f.suffix"'!='"'.log'}
+print('baseline comparison:', 'changed', [k for k in old if new.get(k)"'!=old[k]], '"'added', [k for k in new if k not in old])
+edges=[('香炉','签筒'),('签筒','烛台'),('烛台','潮鼓'),('潮鼓','神轿'),('神轿','标旗'),('神轿','横木'),('横木','花灯'),('鞭炮','花灯'),('油纸伞','大声公'),('纸扎马','潮鼓')]
+g={n:set() for e in edges for n in e}
+for a,b in edges:g[a].add(b);g[b].add(a)
+seen=set();comps=[]
+for n in g:
+ if n in seen:continue
+ todo=[n];comp=[];seen.add(n)
+ while todo:
+  x=todo.pop();comp.append(x)
+  for y in g[x]-seen:seen.add(y);todo.append(y)
+ comps.append(sorted(comp))
+print('Independent source graph components:',comps,'sizes:',list(map(len,comps)))
+print('original smoke PASS/FAIL:',*[len(re.findall(r'"'^'"'+s+r' ',(p/'docs/smoke_r1.log').read_text(),re.M)) for s in ['PASS','FAIL']])
+PY" in /home/hatch
+ succeeded in 920ms:
+baseline comparison: changed [] added ['concept/concept_04_ghost_realm.png']
+Independent source graph components: [['标旗', '横木', '潮鼓', '烛台', '神轿', '签筒', '纸扎马', '花灯', '鞭炮', '香炉'], ['大声公', '油纸伞']] sizes: [10, 2]
+original smoke PASS/FAIL: 252 0
+
+exec
+/bin/bash -lc "rg -n 'CAPTURE|像素|81236|78409|49420|spirit_r1|现实无|nonuniform' workspace/yexun/docs --glob '*.log' --glob '*.md' --glob '"'!codex*'"'; nl -ba workspace/yexun/game/project.godot; nl -ba workspace/yexun/game/Main.tscn; stat -c '%n | size=%s | mtime=%y' workspace/yexun/docs/shots/* workspace/yexun/docs/capture_r1.log; command -v xvfb-run" in /home/hatch
+ succeeded in 203ms:
+workspace/yexun/docs/work/capture_main.log:13:CAPTURE spirit /home/hatch/workspace/yexun/docs/shots/spirit_r1.png error=0
+workspace/yexun/docs/work/capture_main.log:24:CAPTURE reality /home/hatch/workspace/yexun/docs/shots/reality_r1.png error=0
+workspace/yexun/docs/work/capture_main.log:40:CAPTURE ending /home/hatch/workspace/yexun/docs/shots/ending_r1.png error=0
+workspace/yexun/docs/work/capture_main.log:41:PASS spirit_r1.png: 81236 bytes; nonuniform=68.4630%; nonblack=68.4630%
+workspace/yexun/docs/work/capture_main.log:42:PASS reality_r1.png: 78409 bytes; nonuniform=68.4499%; nonblack=100.0000%
+workspace/yexun/docs/work/capture_main.log:43:PASS ending_r1.png: 49420 bytes; nonuniform=1.8702%; nonblack=100.0000%
+workspace/yexun/docs/DELIVERY_R1.md:22:截图预定路径 docs/shots/{spirit,reality,ending}_r1.png，当前目录为空。Xvfb创建显示套接字失败；现环境无DISPLAY、无/dev/dri；headless为dummy渲染，不能用于实际截图。详见 capture_r1.log。已准备 capture_r1.sh 和 verify_shots.py，在允许显示的环境运行 `xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh`，将自动截图并检验尺寸/字节数/非纯色和非黑像素占比。未伪造图片。
+workspace/yexun/docs/DELIVERY_R1.md:24:未完成：3张真实游戏截图及像素/目视验收；有渲染窗口的交互验收、实际扬声器听验；主控对兼容处理裁定与真人盲玩三问。未扩展第二章，无美术精修、无存档。
+workspace/yexun/docs/AUDIT_R1.md:26:截图的生成与像素自检由主交付流程执行，本审计未将尚未核看的截图计为通过。无头API路径验证不能证明鼠标操作手感、谜题无攻略可读性、约20分钟体验与玩家购买意愿，也不算用户真人试玩通过。剧情空间的引线传火、窗口持久化与最小补边仍是REVIEW_R1中“待主控裁定”的工程兼容，而非原稿既定设定。
+     1	config_version=5
+     2	[application]
+     3	config/name="夜巡 · 第一章：一炷香前"
+     4	run/main_scene="res://Main.tscn"
+     5	[display]
+     6	window/size/viewport_width=1280
+     7	window/size/viewport_height=720
+     8	window/stretch/mode="canvas_items"
+     9	[rendering]
+    10	renderer/rendering_method="gl_compatibility"
+    11	textures/default_filters/use_nearest_mipmap_filter=false
+     1	[gd_scene load_steps=2 format=3]
+     2	[ext_resource type="Script" path="res://main.gd" id="1"]
+     3	[node name="NightPatrol" type="Node2D"]
+     4	script = ExtResource("1")
+workspace/yexun/docs/shots/ending_r1.png | size=49420 | mtime=2026-11-16 09:40:21.501208623 +0000
+workspace/yexun/docs/shots/reality_r1.png | size=78409 | mtime=2026-11-16 09:40:18.622398408 +0000
+workspace/yexun/docs/shots/spirit_r1.png | size=81236 | mtime=2026-11-16 09:40:14.721001774 +0000
+workspace/yexun/docs/capture_r1.log | size=828 | mtime=2026-11-16 09:38:53.691419597 +0000
+/usr/bin/xvfb-run
+
+exec
+/bin/bash -lc 'nl -ba workspace/yexun/docs/work/capture_main.log; nl -ba workspace/yexun/docs/capture_r1.log; cat workspace/yexun/docs/design_source.sha256' in /home/hatch
+ succeeded in 62ms:
+     1	Filesystem      Size  Used Avail Use% Mounted on
+     2	tmpfs           512M  140K  512M   1% /tmp
+     3	Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+     4	WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     5	     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+     6	OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+     7	
+     8	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+     9	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+    10	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    11	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+    12	阿澄：纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？
+    13	CAPTURE spirit /home/hatch/workspace/yexun/docs/shots/spirit_r1.png error=0
+    14	Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+    15	WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+    16	     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+    17	OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+    18	
+    19	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+    20	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+    21	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    22	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+    23	阿澄：纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？
+    24	CAPTURE reality /home/hatch/workspace/yexun/docs/shots/reality_r1.png error=0
+    25	Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+    26	WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+    27	     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+    28	OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+    29	
+    30	阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+    31	阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+    32	一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+    33	庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+    34	命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+    35	命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+    36	庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+    37	小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+    38	阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+    39	阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+    40	CAPTURE ending /home/hatch/workspace/yexun/docs/shots/ending_r1.png error=0
+    41	PASS spirit_r1.png: 81236 bytes; nonuniform=68.4630%; nonblack=68.4630%
+    42	PASS reality_r1.png: 78409 bytes; nonuniform=68.4499%; nonblack=100.0000%
+    43	PASS ending_r1.png: 49420 bytes; nonuniform=1.8702%; nonblack=100.0000%
+     1	截图状态：FAIL / 未完成，不存在可交付PNG。
+     2	/tmp: 512M，约84K占用；已设工程.tmp作为TMPDIR。
+     3	实际尝试：Xvfb :91 -screen 0 1280x720x24 -nolisten tcp
+     4	结果：_XSERVTransSocketCreateListener: failed to bind listener
+     5	Cannot establish any listening sockets
+     6	当前环境禁止套接字创建，无DISPLAY，无/dev/dri。
+     7	后备尝试：Godot --display-driver headless --rendering-method gl_compatibility -- --capture=spirit ...
+     8	结果：dummy渲染没有frame_post_draw，无法取得真实渲染图；已终止进程。
+     9	未生成替代图或虚构截图；文件大小与非纯色占比验收尚未执行。
+    10	在允许显示的主机复跑：xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh
+    11	上述脚本逐张取得实际Godot viewport并自动核验大小、尺寸、非纯色和非黑占比。
+430ba22b79466659300fdb35fc2a492d3c5dd29e63194c02c913bdf8a718ceb0  /home/hatch/workspace/yexun/DESIGN_CH1_SLICE.md
+
+exec
+/bin/bash -lc "date -u '+%Y-%m-%d %H:%M:%S UTC'" in /home/hatch
+ succeeded in 179ms:
+2026-11-16 09:42:58 UTC
+
+exec
+/bin/bash -lc "cat > /tmp/yexun_r2_probe.gd <<'GD'
+extends SceneTree
+var g
+func _initialize():
+ call_deferred(\"run\")
+func fresh():
+ if is_instance_valid(g): g.free()
+ g = load(\"res://main.gd\").new()
+ root.add_child(g)
+ g.start_game()
+ g.set_spirit(false)
+ g.act()
+ g.start_incense()
+func sequence(items):
+ for id in items: g.use_at(id)
+func run():
+ fresh()
+ sequence([\"candle\",\"flag\",\"beam\"])
+ print(\"R2 missing safe: armed=\",g.flags.get(\"armed\",false),\" phase=\",g.phase)
+ fresh()
+ sequence([\"sticks\",\"palanquin\",\"flag\",\"beam\"])
+ print(\"R2 missing moved: armed=\",g.flags.get(\"armed\",false),\" phase=\",g.phase)
+ fresh()
+ sequence([\"sticks\",\"palanquin\",\"candle\",\"beam\"])
+ print(\"R2 missing window: armed=\",g.flags.get(\"armed\",false),\" phase=\",g.phase)
+ fresh()
+ sequence([\"flag\",\"candle\",\"sticks\",\"palanquin\",\"beam\",\"crackers\"])
+ print(\"R2 independent steps reordered: phase=\",g.phase)
+ fresh()
+ g.set_spirit(true)
+ var t = g.remaining
+ g.advance_time(1000.0)
+ print(\"R2 exact spirit timer unchanged=\",g.remaining==t,\" remaining=\",g.remaining)
+ g.walk_to(\"umbrella\")
+ print(\"R2 unopened umbrella -> loudspeaker=\",g.jump_to(\"loudspeaker\"))
+ fresh()
+ sequence([\"sticks\",\"palanquin\",\"candle\",\"flag\",\"beam\"])
+ print(\"R2 armed before early crackers phase=\",g.phase,\" armed=\",g.flags.get(\"armed\",false))
+ g.set_spirit(false)
+ g.advance_time(241.0)
+ print(\"R2 safe + flag timeout phase=\",g.phase,\" speaker=\",g.speaker)
+ quit(0)
+GD
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script /tmp/yexun_r2_probe.gd" in /home/hatch
+ succeeded in 5113ms:
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+R2 missing safe: armed=false phase=playing
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+R2 missing moved: armed=false phase=playing
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+R2 missing window: armed=false phase=playing
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+R2 independent steps reordered: phase=ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+R2 exact spirit timer unchanged=true remaining=240
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+阿澄：先让油纸伞张开，借风飘到戏台口。
+R2 unopened umbrella -> loudspeaker=false
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+R2 armed before early crackers phase=playing armed=true
+阿澄：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 阿弟已经扶轿离开落点，但未能完成安全放倒的闭环。回到香点，仍需烛台、停锣或清场，再晃横木燃放。
+R2 safe + flag timeout phase=failure speaker=阿澄
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2284)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:604)
+
+codex
+冒烟复跑结果与原日志一致：252 项检查、0 失败、退出码 0；两个脚本的 check-only 也均以 0 退出，未报语法错误。另找到主控补截的成功日志，尺寸、字节数及像素统计均与三张 PNG 一致，先前的截图失败记录属于旧结果。正在把兼容实现、规格偏差和验证局限逐项写入报告。
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+import pathlib,hashlib,json
+p=pathlib.Path('/home/hatch/workspace/yexun'); old=json.loads(pathlib.Path('/tmp/yexun_r2_baseline.json').read_text())
+for group in ['DESIGN_CH1_SLICE.md','game/','docs/shots/']:
+ names=[k for k in old if k==group or k.startswith(group)]
+ bad=[k for k in names if hashlib.sha256((p/k).read_bytes()).hexdigest()"'!=old[k]]
+ print(group,'"'files=',len(names),'changed=',bad)
+print('source_sha256',hashlib.sha256((p/'DESIGN_CH1_SLICE.md').read_bytes()).hexdigest())
+PY" in /home/hatch
+ succeeded in 312ms:
+DESIGN_CH1_SLICE.md files= 1 changed= []
+game/ files= 31 changed= []
+docs/shots/ files= 3 changed= []
+source_sha256 430ba22b79466659300fdb35fc2a492d3c5dd29e63194c02c913bdf8a718ceb0
+
+exec
+/bin/bash -lc 'cat workspace/yexun/docs/smoke_r1.log' in /home/hatch
+ succeeded in 0ms:
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+YEXUN R1 state-machine smoke: actual game API + legal graph jumps
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to beam
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS six-step canonical ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to loudspeaker
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+PASS BFS route to beam
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS alternative ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to drum
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（1／3）
+PASS BFS route to drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（2／3）
+PASS two drum strikes do not fail immediately
+PASS BFS route to drum
+阿弟的亡魂：三下潮鼓震松主绳，原命运提前到来。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS third drum strike reaches failure
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+阿弟的亡魂：香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。
+PASS failure automatically retries after ghost dialogue
+PASS automatic retry resets possession and puzzle flags
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS spirit realm pauses incense timer
+阿弟的亡魂：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS reality incense timeout reaches death event
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS nonadjacent jump rejected
+PASS BFS route to incense
+PASS BFS route to incense
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS BFS route to incense
+PASS legal jump sticks -> incense
+PASS BFS route to candle
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS BFS route to incense
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to drum
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS BFS route to incense
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to palanquin
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS BFS route to incense
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to flag
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS BFS route to incense
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to beam
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS BFS route to incense
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to lantern
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS BFS route to incense
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to crackers
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+PASS BFS route to incense
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to horse
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> horse
+PASS BFS route to incense
+PASS legal jump horse -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to umbrella
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+PASS BFS route to incense
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to loudspeaker
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+PASS BFS route to incense
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS all 12 nodes actually reachable from and return to incense
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to crackers
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+阿澄：引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。
+PASS unprepared crackers reject ignition
+PASS BFS route to sticks
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+阿弟：签捡到了……我回去绑绳。
+PASS Adi returns to frame when pickup window expires
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+小英：轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。
+PASS missed pickup window cannot silently secure Adi
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to crackers
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> crackers
+阿澄：鞭炮炸响，但横木尚未晃松，未能放倒灯架。
+PASS crackers without beam preparation cannot complete chapter
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to beam
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+PASS premature beam shake accelerates collapse
+PASS BFS route to beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS repeated premature beam shakes fail
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+PASS incense tutorial opens free exploration
+PASS BFS route to loudspeaker
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS starting timed chapter from distant exploration returns to incense
+PASS timed chapter clears exploration effects and starts full incense
+SMOKE RESULT: PASS checks=252 failures=0
+
+apply patch
+patch: completed
+/home/hatch/workspace/yexun/docs/AUDIT_R2.md
+diff --git a/workspace/yexun/docs/AUDIT_R2.md b/workspace/yexun/docs/AUDIT_R2.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..4d0da33a170b1c9c193c04d1c0792c86034f705c
+--- /dev/null
++++ b/workspace/yexun/docs/AUDIT_R2.md
+@@ -0,0 +1,497 @@
++# 《夜巡》第一章切片 R2 独立审计
++
++审计日期：2026-11-16（UTC）。身份：独立审计员，只审不改。先完整阅读规格原件 §0–§7，再读实现、断言、交付材料并亲自复跑。以下路径均相对 `~/workspace/yexun/`，行号按本次审计快照。审计只新建本报告；未修改设计稿、工程、截图或旧日志。补充探针置于 `/tmp/yexun_r2_probe.gd`，仅调用现有工程 API。
++
++**总评：有条件通过。** 正解、备选解、鼓三下失败与回溯有真实状态机支撑；原冒烟完整输出可复现，252 项、0 失败，退出码 0；两个脚本语法检查通过。三张截图与工程和后补成功日志相符。不能无条件宣称逐字逐项落实原规格：兼容规则尚标待裁定，部分空间摆位与花灯调查反馈有欠缺，旧交付材料未同步补截结果。未发现伪造 PASS、虚构截图或第 13 件可附身物件的证据。
++
++## 1. §4 十二件物件逐项对表
++
++判定以允许“色块＋名称＋灵核点”的灰盒标准为基础，不把缺少正式美术动画算作违规；位置仍按实际坐标和绘制区域核验。宫内区域为 x=25–410、y=160–550，宫埕为 x=425–1225、y=175–555（`game/main.gd:267–270`）。供桌、旗座、戏台口、竹椅等没有独立地标，不能据名称反推这些实体已被画出。
++
++| # / 物件 | 判定 | 位置、单一动作与作用证据 |
++|---|---|---|
++| 1 大香炉 | 符合 | (95,350)，在宫内；初始附身点；唯一动作“火星上窜”，燕子以文本表现，推动教学进入探索。`game/main.gd:17,62–72,110–112`；规格 `DESIGN_CH1_SLICE.md:40`。 |
++| 2 签筒 | 符合 | (220,310)，宫内烛台旁，灰盒未画供桌；摇签产生 `pickup`、18 秒窗口与 `update1`，签文“逢冲则避”存在。`game/main.gd:18,98–100,113–120,186–190`；规格 :41。 |
++| 3 供桌烛台 | 符合 | (350,350)，宫内；唯一动作焰斜燎纸，触发庙祝公扑火及鞭炮搬运，置 `moved/fuse`；传火为兼容补充，详见第 5 节。`game/main.gd:19,131–139`；规格 :42。 |
++| 4 潮鼓 | 部分符合 | 动作响一声、鼓声播放、三下提前失败均实现；但 (455,410) 落在所画宫埕区域，位于宫内色块右侧外部，未体现原表“宫门内侧”。门框未画，无法以隐藏门位置抵消该摆位差异。`game/main.gd:20,140–146,267–270`；规格 :43。 |
++| 5 神轿 | 符合 | (650,395)，埕面中部；单一动作轻晃响铃。仅在仍捡签时置 `safe/update2`；第二铃有文本和 0.45 秒延迟播放。`game/main.gd:21,121–130`；规格 :44。 |
++| 6 标旗 | 符合 | (570,235)，宫埕西侧；抖响置 `flag`，对白包含小英转头、背向埕心、阿勇停手与暂缓出发锣；旗座为灰盒省略。`game/main.gd:22,147–149,158`；规格 :45。 |
++| 7 花灯 | 部分符合 | (1040,180)，高于横木，符合灯架顶端；单一“亮／旋转”动作有 `lantern` 标志与对白，但操作反馈仅为“绳结上有一道不自然的暗影”，未直接指出表内要求的“绳结断口”。明确“整齐的割痕”到终局才出现；`lantern` 标志也未驱动画面照明变化。`game/main.gd:23,150–152,210–215,260–264`；规格 :46、:70。 |
++| 8 灯架横木 | 符合 | (1020,320)，灯架中段；唯一动作晃动。危险晃减 45 秒、第二次过早晃失败；安全前置齐备后第一次晃置 `armed`，再晃失控。`game/main.gd:24,153–165,271–272`；规格 :47。 |
++| 9 鞭炮串 | 部分符合 | 唯一燃放动作受 `fuse` 门控，搬至 (1090,450) 后有双向近距边，准备后燃放可完成终局。初始 (870,230) 并未落在实际画出的两根柱 x=1010/1120 上，也无独立埕柱地标；“埕柱挂炮”的摆位只能从对白获知。`game/main.gd:25,133–138,166–171,271–272`；规格 :48、:65。 |
++| 10 大声公 | 符合 | (820,465)，与油纸伞构成场边支路；戏台口未另画。唯一播放“收埕”录音的动作通过对白表达，置 `cleared`，可替代旗帜门控；规格不要求该录音另有配音文件。`game/main.gd:26,36,172–174,158`；规格 :49、:73。 |
++| 11 纸扎马 | 符合 | (470,515)，宫外，连接潮鼓；唯一转头动作有“自己转回宫门”文本。`horse` 不参与通关门控。`game/main.gd:27,32,35,175–177`；规格 :50。 |
++| 12 油纸伞 | 符合 | (670,535)，埕边；竹椅为灰盒省略。开伞置 `umbrella` 才能往返大声公；风飘用文本及通路解锁表示，坐标不发生移动，属于灰盒抽象而非实际飘移动画。`game/main.gd:28,33,36,93–96,178–180`；规格 :51。 |
++
++**物件数量及越界：符合。** `nodes` 恰为 12 个条目（`game/main.gd:16–29`），`act()` 是每个条目一个分支（:109–180）。图中的电线被折叠为连边，没有第 13 个可附身节点。无背包、物品收集槽或独立组合技能。横木先晃、再跳鞭炮燃放，是规格 §5 第 6 步的顺序实现，不应因为涉及两物就误判为新组合技。音频播放器是引擎节点，不是第 13 件玩法物件。
++
++## 2. §5 正解、备选与错误路径的真实状态机
++
++**总体：符合因果前置与可达性；部分符合严格线性顺序的读法。** 不是仅打印 PASS。游戏以 `phase/current/spirit/flags/remaining/pickup_left` 保存状态（`game/main.gd:3–13`）；冒烟载入真实 `main.gd`、加入场景树、调用游戏方法（`game/smoke.gd:61–71`），并以布尔条件统计检查、失败与退出码（:18–24、:146–147）。
++
++| 项目 | 判定 | 状态与断言证据 |
++|---|---|---|
++| 第 1 步：醒于香炉，走到签筒听信息 | 符合 | `start_game/start_incense` 置当前为香炉；`jump_to(sticks)` 首次置 `heard` 并给阿弟顶位、新绳对白（`game/main.gd:62–84,90–102`）。`game/smoke.gd:66–76` 真正走到签筒；原日志 :4–12。 |
++| 第 2 步与更新① | 符合 | 仅 playing 中摇签置 `pickup=true,pickup_left=18,update1=true`，重复摇允许重启窗口但更新标志只首次新增；现实窗口耗尽撤销 pickup（`game/main.gd:113–120,183–190`）。冒烟检查 update1、窗口超时及后续不能偷偷保人（`game/smoke.gd:75–76,118–123`；日志 :11–12、:255–263）。 |
++| 第 3 步与更新② | 符合 | 必须 playing 且 pickup 才置 `safe/update2`，不能仅响铃即保人（`game/main.gd:121–130`）。冒烟确查 update2，并覆盖错过捡签窗口的反例（`game/smoke.gd:77–78,121–123`；日志 :17–18、:262–263）。 |
++| 第 4 步 | 符合兼容实现 | 烛台实际置 `moved/fuse`、更新鞭炮坐标与图边，不止对白（`game/main.gd:131–138`）。正解/备选均实际执行 candle（`game/smoke.gd:79`）；日志 :22、:54。原 smoke 未单独断言坐标和 fuse，但代码及后续通关依赖真实存在。 |
++| 第 5 步 | 符合兼容实现 | 旗动作置 `flag`，晃横木准备需要 `flag OR cleared`（`game/main.gd:147–159`）。正解使用 flag（`game/smoke.gd:80–84`）；日志 :27–31。小英视线与阿勇停锣是旗标加文本，没有独立 NPC 朝向/锣调度系统。 |
++| 第 6 步及终局 | 符合 | 晃横木需 `safe AND moved AND (flag OR cleared)` 才置 armed；鞭炮须 fuse，且 playing+armed 才 finish；finish 置 ending、附回花灯（`game/main.gd:153–171,210–215`）。moved 和 fuse 在正常接口内同由烛台置位；因此并非漏掉引线因果。冒烟真检查 ending，并反测“先燃放而未晃横木不能过关”（`game/smoke.gd:84–86,124–130`；日志 :31–35、:290–291）。 |
++| 备选：喇叭代第 5 步 | 符合 | `solve(true)` 不调用旗的 act，改用喇叭；仍保留签、轿、烛台、横木、鞭炮。BFS 只经过旗节点不等于使用旗技能；去喇叭前确实开伞（`game/smoke.gd:43–59,73–86`）。日志 :43–72；最终 ending 真实成立。 |
++| 错路：直接潮鼓三下 | 符合 | 计数器每响一声加一，>=3 调 fail；未 safe 时由阿弟亡魂提示；5 秒后 _process 调 retry，回香炉并清空谜题（`game/main.gd:140–145,194–208,221–225`）。冒烟对两下不失败、第三下 failure、自动重试与复位均有断言（`game/smoke.gd:92–100`；日志 :82–93）。已 safe 时使用阿澄对白，未虚构阿弟被砸死（main :197–200）。 |
++
++**顺序边界：** 实现不是“必须输入 1→2→3→4→5→6”的步骤编号机。它强制“签窗口→轿”“烛台→可燃/移位”“安全调度＋保人＋移位→晃横木→燃放”，但允许先抖旗、先燎纸再叫阿弟。本次额外以实际 API 执行 `flag,candle,sticks,palanquin,beam,crackers`，仍得到 ending。这不绕过任何安全前置，也不自动构成错解；若原稿“6 步”要求绝对线性顺序，则为部分符合，须设计方明确。不能用现有 smoke 的正序通过证明所有乱序都被禁止。
++
++补充实测：分别省略 safe、moved、安全窗口，横木都未置 armed；未开伞时跳喇叭返回 false；灵域 advance_time(1000) 后 remaining 仍精确为 240。相关原始观测附后。
++
++## 3. §6 切片规格
++
++| 项目 | 判定 | 证据及边界 |
++|---|---|---|
++| Godot 4.3、单场景、2D、1280×720 灰盒 | 符合 | 本次引擎 banner 为 4.3.stable.official.77dcf97d8；`game/project.godot:4,6–10`；`game/Main.tscn:1–4` 为挂 main.gd 的 Node2D。色块、标签、灵核由 `game/main.gd:251–298` 绘制；三张图均 1280×720。 |
++| 双域切换、灵域停时、现实流时 | 符合 | Tab→set_spirit（main :86–88、:233）；advance_time 对非 playing 或 spirit 直接返回（:183–191）。现实方能施技（:104–108），该操作限制是原稿未明确的实现补充。 |
++| 一炷香、失败、亡者提示与重试 | 符合 | 240 秒初值与重置（main :7、:67、:81）；现实超时 fail（:191）；阿弟亡魂给签筒/神轿/烛台提示（:194–200）；5 秒自动重试及 Enter/R 提前重试（:202–208、:223–237）。安全未完成分支由阿澄提示，符合避免虚构死亡的处理。 |
++| 标题→教学→探索→点香→通关/失败闭环 | 符合 | main :62–84、:110–112、:194–215、:227–245、:254–265；smoke :61–100、:138–145。鼠标手感与真人盲玩不由 API 冒烟替代。 |
++| 底部对话框＋说话人 | 符合 | main :293–298；灵域/现实 PNG 中可见底框、阿澄姓名和纸马对白。 |
++| 章末字幕原文 | 符合 | main :263 严格为“今晚的巡境，多走了一条路。”；ending_r1.png 目视一致。有暗色背景、割痕和第二铃文字；本次未把背景必须纯 RGB 黑当作额外门槛。 |
++| 鼓/铃/鞭炮本地音频存在且被引用 | 符合 | 三文件均为有效 RIFF/WAV，单声道、16 bit PCM、22050 Hz、26460 帧、1.2 秒、52964 字节；`game/audio/{drum,bell,crackers}.wav`。main :141、:122–124/:215、:169 分别调用，:217–219 动态加载同名 wav 并 play。音效实际扬声器听感不在本次无头验收范围。 |
++| 无存档、无越界扩章 | 符合 | 已审 main/smoke/唯一场景，未见存档写入或第二章实现；玩法对象数量见第 1 节。 |
++
++## 4. 冒烟真实性与亲自复跑记录
++
++**符合。** 本次亲自在原工程目录运行用户指定命令，未重写旧 smoke_r1.log：
++
++```sh
++~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd
++```
++
++原样结果：
++```text
++SMOKE RESULT: PASS checks=252 failures=0
++exit_code=0
++```
++
++独立计数 stdout 的 PASS 行为 252，FAIL 行为 0；**完整 stdout 与现存 `docs/smoke_r1.log` 逐字一致**，不只是汇总数字一致。原日志 :326 是同一结果。完整原始 stdout 保留在本报告附录 A。
++
++随后分别亲自执行：
++```sh
++~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --check-only --script res://main.gd
++~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --check-only --script res://smoke.gd
++```
++
++两条原始输出均仅为引擎 banner 和空行：
++```text
++Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
++
++```
++
++main.gd：exit_code=0；smoke.gd：exit_code=0。均无 parse error。
++
++**覆盖强度：部分符合全面验证的读法。** 252 是脚本实际累计的检查次数，其中大量是重复 BFS 路线/合法跳跃，不能等价为 252 种独立场景。LINKS 的邻接内容未用来比较实现边，只用它的键枚举 12 点（`game/smoke.gd:6–13,111–114`）；实际 BFS 使用 game.graph（:26–40），因此确实验证了实际可达，但未逐条验证图恰等于设计/兼容边表。暂停测试只断言 phase 未变，而不是 remaining 未减（:102–105）；本审计补充精确数值实测已通过。原 smoke 未覆盖每个安全前置的单独缺失、本章全文对白、音频可听性、鼠标交互和全部图形反馈。本次补充缺前置探针通过，不修改原 smoke。
++
++## 5. REVIEW_R1.md 的可信度与兼容处理
++
++| 报告论点 | 判定 | 独立判断与依据 |
++|---|---|---|
++| 原稿为 10+2 两分量 | 符合 | 独立按规格 :53–55 列边并 BFS，而非复用 REVIEW 邻接表。无向边：香炉–签筒、签筒–烛台、烛台–潮鼓、潮鼓–神轿、神轿–标旗、神轿–横木、横木–花灯、鞭炮–花灯（电线为路）、油纸伞–大声公、纸扎马–潮鼓。得到主分量 {香炉、签筒、烛台、潮鼓、神轿、标旗、横木、花灯、鞭炮、纸扎马} 共 10，孤立支路 {油纸伞、大声公} 共 2。原文宣称“全图强连通”与明列边不一致。即便宽松允许开伞后双向跳，仍无支路接主图的边；若仅允许顺风单向，连通问题更重。REVIEW :7–28 结论成立。 |
++| 引线传火缺因果段 | 符合 | 规格 :48 要求烛台火燎引线，:64–65 只明确金纸着火和搬运，没有空间传火过程；且“挪远防走火”却搬到待倒灯架脚的动机欠解释。REVIEW :37 指出的是因果缺口，不是证明谜题永远无解。main :133–138 用同事件置 fuse 并对白承认“燎过引线”，填可燃门控，但仍没有具体展示火如何从供桌传到埕柱。 |
++| 移位后鞭炮可达未定义 | 符合（风险，不是已证死局） | 规格 :54 的旧通路依赖电线，:65 搬运后未更新灵核跳跃关系；因此应认定缺定义，不能声称原稿已经证明搬后必不可达。REVIEW :39 采用“未说明/可能到不了”的风险表述准确。 |
++| 双物件终局顺序未定义 | 符合 | 规格 :68 的“横木＋鞭炮”未说先后、持续时间或同时操作法；一魂不能同时附两物。REVIEW :39 的先晃准备再燃放补充合理，主流程保留。 |
++| 实现补边与报告一致 | 符合 | 标旗–油纸伞双向边：main :33、:36；开伞门控：:93–96；烛台移位后保留花灯–鞭炮并新增横木–鞭炮双向边：:133–137。与 REVIEW :28、:39 一致。无新增物件。 |
++| 其他时间/危险参数符合报告 | 符合 | 18 秒捡签、240 秒香期、45 秒危险扣时及重复晃失败均能在 main 找到，对应 REVIEW :51–64。抖旗和清场使用持续布尔标志，不是实际短时 NPC 动作窗口。香烧尽仍会失败，旗标不会无限停止总香期（main :183–200；补充探针实测 safe+flag+armed 后超时仍 failure，发言人为阿澄）。 |
++| 没有改动原设计剧情设定 | 部分符合 | **原设计文件未改，核心人物、救弟、割绳钩子、第二铃、章末字幕未被改写。** 但增加连边、逆向开伞通行、现实才能施技、永久保人/调度标志、明确阈值和终局先后，确实补充或固定了玩法/时序解释；不能等同“零设计改动”。REVIEW 多处明确“待主控裁定”，有正确披露。备选中“小英撤离现场”仅在 REVIEW :47 作解释，游戏喇叭对白只说闲人离开（main :174），未单列小英撤离状态。 |
++
++**原件保真：符合。** 本次算得设计稿 SHA256：
++`430ba22b79466659300fdb35fc2a492d3c5dd29e63194c02c913bdf8a718ceb0`，
++与 `docs/design_source.sha256:1` 一致。审计前后复核设计稿、工程内 31 个非 log 文件及 3 张截图内容均未改变。
++
++REVIEW 作为“指出原稿缺定义，并披露工程兼容”的报告可信；不能将其“采用兼容后可形成闭环”提升为设计方已经批准所有补充。REVIEW :65 的截图未完成是旧时间点事实，现有补截证据已覆盖，详见第 6 节。
++
++## 6. 截图真实性及 capture 记录核验
++
++**三图画面与主控后补 capture 日志：符合。** 亲自打开全部 PNG 目视，并独立读取尺寸、文件字节数与像素统计；不是只读文件名。
++
++| 文件 | 判定 | 尺寸 / 字节数 | 独立观察 |
++|---|---|---|---|
++| docs/shots/spirit_r1.png | 符合 | 1280×720 / 81236 | 灵域、香期 240、当前纸扎马、12 个青色实心灵核与连线、底框阿澄纸马对白。精确 RGB(83,247,235) 灵核色像素 2496。非主色比例 68.4630%，非黑比例 68.4630%。 |
++| docs/shots/reality_r1.png | 符合 | 1280×720 / 78409 | 同场景、当前纸扎马、香期 239；没有实心灵核和图连线；保留当前附身的青色圆环，不能误把选中圆环叫成灵核。精确灵核色像素 0。非主色比例 68.4499%，非黑比例 100.0000%。 |
++| docs/shots/ending_r1.png | 符合 | 1280×720 / 49420 | 章末原文字幕、第一章完、整齐割痕及第二铃文本均可见；无场景节点。非主色比例 1.8702%，非黑比例 100.0000%。 |
++
++**同一工程来源判断：符合现有证据。** 对象坐标、色块、字体、文本、灵域绘线和现实隐藏灵核都匹配 `game/main.gd:251–298`；当前纸扎马和终局的状态也匹配 `capture_scene` 真实 API 路径（:331–349）。`docs/work/capture_main.log:6,17,28` 记录实际 llvmpipe OpenGL 渲染，:13、:24、:40 分别保存三图 error=0，:41–43 的尺寸外字节数和像素统计与本次独立计算完全一致。该证据支持真实 Godot viewport 抓图，未见外来示意图或无头黑图冒充的迹象。本次未重新生成截图，也不能仅凭 PNG 证明真人手动游玩过。
++
++**旧 capture/交付陈述与现状：不符（文档滞后，不是截图造假）。** `docs/capture_r1.log:1–9` 声称截图失败、不存在 PNG；`docs/DELIVERY_R1.md:3,22,24` 仍称目录为空/未完成；`docs/REVIEW_R1.md:65` 同样未完成。旧 capture 日志修改时间 09:38:53 UTC，现三张 PNG 为 09:40:14、09:40:18、09:40:21 UTC，后补日志确有成功记录。因此应保留“先失败、后补截成功”的事实链，不能把旧失败日志用作否认现有三图的依据，也不能声称所有交付文档已一致。
++
++PNG SHA256：
++- spirit：`68cffdaf7fb5e5c082cfdb19e6ed7fce889b6ab0d0b65d2963e5fc574d78d17b`
++- reality：`2fd388aa04233f97748455e43a527b916d312dee1a4dec13d5da112ac8702fd7`
++- ending：`7b36f45cdeb2eb3c4b4ced4dc373a905d706d16e1e628ff320296f0c1f38377b`
++
++## 7. 全部发现，按严重程度排序
++
++本次未发现应直接判“不通过”的高危逻辑断链、伪造结果或工程解析错误。
++
++1. **中 / 设计放行条件：兼容规则仍未定版。** REVIEW :28、:37–39、:47、:51–64 明确待裁定；实现已采用这些规则，并允许独立步骤交换次序。原稿保真不代表所有玩法补充已获确认。需由设计负责人确认，不能由审计员代签。这是本次“有条件通过”的主要边界。
++2. **中 / 调查反馈不足：花灯没有在单独调查时清楚给出物件表要求的断口线索。** main :150–152 只给暗影，明确整齐割痕留到 :214、:261。不会阻断通关，但 §4 的调查作用仅部分符合。
++3. **低 / 灰盒摆位：潮鼓在画出的宫内范围外；初始鞭炮不挂在画出的柱上。** main :20、:25、:267–272；其他供桌/戏台口/竹椅等地标省略，不能严谨宣称所有具体地点均有视觉实现。后者属于灰盒表达边界，不要求补正式美术。
++4. **低 / 交付证据同步：旧报告与 capture_r1.log 仍报截图未完成。** 后补 capture_main.log 和三 PNG 已真实补齐；应在交付入口标明新的有效证据，避免读者误判。审计未代改任何旧文档。
++5. **低 / 验证覆盖表述：252 项不代表 252 个独立玩法断言，也不验证完整设计保真。** smoke :18–24、:43–53、:102–114；含大量路线/跳边计数，暂停断言偏弱，部分安全门控缺独立反例。R2 补充探针支持门控正确，但真人操作、盲玩可读性与扬声器听验仍未验证。
++
++**最终总评：有条件通过。** 可认定灰盒主状态机、两解通关、错误失败重试、三音频接线和三图交付真实成立。以逐项规格完全达标或 §7 真人验收完成为口径，则证据不足；需裁定兼容解释，并处理/接受上述已记录差异。审计发现均仅记录，未修复工程或改写设计。
++
++## 附录 A：本次指定冒烟命令的完整原始 stdout
++
++以下完整输出与 smoke_r1.log 逐字一致；进程退出码原样为 0。
++
++```text
++Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
++
++YEXUN R1 state-machine smoke: actual game API + legal graph jumps
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS BFS route to sticks
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
++PASS fate update 1 recorded
++PASS BFS route to palanquin
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
++PASS fate update 2 recorded
++PASS BFS route to candle
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
++PASS BFS route to flag
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
++PASS BFS route to beam
++PASS legal jump flag -> palanquin
++PASS legal jump palanquin -> beam
++阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
++PASS BFS route to crackers
++PASS legal jump beam -> crackers
++阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
++PASS six-step canonical ending
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS BFS route to sticks
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
++PASS fate update 1 recorded
++PASS BFS route to palanquin
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
++PASS fate update 2 recorded
++PASS BFS route to candle
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
++PASS BFS route to loudspeaker
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++PASS legal jump flag -> umbrella
++阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
++PASS legal jump umbrella -> loudspeaker
++庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
++PASS BFS route to beam
++PASS legal jump loudspeaker -> umbrella
++PASS legal jump umbrella -> flag
++PASS legal jump flag -> palanquin
++PASS legal jump palanquin -> beam
++阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
++PASS BFS route to crackers
++PASS legal jump beam -> crackers
++阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
++PASS alternative ending
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS BFS route to drum
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（1／3）
++PASS BFS route to drum
++阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（2／3）
++PASS two drum strikes do not fail immediately
++PASS BFS route to drum
++阿弟的亡魂：三下潮鼓震松主绳，原命运提前到来。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
++PASS third drum strike reaches failure
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++阿弟的亡魂：香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。
++PASS failure automatically retries after ghost dialogue
++PASS automatic retry resets possession and puzzle flags
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS spirit realm pauses incense timer
++阿弟的亡魂：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
++PASS reality incense timeout reaches death event
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS nonadjacent jump rejected
++PASS BFS route to incense
++PASS BFS route to incense
++PASS BFS route to sticks
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++PASS BFS route to incense
++PASS legal jump sticks -> incense
++PASS BFS route to candle
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS BFS route to incense
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to drum
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS BFS route to incense
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to palanquin
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS BFS route to incense
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to flag
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++PASS BFS route to incense
++PASS legal jump flag -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to beam
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> beam
++PASS BFS route to incense
++PASS legal jump beam -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to lantern
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> beam
++PASS legal jump beam -> lantern
++PASS BFS route to incense
++PASS legal jump lantern -> beam
++PASS legal jump beam -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to crackers
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> beam
++PASS legal jump beam -> lantern
++PASS legal jump lantern -> crackers
++PASS BFS route to incense
++PASS legal jump crackers -> lantern
++PASS legal jump lantern -> beam
++PASS legal jump beam -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to horse
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> horse
++PASS BFS route to incense
++PASS legal jump horse -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to umbrella
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++PASS legal jump flag -> umbrella
++PASS BFS route to incense
++PASS legal jump umbrella -> flag
++PASS legal jump flag -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS BFS route to loudspeaker
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++PASS legal jump flag -> umbrella
++阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
++PASS legal jump umbrella -> loudspeaker
++PASS BFS route to incense
++PASS legal jump loudspeaker -> umbrella
++PASS legal jump umbrella -> flag
++PASS legal jump flag -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++PASS legal jump sticks -> incense
++PASS all 12 nodes actually reachable from and return to incense
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS BFS route to crackers
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> beam
++PASS legal jump beam -> lantern
++PASS legal jump lantern -> crackers
++阿澄：引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。
++PASS unprepared crackers reject ignition
++PASS BFS route to sticks
++PASS legal jump crackers -> lantern
++PASS legal jump lantern -> beam
++PASS legal jump beam -> palanquin
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++PASS legal jump candle -> sticks
++命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
++阿弟：签捡到了……我回去绑绳。
++PASS Adi returns to frame when pickup window expires
++PASS BFS route to palanquin
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++小英：轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。
++PASS missed pickup window cannot silently secure Adi
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS BFS route to sticks
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
++PASS BFS route to palanquin
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
++PASS BFS route to candle
++PASS legal jump palanquin -> drum
++PASS legal jump drum -> candle
++庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
++PASS BFS route to flag
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
++PASS BFS route to crackers
++PASS legal jump flag -> palanquin
++PASS legal jump palanquin -> beam
++PASS legal jump beam -> crackers
++阿澄：鞭炮炸响，但横木尚未晃松，未能放倒灯架。
++PASS crackers without beam preparation cannot complete chapter
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS title -> incense tutorial -> timed chapter
++PASS BFS route to beam
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> beam
++阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
++PASS premature beam shake accelerates collapse
++PASS BFS route to beam
++阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
++阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
++PASS repeated premature beam shakes fail
++阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
++阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
++PASS incense tutorial opens free exploration
++PASS BFS route to loudspeaker
++庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
++PASS legal jump incense -> sticks
++PASS legal jump sticks -> candle
++PASS legal jump candle -> drum
++PASS legal jump drum -> palanquin
++PASS legal jump palanquin -> flag
++PASS legal jump flag -> umbrella
++阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
++PASS legal jump umbrella -> loudspeaker
++庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
++一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
++PASS starting timed chapter from distant exploration returns to incense
++PASS timed chapter clears exploration effects and starts full incense
++SMOKE RESULT: PASS checks=252 failures=0
++```
++
++## 附录 B：R2 只读补充探针
++
++探针文件在 /tmp，未加入工程，调用现有 walk_to/use_at/act/advance_time/jump_to 等接口，没有直接伪造 flags。以下摘录本次原始观测行：
++
++```text
++R2 missing safe: armed=false phase=playing
++R2 missing moved: armed=false phase=playing
++R2 missing window: armed=false phase=playing
++R2 independent steps reordered: phase=ending
++R2 exact spirit timer unchanged=true remaining=240
++R2 unopened umbrella -> loudspeaker=false
++R2 armed before early crackers phase=playing armed=true
++R2 safe + flag timeout phase=failure speaker=阿澄
++```
++
++该补充探针退出码为 0；退出时另出现下列原始诊断：
++```text
++WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
++     at: cleanup (core/object/object.cpp:2284)
++ERROR: 1 resources still in use at exit (run with --verbose for details).
++   at: clear (core/io/resource.cpp:604)
++```
++此探针在同帧反复 new/free 游戏且触发延迟铃计时器，未清理完全部资源便退出；这些诊断来自附加探针运行，不能归入指定 smoke 的输出。指定 smoke 及两条 check-only 无此诊断。未据此认定实际玩家路径存在资源泄漏，也未更改工程。
++
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from pathlib import Path
+import hashlib,json
+r=Path('/home/hatch/workspace/yexun')
+p=r/'docs/AUDIT_R2.md';t=p.read_text()
+raw=t.split('## 附录 A：',1)[1].split('"'```text'"\\n',1)[1].split('\\n"'```'"',1)[0]
+print('report:',p,'bytes=',p.stat().st_size,'lines=',len(t.splitlines()))
+print('embedded_smoke_matches_original=',raw== (r/'docs/smoke_r1.log').read_text().rstrip('\\n'))
+old=json.loads(Path('/tmp/yexun_r2_baseline.json').read_text())
+changed=[k for k,v in old.items() if not (r/k).exists() or hashlib.sha256((r/k).read_bytes()).hexdigest()"'!=v]
+print('"'preexisting_nonlog_files_changed=',changed)
+print('final_verdict=',[s for s in t.splitlines() if s.startswith('**最终总评')][0])
+PY" in /home/hatch
+ succeeded in 399ms:
+report: /home/hatch/workspace/yexun/docs/AUDIT_R2.md bytes= 38914 lines= 497
+embedded_smoke_matches_original= True
+preexisting_nonlog_files_changed= []
+final_verdict= **最终总评：有条件通过。** 可认定灰盒主状态机、两解通关、错误失败重试、三音频接线和三图交付真实成立。以逐项规格完全达标或 §7 真人验收完成为口径，则证据不足；需裁定兼容解释，并处理/接受上述已记录差异。审计发现均仅记录，未修复工程或改写设计。
+
+codex
+审计完成，报告：[AUDIT_R2.md](/home/hatch/workspace/yexun/docs/AUDIT_R2.md)。
+
+总评：**有条件通过**。
+
+- 冒烟亲跑：252 项、0 失败、退出码 0，完整输出与原日志一致；两份脚本语法检查通过。
+- 正解、备选及失败重试有真实状态机支撑；原稿图确为 10+2 分量。
+- 三张截图与工程、后补 capture 日志一致。
+- 问题包括兼容规则待裁定、花灯调查线索不足、部分摆位偏差及旧交付文档未更新。
+
+仅新增审计报告，未修改设计稿或工程。
+tokens used
+78,307
+审计完成，报告：[AUDIT_R2.md](/home/hatch/workspace/yexun/docs/AUDIT_R2.md)。
+
+总评：**有条件通过**。
+
+- 冒烟亲跑：252 项、0 失败、退出码 0，完整输出与原日志一致；两份脚本语法检查通过。
+- 正解、备选及失败重试有真实状态机支撑；原稿图确为 10+2 分量。
+- 三张截图与工程、后补 capture 日志一致。
+- 问题包括兼容规则待裁定、花灯调查线索不足、部分摆位偏差及旧交付文档未更新。
+
+仅新增审计报告，未修改设计稿或工程。

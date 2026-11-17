@@ -1,0 +1,12 @@
+ERROR: Corrupted header in binary project.binary (not ECFG).
+   at: _load_settings_binary (core/config/project_settings.cpp:716)
+ERROR: Couldn't load file 'res://project.binary', error code 16.
+   at: _load_settings_text_or_binary (core/config/project_settings.cpp:803)
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+ERROR: Attempt to open script 'res://smoke.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://smoke.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: Can't load script: smoke.gd
+   at: start (main/main.cpp:3530)

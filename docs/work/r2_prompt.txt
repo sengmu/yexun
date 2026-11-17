@@ -1,0 +1,19 @@
+你是独立审计员，只审不改。禁止修改 ~/workspace/yexun/ 下任何文件（审计报告除外），禁止改设计稿与工程代码。
+
+审计对象：
+- 规格原件：~/workspace/yexun/DESIGN_CH1_SLICE.md（先完整读）
+- 第一轮复核：~/workspace/yexun/docs/REVIEW_R1.md
+- 第一轮交付：~/workspace/yexun/docs/DELIVERY_R1.md、~/workspace/yexun/docs/smoke_r1.log
+- 工程：~/workspace/yexun/game/（main.gd、smoke.gd、project.godot、audio/）
+- 截图：~/workspace/yexun/docs/shots/spirit_r1.png、reality_r1.png、ending_r1.png（主控补截，声称像素核验通过）
+
+审计任务，结论写 ~/workspace/yexun/docs/AUDIT_R2.md，逐项给「符合/不符/部分符合」+证据（文件:行号或日志行）：
+1. §4 物件表：12 件物件是否全部实现、位置/单一技/作用是否逐项对表；有无第 13 件物件或组合技、背包等越界实现。
+2. §5 解法链：正解 6 步、2 次命运更新、备选路径（大声公清场跳过第 5 步）、错误路径（潮鼓三下）在代码与冒烟日志中是否真实存在且顺序/前置正确，不是只在日志里打印 PASS 而无对应状态机逻辑——必须读 smoke.gd 与 main.gd 的实际断言和状态变量来判断。
+3. §6 规格：单场景 1280x720 灰盒、灵域/现实切换与时间停顿、一炷香计时与失败重试+亡者对话提示、对话底框、章末字幕原文「今晚的巡境，多走了一条路。」、鼓/铃/鞭炮三声音频文件是否存在且被代码引用。
+4. 冒烟真实性：亲自复跑冒烟命令（~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd），核对输出与 smoke_r1.log 声称的 252 项 0 失败是否一致；再亲自对 main.gd、smoke.gd 跑 --check-only 确认无 parse error。复跑结果原样记录（检查数、失败数、退出码）。
+5. 复核报告可信度：REVIEW_R1.md 声称原稿跳跃图为 10+2 两分量（伞/喇叭孤岛）——独立按设计稿 §4 连通段落复算，确认或推翻；其列出的其他漏洞（引线传火、移位后鞭炮可达、双物件终局顺序）是否属实；实现中的兼容补边（标旗—油纸伞等）是否与报告声称一致、是否改动了设计剧情设定。
+6. 截图真实性：检查 3 张 PNG 的尺寸/文件大小，判断是否为同一工程的真实画面（灵域有灵核点、现实无、章末有字幕），与 capture 日志声称是否矛盾。
+
+报告最后给总评：通过/有条件通过/不通过，并列出所有发现的问题按严重程度排序。只审不改：发现问题只记录，不许动手修。
+终端输出简短审计结论摘要即可。

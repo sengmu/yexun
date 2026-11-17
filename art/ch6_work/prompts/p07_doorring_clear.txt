@@ -1,0 +1,6 @@
+你是《夜巡》美术生产代理。用 image_gen 的编辑模式，以 -i 传入的第一张图（obj_doorring.png 门环锈态）为底图，只改门环状态、门板与构图分毫不动，生成门环「清声态」差分精灵。
+
+改动口径：铁环上的厚锈已剥落大半——环身露出深色干净的铁质、带一点克制的微光，铺首边缘同样清爽；门板下沿散落几片刚落下的锈屑；木门本身的剥落、水渍、锈淌痕位置全部保持原样不变。透明背景保持。
+严禁任何文字/水印；风格保持 SP 定版（手绘 2D、水彩薄厚涂、低饱和）。
+
+生成后把最终 PNG 保存到 /home/hatch/workspace/yexun/art/obj_doorring_clear.png。然后运行 python3 用 PIL 打印 size、mode、alpha 最小值与 alpha<10 像素占比。最后只输出一行：DONE obj_doorring_clear.png <尺寸> <alpha信息>。

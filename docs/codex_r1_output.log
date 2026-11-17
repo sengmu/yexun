@@ -1,0 +1,2990 @@
+[pool] acct2 额度已用完（重置时间未知），换下一个号…
+Reading prompt from stdin...
+OpenAI Codex v0.165.0
+--------
+workdir: /home/hatch
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a1e3b4-bff7-76b2-947b-cf2ba6f30f2c
+--------
+user
+你负责《夜巡》第一章切片：先复核设计稿、后实现 Godot 工程。规格原件是 ~/workspace/yexun/DESIGN_CH1_SLICE.md，必须完整读完，不得改动设计口径；发现逻辑漏洞只记录在复核报告里，不许自行改设定（实现时若漏洞影响可玩闭环，用最小兼容处理并在报告/交付说明里注明，不得改剧情设定本身）。
+
+任务分三步，全部做完再结束：
+
+【第一步：设计复核】写 ~/workspace/yexun/docs/REVIEW_R1.md
+逐项验证并给出明确结论（通过/有漏洞，漏洞逐条列，标严重程度）：
+1. 灵核跳跃图是否强连通：把设计稿 §4 的 12 件物件按其「移动连通」段落列出的边建图，逐节点检查可达性，特别注意：油纸伞—大声公这一对与主图之间是否有边、埕柱鞭炮串如何接入主图、纸扎马的接入。无边/孤岛必须如实指出。
+2. 正解链 §5 的 6 步因果是否闭合：每步的前置条件是否由前序步骤或初始状态满足、NPC 调度是否成立（阿弟捡签/扶轿、庙祝公扑火并挪鞭炮、小英视线、阿勇停手阻断锣震）、第 6 步鞭炮被挪到灯架底座后玩家灵核如何到达鞭炮、灯架横木「晃」+鞭炮「燃放」的触发顺序与条件。
+3. 备选路径是否成立：大声公清场跳过第 5 步后，如何放倒灯架（是否仍依赖鞭炮就位/烛台步骤）、到达大声公的路径是否通。
+4. 错误路径是否可达：潮鼓三下提前触发原命运、灯架横木乱晃加速倒塌等负反馈是否与正解时序冲突。
+报告里同时写清：实现时对每个漏洞采用的最小兼容处理（例如按物件空间近距补一条跳跃边），并标注「待主控裁定」，不得假装设计稿本来就写了。
+
+【第二步：Godot 实现】按设计稿 §6 在 ~/workspace/yexun/game/ 建 Godot 4.3 工程（本机 godot 二进制：~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64）。
+要求：
+- 单场景 2D 横版灰盒 1280x720：色块+物件名标签+青色灵核点，12 件物件全部按 §4 物件表实现（一物一技，技名与效果对表）。
+- 玩法闭环：标题→教学（香炉首附身）→灵域/现实切换（灵域时间停顿、显示灵核点；现实时间流动）→附身跳跃（按跳跃图，含复核中补的最小兼容边）→一物一技→对话底框（说话人名字+文本）→进入「一炷香前」计时（约4分钟剧情时间可用加速/可配置，烧完未改命=死亡事件）→失败自动回到香点燃处重试+亡者对话提示（指向关键物件）→正解链 6 步可通关（含 2 次命运更新标记）→备选链（大声公清场）也可通关→错误路径（潮鼓三下）触发失败→章末字幕「今晚的巡境，多走了一条路。」+第一章完。
+- 恐怖钩子至少以文本/事件呈现：神轿第二声铃、纸扎马头自己转回、花灯照出绳结割痕（章末）。
+- 音效：鼓、铃、鞭炮三声必须有，可本地合成 wav（python 生成即可）放进工程并接线。
+- 存档不做。美术不做精修，只灰盒。
+- 代码文件一律用 shell heredoc 落盘，每个 .gd 写完用 godot --headless --check-only --script 逐个自检，有 parse error 必须修到全绿。
+- 一条命令可跑：~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path ~/workspace/yexun/game 能启动（在交付说明里写清）。
+
+【第三步：无头冒烟+截图】
+- 写冒烟脚本：无头自动执行正解序列，验证状态机可达章末通关态，输出明确 PASS/FAIL 日志到 ~/workspace/yexun/docs/smoke_r1.log；另验证备选链可达通关、错误链可达失败态，能做则一并写入日志。
+- 用 Xvfb 或带渲染方式运行游戏，截 3 张图存 ~/workspace/yexun/docs/shots/：灵域、现实、章末各一张（文件名含 spirit/reality/ending）。截图必须是游戏实际画面，不是黑屏：截完自查文件大小与非纯色像素占比，黑屏就换方法重试（注意 /tmp 是小 tmpfs，先 df -h /tmp，必要时 export TMPDIR 到 ~/workspace/yexun/game/.tmp）。
+
+最后在终端输出一份简短交付说明：复核结论要点、实现文件清单、冒烟结果、截图路径、未完成项（如实写，不许把未验证说成完成）。
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+codex
+我会先完整读取设计原件并逐项复核，再按原口径实现、跑三条冒烟链并核验实际截图；补齐可玩闭环所需的兼容处理会单独标为“待主控裁定”。
+
+exec
+/bin/bash -lc 'cat /home/hatch/workspace/yexun/DESIGN_CH1_SLICE.md' in /home/hatch
+ succeeded in 39ms:
+# 《夜巡》第一章切片 · 纸面设计稿 v1（2026-11-16 主控定稿，待 Codex 复核）
+
+## 0. 切片目标
+
+用一章验证三件事：①「附身＋一物一技＋连锁改命」在潮汕夜巡场景里好不好玩；
+②谜题因果不看攻略可读；③玩家通关后想看第二章。约 20 分钟、单场景、12 件物件、1 次改命。
+
+## 1. 舞台与人物
+
+- **舞台**：架空潮汕村「溪尾村」老爷宫（供奉大老爷）宫内＋宫埕，一张横版图。
+正月十五夜，营老爷出发前一炷香。刚下过雨，埕地积水反光；埕东竖着竹木**灯架**，
+挂满花灯，是今晚巡境的头灯。
+- **主角（亡魂）**：阿澄，22 岁，英歌队二槌、今晚的轿夫。今晚早些时候在戏台竹棚上
+挂灯时坠落身亡——村里当意外。灵魂在老爷宫醒来，谁也看不见他；他只记得要「等夜巡」，
+不记得自己怎么死的（全卷主线钩子，本章不揭）。
+- **阿弟**：14 岁，主角的弟弟。哥哥出事后顶他的位，此刻在灯架下给神轿绑轿绳。
+- **庙祝公**：70 岁，守宫老人，掌握出发时辰与仪轨；说话只说半句（信息源＋谜语人）。
+- **小英**：19 岁，英歌队头槌（女头槌是本村今年的新鲜事），阿澄的搭档；少数「觉得今晚不对劲」的人。
+- **阿勇**：轿夫头，嗓门大，负责喊人调度（玩法上的人物调度器）。
+
+## 2. 死亡事件（改命对象）
+
+出发锣敲到第三下时，震动＋夜风使灯架松脱的绳结彻底崩开，**灯架倒向埕心，砸中仍在架下绑绳的阿弟**。
+事后玩家在灵域能看清：灯架主绳不是磨断的——**断口整齐，是被人割过一半**（本章 plot 钩子，不点破是谁）。
+
+## 3. 系统（幽灵诡计内核，潮汕化命名）
+
+- **灵域／现实切换**：灵域时间停顿，可附身物件以青色灵核点显示；现实时间流动，
+一炷香（约 4 分钟剧情时间）烧完即死亡事件发生，未改命则自动回到香点燃处重试（无 Game Over）。
+- **附身移动**：只能在灵核点之间跳，距离有上限；两条天然连接线——彩灯电线（埕上横拉）
+与香烟（宫内香火不断），是本章的「路」。
+- **一物一技**：每件物件只有一个动作（见物件表），不做组合技、不做背包。
+- **与亡者对话**：改命失败后可与阿弟的亡魂短暂对话，得到一条指向关键物件的提示
+（本章的内置提示系统，防卡死）。
+
+## 4. 十二件可附身物件（一物一技表）
+
+| # | 物件 | 位置 | 技（单一动作） | 在解法/剧情中的作用 |
+|---|------|------|--------------|--------------------|
+| 1 | 大香炉 | 宫内正殿前 | 火星上窜 | 教学件：第一件附身物；火星惊起梁上燕子（纯氛围） |
+| 2 | 签筒 | 供桌旁 | 摇→落一支签 | 引阿弟离架的第一环（见解法②） |
+| 3 | 供桌烛台 | 供桌 | 焰斜→燎金纸 | 引庙祝公扑火、离开宫门（解法④前置） |
+| 4 | 潮鼓 | 宫门内侧 | 响一声 | 惊动全埕；错误时机敲会提前震松灯架（负反馈教学） |
+| 5 | 神轿（大老爷） | 埕心 | 轻晃→轿铃响 | 喊阿弟来扶轿（解法③）；铃响时宫内传来**第二声铃**（恐怖钩子） |
+| 6 | 标旗 | 埕西旗座 | 旗面抖响 | 吸引小英望向埕西（调度她的视线，解法⑤见证人） |
+| 7 | 花灯（灯架顶灯） | 灯架顶 | 亮／旋转 | 经电线可达灯架；亮灯照出绳结断口（调查点） |
+| 8 | 灯架横木 | 灯架中段 | 吱呀晃动 | 危险件：晃它会加速倒塌，只用于终局「提前放倒」（解法⑥时机件） |
+| 9 | 鞭炮串 | 埕柱 | 燃放 | 终局震源之一（需先由烛台火燎到引线纸才可燃放，见解法⑤） |
+| 10 | 大声公（手提喇叭） | 戏台口 | 播庙祝公录音「收埕」 | 备选调度件：可把闲人赶离埕心（非正解、但有效清场） |
+| 11 | 纸扎马 | 宫门外 | 马头转向 | 纯剧情件：头总会自己转回朝向宫门的方向（恐怖氛围，不参与解法） |
+| 12 | 油纸伞 | 埕边竹椅 | 开伞 | 致敬件＋移动中继：开伞后可随风飘到戏台口（连通大声公） |
+
+移动连通（灵核跳跃图，须无死角）：香炉—签筒—烛台（宫内近距）；烛台—潮鼓（宫门）；
+潮鼓—神轿—标旗（埕面近距）；神轿—灯架横木—花灯（轿顶攀线）；埕柱鞭炮—彩灯电线—花灯；
+竹椅油纸伞—戏台口大声公（开伞飘移）；纸扎马在宫门外，与潮鼓近距。**全图强连通，Codex 复核须验证。**
+
+## 5. 正解链（一炷香前改命，6 步、2 次命运更新）
+
+1. **** 灵魂醒于香炉，附身香炉→签筒，听庙祝公与小英对话，得知阿弟顶位、灯架今晚「绳是新换的」。
+2. **签筒「摇」**→ 一支签落在埕边。阿弟好奇，离开灯架下两步去捡签——
+**命运更新①：阿弟不在正下方了，但捡完签他还会回去绑绳。**（签文特写：「逢冲则避」——给玩家的明示暗示）
+3. **神轿「晃」**→ 轿铃响。阿勇喊：「阿弟！轿杠沉，过来扶！」阿弟跑去扶轿，彻底离开灯架落点——
+**命运更新②：落点下没人了。** 同时铃响后，宫内深处传来慢半拍的**第二声铃**，只有小英皱眉（钩子埋点）。
+4. **烛台「焰斜」**→ 燎燃供桌边金纸。庙祝公冲来扑火，顺手把挂在埕柱的鞭炮串摘下挪远防走火——
+（鞭炮被挪到灯架底座旁的石礅上——这是玩家需要的「震源就位」，因果由 NPC 之手完成，玩家只点火种。）
+5. **标旗「抖响」**→ 小英望向埕西，恰好背对埕心（让她不直视倒塌瞬间，保住「没人看清」的后续口径），
+同时旗影扫过，阿勇扶轿的手停了一拍——出发锣**不会**在此刻敲下（阻断原死亡触发：锣震）。
+6. **灯架横木「晃」＋鞭炮「燃放」**（鞭炮已被挪到架脚）→ 炸响震落本就割伤的主绳，**灯架提前倒向空埕**，
+砸碎一地花灯，无人受伤。全埕惊散，夜巡推迟。阿弟望着倒架发愣：「若我还在下头……」
+**改命完成。** 章末：玩家附回花灯残骸，灯光照出绳结断口——整齐的割痕。远处，第二声轿铃又响了一次。
+黑屏，字幕：**「今晚的巡境，多走了一条路。」** 第一章完。
+
+备选有效路径（须实现，不算错解）：先用大声公清场再放倒灯架（跳过第 5 步）；
+错误路径示例：直接敲潮鼓三下＝提前触发原命运（灯架当场倒、阿弟未离开则改命失败，进亡者对话提示）。
+
+## 6. 切片实现规格（给 Codex）
+
+- Godot 4.3，单场景 2D 横版，1280×720 基准；灰盒先行：色块＋物件名标签＋灵核点，
+逻辑全通后再换皮（换皮素材另行派单，本单不做美术精修）。
+- 必须可玩闭环：标题→教学→自由探索→进「一炷香前」→正解/备选解通关→章末字幕；
+失败→亡者对话提示→重试。
+- 对话以漫画分镜式对话框呈现（底部框＋说话人名字即可，分镜格为全量规格、切片不做）。
+- 存档不做；音效用本地合成/占位（鼓、铃、鞭炮三声必须有，可用合成音）。
+- 交付：工程目录 ~/workspace/yexun/game/，一条命令可跑（godot --path），
+附无头冒烟脚本验证主流程状态机可达通关态，＋运行截图 3 张（灵域/现实/章末）。
+
+## 7. 验收门（主控亲验＋用户真人试玩）
+
+- 主控亲验：亲自跑通正解链与一条备选链；跳跃图强连通；失败重试闭环成立；截图核对。
+- 用户试玩三问：不看攻略能解否／想玩第二章否／¥38–52 愿意买否。
+- 任一不过：停下回报，不自动扩第二章。
+
+exec
+/bin/bash -lc 'rg --files /home/hatch/workspace/yexun -g AGENTS.md; df -h /tmp; command -v Xvfb; command -v import' in /home/hatch
+ exited 1 in 56ms:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           512M   84K  512M   1% /tmp
+/usr/bin/Xvfb
+
+exec
+/bin/bash -lc 'mkdir -p /home/hatch/workspace/yexun/docs/shots /home/hatch/workspace/yexun/game/.tmp; ls -la /home/hatch/workspace/yexun; command -v python3; command -v xwd' in /home/hatch
+ exited 1 in 217ms:
+total 8
+drwxrws--- 1 root nogroup    68 Nov 16 09:34 .
+drwxrws--- 1 root nogroup 10110 Nov 16 09:29 ..
+-rw-rw---- 1 root nogroup  7943 Nov 16 09:30 DESIGN_CH1_SLICE.md
+drwxrws--- 1 root nogroup    52 Nov 16 09:34 concept
+drwxrws--- 1 root nogroup    56 Nov 16 09:33 docs
+drwxrws--- 1 root nogroup    18 Nov 16 09:34 game
+/usr/bin/python3
+
+exec
+/bin/bash -lc "cat > /home/hatch/workspace/yexun/docs/REVIEW_R1.md <<'EOF'
+# 《夜巡》第一章切片 R1 设计复核
+
+依据：完整阅读 "'`DESIGN_CH1_SLICE.md` §0–§7。原件不修改。以下兼容处理均是实现补充，**待主控裁定**，不能视为原稿已有规定。
+
+## 1. 灵核图：有漏洞（高）
+
+按破折号解释为双向可跳边（若是单向，原稿未给方向，无法声称强连通）。彩灯电线是路，不是第13件可附身物件；将「鞭炮—电线—花灯」折叠为鞭炮—花灯。
+
+原稿邻接表：
+
+| 节点 | 原稿直接邻居 | 从该点可达 |
+|---|---|---|
+| 大香炉 | 签筒 | 主图10件 |
+| 签筒 | 大香炉、烛台 | 主图10件 |
+| 烛台 | 签筒、潮鼓 | 主图10件 |
+| 潮鼓 | 烛台、神轿、纸扎马 | 主图10件 |
+| 神轿 | 潮鼓、标旗、横木 | 主图10件 |
+| 标旗 | 神轿 | 主图10件 |
+| 横木 | 神轿、花灯 | 主图10件 |
+| 花灯 | 横木、鞭炮（经电线） | 主图10件 |
+| 鞭炮 | 花灯（经电线） | 主图10件 |
+| 纸扎马 | 潮鼓 | 主图10件 |
+| 油纸伞 | 大声公（开伞后） | 仅伞、喇叭2件 |
+| 大声公 | 油纸伞（对双向边的宽松解释） | 仅伞、喇叭2件 |
+
+逐点可达结果为10+2两个分量，不强连通。纸扎马有明确接入；埕柱鞭炮通过电线接入，无孤岛；油纸伞—大声公整对与主图无边。且开伞是有条件的移动，原稿未交代返回竹椅/逆向跳的条件（中）。
+
+最小兼容：补「标旗—油纸伞」近距双向边；伞未开前不能跳喇叭，开伞后允许伞—喇叭双向往返，保留伞在图中的逻辑连接。不添加第13个物件。补完并开伞后12点互达；未开伞时可从主图到伞并开伞，故没有不可恢复死角。**待主控裁定**。
+
+## 2. 六步因果：有漏洞
+
+| 步 | 结论与严重程度 | 最小兼容处理（均待主控裁定） |
+|---|---|---|
+| 1 | 通过。香炉初始附身、近距到签筒、对话均有依据。未规定自由探索何时回到一炷香前（中） | 香炉教学后允许自由探索，单独按键进入一炷香前，重置谜题状态和计时，保留已读教学信息 |
+| 2 | 有漏洞（中）。阿弟暂离但未给捡签持续时间；灵域停时与现实返回可能使第3步失效 | 现实计时的短暂捡签窗口，灵域暂停该窗口；返回后允许重摇重新召回，命运更新①只记首次 |
+| 3 | 有漏洞（中）。阿弟与阿勇的调度文本成立，但未写阿弟是否必须还在捡签、扶轿持续多久 | 必须在捡签窗口晃轿；扶轿状态持续至结局。若错过可回签筒再摇；只在满足前置时记更新②。第二声铃以文本与延迟铃声呈现 |
+| 4 | 有漏洞（高）。烛台在供桌，鞭炮在埕柱；表中明确要求烛台烧到引线纸，正文仅写燎金纸，未写传火路径。庙祝公扑火后「挪远」到灯架底座的安全动机也欠解释（中） | 烛台动作同一事件明确记载金纸火燎到引线纸，随后庙祝公扑灭明火并移鞭炮至石礅；引线取得可燃条件。不改变其既定目的地，不另加剧情解释 |
+| 5 | 有漏洞（中）。小英背对与阿勇停一拍都短暂，玩家仍须横跨多个灵核操作终局；无窗口长度。阿勇扶轿却又控制出发锣的具体调度省略 | 旗触发后将背对/停锣保持到本轮终局；视作灵域跨点停时后的可操作窗口。用既定对白表达停手，不新增敲锣NPC |
+| 6 | 有漏洞（高）。鞭炮移动后原电线连边未说明还在；玩家可能到不了架脚。横木和鞭炮不能同时附身，「＋」未给顺序、时限、阈值 | 移动后保留花灯—鞭炮通路，并补横木—架脚鞭炮近距双向边；先晃横木形成持续的松动准备，再去燃放。必须阿弟扶轿、鞭炮移位且引线可燃、旗帜窗口或喇叭清场，才安全提前放倒；不要求同时按两个技能 |
+
+原稿没有给横木乱晃几次、鼓三下与锣三下各自计数如何互动。兼容中分别计数，不让正常终局的一次晃立即致死；重复危险晃动触发原死亡事件（详见第4项）。
+
+## 3. 备选：有漏洞（高）
+
+原稿明确只跳过第5步；大声公清场不能自动完成引线可燃、鞭炮移至底座、横木松动。到大声公的图路不通（第1项）。「闲人」是否包含阿弟与扶轿人员也未定义（中）。
+
+最小兼容：保留第2、3、4步及第6步；喇叭只替换第5步的安全调度窗口（清埕、停发锣），不替代阿弟离架与震源就位。路线为标旗→伞（开）→大声公，返程逆行。角色清场的细节不扩写设定，仅以安全窗口记账。正解仍保留小英背对的口径；备选用清场撤离保证她不在倒塌现场。**待主控裁定**。
+
+## 4. 错误与计时：有漏洞（中）
+
+- 潮鼓从初始主图即可到达，三次动作可达提前原死亡。若阿弟已扶轿，原文「阿弟未离开则失败」意味着不应仍写阿弟被砸死。兼容：鼓三下触发倒塌；未离架为死亡失败，已离架但未完整改命为未达安全闭环的回溯失败，不新增阿弟死亡描述。两种失败对白区分。**待主控裁定**。
+- 横木在主图可达；第一次晃用于终局准备，第二次盲晃触发失控倒塌，以实现加速负反馈。一次正常晃不扣掉必需的安全操作机会。阈值为实现补充，**待主控裁定**。
+- 一炷香默认240剧情秒，可配置加速；仅现实流逝，灵域暂停。超时未改命进入既定死亡/回溯逻辑；阿弟已避开时不虚构死亡。失败保留短暂亡者提示展示，随后自动重置至香点燃处；仅死亡分支由阿弟亡魂发言，安全未闭环分支由阿澄自语提示。**待主控裁定**。
+- 花灯调查、纸马回头、第二铃不消耗必需步骤，不阻塞正解。章末花灯残骸照割痕，维持原剧情，不揭凶手。
+
+## 复核总判定
+
+**有漏洞，不能宣称原稿强连通或六步已无歧义。** 高风险集中在伞/喇叭孤岛、引线传火、移位后鞭炮可达与双物件终局顺序。采用上述显式兼容后可形成可玩闭环；这是工程验证的前提，仍待主控裁定设计补充。未改写原设计稿，也不扩大第二章。真人盲玩可读性、第二章意愿和定价接受度无法用自动冒烟代替。
+EOF' in /home/hatch
+ succeeded in 118ms:
+codex
+复核已确认：原稿跳跃图有“主图10件＋伞/喇叭2件”两个分量；引线传火、鞭炮移位后的通路、横木与鞭炮的触发顺序也缺条件。报告已逐条记录严重程度和最小兼容处理。实现与冒烟脚本正在分别推进，备选链保留阿弟离架和震源就位，只替代第5步。
+
+exec
+/bin/bash -lc 'ls -l /home/hatch/workspace/yexun/game; cat /home/hatch/workspace/yexun/game/smoke.gd' in /home/hatch
+ succeeded in 31ms:
+total 4
+drwxrws--- 1 root nogroup    0 Nov 16 09:34 audio
+-rw-rw---- 1 root nogroup 3100 Nov 16 09:35 smoke.gd
+extends SceneTree
+
+var game
+var errors := 0
+var checks := 0
+const LINKS = {
+ "incense": ["sticks"], "sticks": ["incense", "candle"],
+ "candle": ["sticks", "drum"], "drum": ["candle", "palanquin", "horse"],
+ "palanquin": ["drum", "flag", "beam"], "flag": ["palanquin", "umbrella"],
+ "beam": ["palanquin", "lantern", "crackers"], "lantern": ["beam", "crackers"],
+ "crackers": ["lantern", "beam"], "horse": ["drum"],
+ "umbrella": ["flag", "loudspeaker"], "loudspeaker": ["umbrella"]
+}
+
+func _initialize() -> void:
+ call_deferred("run")
+
+func check(ok: bool, label: String) -> void:
+ checks += 1
+ if ok:
+  print("PASS ", label)
+ else:
+  errors += 1
+  print("FAIL ", label)
+
+func path_to(target: String) -> Array:
+ var queue: Array = [[str(game.current)]]
+ var seen: Dictionary = {}
+ while not queue.is_empty():
+  var path: Array = queue.pop_front()
+  var node: String = path.back()
+  if node == target:
+   return path
+  if seen.has(node):
+   continue
+  seen[node] = true
+  for other in LINKS[node]:
+   var next: Array = path.duplicate()
+   next.append(other)
+   queue.append(next)
+ return []
+
+func move(target: String) -> void:
+ game.set_spirit(true)
+ var path: Array = path_to(target)
+ check(not path.is_empty(), "BFS route to " + target)
+ for index in range(1, path.size()):
+  if str(game.current) == "umbrella" and str(path[index]) == "loudspeaker":
+   game.set_spirit(false)
+   game.act()
+   game.set_spirit(true)
+  var ok = game.jump_to(str(path[index]))
+  check(bool(ok), "legal jump " + str(path[index - 1]) + " -> " + str(path[index]))
+
+func use(target: String) -> void:
+ move(target)
+ game.set_spirit(false)
+ game.act()
+ game.set_spirit(true)
+
+func fresh() -> void:
+ if is_instance_valid(game):
+  game.free()
+ game = load("res://main.gd").new()
+ root.add_child(game)
+ game.start_game()
+ game.set_spirit(false)
+ game.act()
+ game.start_incense()
+ game.set_spirit(true)
+ check(str(game.phase) == "playing", "title -> incense tutorial -> timed chapter")
+
+func solve(alternative: bool) -> void:
+ fresh()
+ use("sticks")
+ use("palanquin")
+ use("candle")
+ if alternative:
+  use("loudspeaker")
+ else:
+  use("flag")
+ use("beam")
+ use("crackers")
+ check(str(game.phase) == "ending", "alternative ending" if alternative else "six-step canonical ending")
+
+func run() -> void:
+ print("YEXUN R1 state-machine smoke: actual game API + legal graph jumps")
+ solve(false)
+ solve(true)
+ fresh()
+ use("drum")
+ use("drum")
+ check(str(game.phase) == "playing", "two drum strikes do not fail immediately")
+ use("drum")
+ check(str(game.phase) == "failure", "third drum strike reaches failure")
+ game.retry()
+ check(str(game.phase) == "playing", "failure retries at incense ignition")
+ fresh()
+ var before: String = str(game.phase)
+ game.set_spirit(true)
+ game.advance_time(1000.0)
+ check(str(game.phase) == before, "spirit realm pauses incense timer")
+ game.set_spirit(false)
+ game.advance_time(1000.0)
+ check(str(game.phase) == "failure", "reality incense timeout reaches death event")
+ print("SMOKE RESULT: ", "PASS" if errors == 0 else "FAIL", " checks=", checks, " failures=", errors)
+ quit(0 if errors == 0 else 1)
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from pathlib import Path
+edges=[('香炉','签筒'),('签筒','烛台'),('烛台','潮鼓'),('潮鼓','神轿'),('神轿','标旗'),('神轿','横木'),('横木','花灯'),('花灯','鞭炮'),('油纸伞','大声公'),('纸扎马','潮鼓')]
+nodes=list(dict.fromkeys(x for e in edges for x in e))
+def reach(start, es):
+ seen={start}; work=[start]
+ while work:
+  u=work.pop()
+  for a,b in es:
+   if a==u and b not in seen: seen.add(b);work.append(b)
+   if b==u and a not in seen: seen.add(a);work.append(a)
+ return seen
+out=['原稿无向/双向边逐点可达（电线折叠为通路）']
+for n in nodes: out.append(f'{n}: {len(reach(n,edges))}/12')
+fixed=edges+[('标旗','油纸伞')]
+out.append('兼容补边标旗—油纸伞后（伞已开）: '+str(all(len(reach(n,fixed))==12 for n in nodes)))
+Path('/home/hatch/workspace/yexun/docs/graph_r1.log').write_text('\\n'.join(out)+'\\n')
+print('\\n'.join(out))
+PY" in /home/hatch
+ succeeded in 167ms:
+原稿无向/双向边逐点可达（电线折叠为通路）
+香炉: 10/12
+签筒: 10/12
+烛台: 10/12
+潮鼓: 10/12
+神轿: 10/12
+标旗: 10/12
+横木: 10/12
+花灯: 10/12
+鞭炮: 10/12
+油纸伞: 2/12
+大声公: 2/12
+纸扎马: 10/12
+兼容补边标旗—油纸伞后（伞已开）: True
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from PIL import Image
+print('Pillow image validation available')
+PY
+ls -l /home/hatch/workspace/yexun/game" in /home/hatch
+ succeeded in 285ms:
+Pillow image validation available
+total 4
+drwxrws--- 1 root nogroup    0 Nov 16 09:34 audio
+-rw-rw---- 1 root nogroup 3100 Nov 16 09:35 smoke.gd
+
+exec
+/bin/bash -lc 'ls -l /home/hatch/workspace/yexun/game; ls /usr/share/fonts/truetype/* /usr/share/fonts/opentype/*' in /home/hatch
+ succeeded in 131ms:
+total 4
+drwxrws--- 1 root nogroup    0 Nov 16 09:34 audio
+-rw-rw---- 1 root nogroup 3100 Nov 16 09:35 smoke.gd
+/usr/share/fonts/opentype/noto:
+NotoSansCJK-Bold.ttc
+NotoSansCJK-Regular.ttc
+NotoSerifCJK-Bold.ttc
+NotoSerifCJK-Regular.ttc
+
+/usr/share/fonts/truetype/dejavu:
+DejaVuSans-Bold.ttf
+DejaVuSans.ttf
+DejaVuSansMono-Bold.ttf
+DejaVuSansMono-BoldOblique.ttf
+DejaVuSansMono-Oblique.ttf
+DejaVuSansMono.ttf
+DejaVuSerif-Bold.ttf
+DejaVuSerif.ttf
+
+/usr/share/fonts/truetype/liberation:
+LiberationMono-Bold.ttf
+LiberationMono-BoldItalic.ttf
+LiberationMono-Italic.ttf
+LiberationMono-Regular.ttf
+LiberationSans-Bold.ttf
+LiberationSans-BoldItalic.ttf
+LiberationSans-Italic.ttf
+LiberationSans-Regular.ttf
+LiberationSerif-Bold.ttf
+LiberationSerif-BoldItalic.ttf
+LiberationSerif-Italic.ttf
+LiberationSerif-Regular.ttf
+
+/usr/share/fonts/truetype/libreoffice:
+opens___.ttf
+
+/usr/share/fonts/truetype/lyx:
+cmex10.ttf
+cmmi10.ttf
+cmr10.ttf
+cmsy10.ttf
+dsrom10.ttf
+esint10.ttf
+eufm10.ttf
+msam10.ttf
+msbm10.ttf
+rsfs10.ttf
+stmary10.ttf
+wasy10.ttf
+
+/usr/share/fonts/truetype/noto:
+NotoColorEmoji.ttf
+NotoKufiArabic-Black.ttf
+NotoKufiArabic-Bold.ttf
+NotoKufiArabic-ExtraBold.ttf
+NotoKufiArabic-ExtraLight.ttf
+NotoKufiArabic-Light.ttf
+NotoKufiArabic-Medium.ttf
+NotoKufiArabic-Regular.ttf
+NotoKufiArabic-SemiBold.ttf
+NotoKufiArabic-Thin.ttf
+NotoLoopedLao-Black.ttf
+NotoLoopedLao-Bold.ttf
+NotoLoopedLao-Condensed.ttf
+NotoLoopedLao-CondensedBlack.ttf
+NotoLoopedLao-CondensedBold.ttf
+NotoLoopedLao-CondensedExtraBold.ttf
+NotoLoopedLao-CondensedExtraLight.ttf
+NotoLoopedLao-CondensedLight.ttf
+NotoLoopedLao-CondensedMedium.ttf
+NotoLoopedLao-CondensedSemiBold.ttf
+NotoLoopedLao-CondensedThin.ttf
+NotoLoopedLao-ExtraBold.ttf
+NotoLoopedLao-ExtraCondensed.ttf
+NotoLoopedLao-ExtraCondensedBlack.ttf
+NotoLoopedLao-ExtraCondensedBold.ttf
+NotoLoopedLao-ExtraCondensedExtraBold.ttf
+NotoLoopedLao-ExtraCondensedExtraLight.ttf
+NotoLoopedLao-ExtraCondensedLight.ttf
+NotoLoopedLao-ExtraCondensedMedium.ttf
+NotoLoopedLao-ExtraCondensedSemiBold.ttf
+NotoLoopedLao-ExtraCondensedThin.ttf
+NotoLoopedLao-ExtraLight.ttf
+NotoLoopedLao-Light.ttf
+NotoLoopedLao-Medium.ttf
+NotoLoopedLao-Regular.ttf
+NotoLoopedLao-SemiBold.ttf
+NotoLoopedLao-SemiCondensed.ttf
+NotoLoopedLao-SemiCondensedBlack.ttf
+NotoLoopedLao-SemiCondensedBold.ttf
+NotoLoopedLao-SemiCondensedExtraBold.ttf
+NotoLoopedLao-SemiCondensedExtraLight.ttf
+NotoLoopedLao-SemiCondensedLight.ttf
+NotoLoopedLao-SemiCondensedMedium.ttf
+NotoLoopedLao-SemiCondensedSemiBold.ttf
+NotoLoopedLao-SemiCondensedThin.ttf
+NotoLoopedLao-Thin.ttf
+NotoLoopedThai-Black.ttf
+NotoLoopedThai-Bold.ttf
+NotoLoopedThai-Condensed.ttf
+NotoLoopedThai-CondensedBlack.ttf
+NotoLoopedThai-CondensedBold.ttf
+NotoLoopedThai-CondensedExtraBold.ttf
+NotoLoopedThai-CondensedExtraLight.ttf
+NotoLoopedThai-CondensedLight.ttf
+NotoLoopedThai-CondensedMedium.ttf
+NotoLoopedThai-CondensedSemiBold.ttf
+NotoLoopedThai-CondensedThin.ttf
+NotoLoopedThai-ExtraCondensed.ttf
+NotoLoopedThai-ExtraCondensedBlack.ttf
+NotoLoopedThai-ExtraCondensedBold.ttf
+NotoLoopedThai-ExtraCondensedExtraBold.ttf
+NotoLoopedThai-ExtraCondensedExtraLight.ttf
+NotoLoopedThai-ExtraCondensedLight.ttf
+NotoLoopedThai-ExtraCondensedMedium.ttf
+NotoLoopedThai-ExtraCondensedSemiBold.ttf
+NotoLoopedThai-ExtraCondensedThin.ttf
+NotoLoopedThai-ExtraLight.ttf
+NotoLoopedThai-Extrabold.ttf
+NotoLoopedThai-Light.ttf
+NotoLoopedThai-Medium.ttf
+NotoLoopedThai-Regular.ttf
+NotoLoopedThai-SemiBold.ttf
+NotoLoopedThai-SemiCondensed.ttf
+NotoLoopedThai-SemiCondensedBlack.ttf
+NotoLoopedThai-SemiCondensedBold.ttf
+NotoLoopedThai-SemiCondensedExtraBold.ttf
+NotoLoopedThai-SemiCondensedExtraLight.ttf
+NotoLoopedThai-SemiCondensedLight.ttf
+NotoLoopedThai-SemiCondensedMedium.ttf
+NotoLoopedThai-SemiCondensedSemiBold.ttf
+NotoLoopedThai-SemiCondensedThin.ttf
+NotoLoopedThai-Thin.ttf
+NotoMono-Regular.ttf
+NotoMusic-Regular.ttf
+NotoNaskhArabic-Bold.ttf
+NotoNaskhArabic-Medium.ttf
+NotoNaskhArabic-Regular.ttf
+NotoNaskhArabic-SemiBold.ttf
+NotoNastaliqUrdu-Bold.ttf
+NotoNastaliqUrdu-Regular.ttf
+NotoRashiHebrew-Black.ttf
+NotoRashiHebrew-Bold.ttf
+NotoRashiHebrew-ExtraBold.ttf
+NotoRashiHebrew-ExtraLight.ttf
+NotoRashiHebrew-Light.ttf
+NotoRashiHebrew-Medium.ttf
+NotoRashiHebrew-Regular.ttf
+NotoRashiHebrew-SemiBold.ttf
+NotoRashiHebrew-Thin.ttf
+NotoSans-Black.ttf
+NotoSans-BlackItalic.ttf
+NotoSans-Bold.ttf
+NotoSans-BoldItalic.ttf
+NotoSans-Condensed.ttf
+NotoSans-CondensedBlack.ttf
+NotoSans-CondensedBlackItalic.ttf
+NotoSans-CondensedBold.ttf
+NotoSans-CondensedBoldItalic.ttf
+NotoSans-CondensedExtraBold.ttf
+NotoSans-CondensedExtraBoldItalic.ttf
+NotoSans-CondensedExtraLight.ttf
+NotoSans-CondensedExtraLightItalic.ttf
+NotoSans-CondensedItalic.ttf
+NotoSans-CondensedLight.ttf
+NotoSans-CondensedLightItalic.ttf
+NotoSans-CondensedMedium.ttf
+NotoSans-CondensedMediumItalic.ttf
+NotoSans-CondensedSemiBold.ttf
+NotoSans-CondensedSemiBoldItalic.ttf
+NotoSans-CondensedThin.ttf
+NotoSans-CondensedThinItalic.ttf
+NotoSans-ExtraBold.ttf
+NotoSans-ExtraBoldItalic.ttf
+NotoSans-ExtraCondensed.ttf
+NotoSans-ExtraCondensedBlack.ttf
+NotoSans-ExtraCondensedBlackItalic.ttf
+NotoSans-ExtraCondensedBold.ttf
+NotoSans-ExtraCondensedBoldItalic.ttf
+NotoSans-ExtraCondensedExtraBold.ttf
+NotoSans-ExtraCondensedExtraBoldItalic.ttf
+NotoSans-ExtraCondensedExtraLight.ttf
+NotoSans-ExtraCondensedExtraLightItalic.ttf
+NotoSans-ExtraCondensedItalic.ttf
+NotoSans-ExtraCondensedLight.ttf
+NotoSans-ExtraCondensedLightItalic.ttf
+NotoSans-ExtraCondensedMedium.ttf
+NotoSans-ExtraCondensedMediumItalic.ttf
+NotoSans-ExtraCondensedSemiBold.ttf
+NotoSans-ExtraCondensedSemiBoldItalic.ttf
+NotoSans-ExtraCondensedThin.ttf
+NotoSans-ExtraCondensedThinItalic.ttf
+NotoSans-ExtraLight.ttf
+NotoSans-ExtraLightItalic.ttf
+NotoSans-Italic.ttf
+NotoSans-Light.ttf
+NotoSans-LightItalic.ttf
+NotoSans-Medium.ttf
+NotoSans-MediumItalic.ttf
+NotoSans-Regular.ttf
+NotoSans-SemiBold.ttf
+NotoSans-SemiBoldItalic.ttf
+NotoSans-SemiCondensed.ttf
+NotoSans-SemiCondensedBlack.ttf
+NotoSans-SemiCondensedBlackItalic.ttf
+NotoSans-SemiCondensedBold.ttf
+NotoSans-SemiCondensedBoldItalic.ttf
+NotoSans-SemiCondensedExtraBold.ttf
+NotoSans-SemiCondensedExtraBoldItalic.ttf
+NotoSans-SemiCondensedExtraLight.ttf
+NotoSans-SemiCondensedExtraLightItalic.ttf
+NotoSans-SemiCondensedItalic.ttf
+NotoSans-SemiCondensedLight.ttf
+NotoSans-SemiCondensedLightItalic.ttf
+NotoSans-SemiCondensedMedium.ttf
+NotoSans-SemiCondensedMediumItalic.ttf
+NotoSans-SemiCondensedSemiBold.ttf
+NotoSans-SemiCondensedSemiBoldItalic.ttf
+NotoSans-SemiCondensedThin.ttf
+NotoSans-SemiCondensedThinItalic.ttf
+NotoSans-Thin.ttf
+NotoSans-ThinItalic.ttf
+NotoSansAdlam-Bold.ttf
+NotoSansAdlam-Regular.ttf
+NotoSansAdlamUnjoined-Bold.ttf
+NotoSansAdlamUnjoined-Regular.ttf
+NotoSansAnatolianHieroglyphs-Regular.ttf
+NotoSansArabic-Black.ttf
+NotoSansArabic-Bold.ttf
+NotoSansArabic-Condensed.ttf
+NotoSansArabic-CondensedBlack.ttf
+NotoSansArabic-CondensedBold.ttf
+NotoSansArabic-CondensedExtraBold.ttf
+NotoSansArabic-CondensedExtraLight.ttf
+NotoSansArabic-CondensedLight.ttf
+NotoSansArabic-CondensedMedium.ttf
+NotoSansArabic-CondensedSemiBold.ttf
+NotoSansArabic-CondensedThin.ttf
+NotoSansArabic-ExtraBold.ttf
+NotoSansArabic-ExtraCondensed.ttf
+NotoSansArabic-ExtraCondensedBlack.ttf
+NotoSansArabic-ExtraCondensedBold.ttf
+NotoSansArabic-ExtraCondensedExtraBold.ttf
+NotoSansArabic-ExtraCondensedExtraLight.ttf
+NotoSansArabic-ExtraCondensedLight.ttf
+NotoSansArabic-ExtraCondensedMedium.ttf
+NotoSansArabic-ExtraCondensedSemiBold.ttf
+NotoSansArabic-ExtraCondensedThin.ttf
+NotoSansArabic-ExtraLight.ttf
+NotoSansArabic-Light.ttf
+NotoSansArabic-Medium.ttf
+NotoSansArabic-Regular.ttf
+NotoSansArabic-SemiBold.ttf
+NotoSansArabic-SemiCondensed.ttf
+NotoSansArabic-SemiCondensedBlack.ttf
+NotoSansArabic-SemiCondensedBold.ttf
+NotoSansArabic-SemiCondensedExtraBold.ttf
+NotoSansArabic-SemiCondensedExtraLight.ttf
+NotoSansArabic-SemiCondensedLight.ttf
+NotoSansArabic-SemiCondensedMedium.ttf
+NotoSansArabic-SemiCondensedSemiBold.ttf
+NotoSansArabic-SemiCondensedThin.ttf
+NotoSansArabic-Thin.ttf
+NotoSansArmenian-Black.ttf
+NotoSansArmenian-Bold.ttf
+NotoSansArmenian-Condensed.ttf
+NotoSansArmenian-CondensedBlack.ttf
+NotoSansArmenian-CondensedBold.ttf
+NotoSansArmenian-CondensedExtraBold.ttf
+NotoSansArmenian-CondensedExtraLight.ttf
+NotoSansArmenian-CondensedLight.ttf
+NotoSansArmenian-CondensedMedium.ttf
+NotoSansArmenian-CondensedSemiBold.ttf
+NotoSansArmenian-CondensedThin.ttf
+NotoSansArmenian-ExtraBold.ttf
+NotoSansArmenian-ExtraCondensed.ttf
+NotoSansArmenian-ExtraCondensedBlack.ttf
+NotoSansArmenian-ExtraCondensedBold.ttf
+NotoSansArmenian-ExtraCondensedExtraBold.ttf
+NotoSansArmenian-ExtraCondensedExtraLight.ttf
+NotoSansArmenian-ExtraCondensedLight.ttf
+NotoSansArmenian-ExtraCondensedMedium.ttf
+NotoSansArmenian-ExtraCondensedSemiBold.ttf
+NotoSansArmenian-ExtraCondensedThin.ttf
+NotoSansArmenian-ExtraLight.ttf
+NotoSansArmenian-Light.ttf
+NotoSansArmenian-Medium.ttf
+NotoSansArmenian-Regular.ttf
+NotoSansArmenian-SemiBold.ttf
+NotoSansArmenian-SemiCondensed.ttf
+NotoSansArmenian-SemiCondensedBlack.ttf
+NotoSansArmenian-SemiCondensedBold.ttf
+NotoSansArmenian-SemiCondensedExtraBold.ttf
+NotoSansArmenian-SemiCondensedExtraLight.ttf
+NotoSansArmenian-SemiCondensedLight.ttf
+NotoSansArmenian-SemiCondensedMedium.ttf
+NotoSansArmenian-SemiCondensedSemiBold.ttf
+NotoSansArmenian-SemiCondensedThin.ttf
+NotoSansArmenian-Thin.ttf
+NotoSansAvestan-Regular.ttf
+NotoSansBalinese-Bold.ttf
+NotoSansBalinese-Medium.ttf
+NotoSansBalinese-Regular.ttf
+NotoSansBalinese-SemiBold.ttf
+NotoSansBamum-Bold.ttf
+NotoSansBamum-Medium.ttf
+NotoSansBamum-Regular.ttf
+NotoSansBamum-SemiBold.ttf
+NotoSansBassaVah-Regular.ttf
+NotoSansBatak-Regular.ttf
+NotoSansBengali-Black.ttf
+NotoSansBengali-Bold.ttf
+NotoSansBengali-Condensed.ttf
+NotoSansBengali-ExtraBold.ttf
+NotoSansBengali-ExtraCondensed.ttf
+NotoSansBengali-ExtraLight.ttf
+NotoSansBengali-Light.ttf
+NotoSansBengali-Medium.ttf
+NotoSansBengali-Regular.ttf
+NotoSansBengali-SemiBold.ttf
+NotoSansBengali-SemiCondensed.ttf
+NotoSansBengali-Thin.ttf
+NotoSansBhaiksuki-Regular.ttf
+NotoSansBrahmi-Regular.ttf
+NotoSansBuginese-Regular.ttf
+NotoSansBuhid-Regular.ttf
+NotoSansCanadianAboriginal-Black.ttf
+NotoSansCanadianAboriginal-Bold.ttf
+NotoSansCanadianAboriginal-ExtraBold.ttf
+NotoSansCanadianAboriginal-ExtraLight.ttf
+NotoSansCanadianAboriginal-Light.ttf
+NotoSansCanadianAboriginal-Medium.ttf
+NotoSansCanadianAboriginal-Regular.ttf
+NotoSansCanadianAboriginal-SemiBold.ttf
+NotoSansCanadianAboriginal-Thin.ttf
+NotoSansCarian-Regular.ttf
+NotoSansCaucasianAlbanian-Regular.ttf
+NotoSansChakma-Regular.ttf
+NotoSansCham-Black.ttf
+NotoSansCham-Bold.ttf
+NotoSansCham-ExtraBold.ttf
+NotoSansCham-ExtraLight.ttf
+NotoSansCham-Light.ttf
+NotoSansCham-Medium.ttf
+NotoSansCham-Regular.ttf
+NotoSansCham-SemiBold.ttf
+NotoSansCham-Thin.ttf
+NotoSansCherokee-Black.ttf
+NotoSansCherokee-Bold.ttf
+NotoSansCherokee-ExtraBold.ttf
+NotoSansCherokee-ExtraLight.ttf
+NotoSansCherokee-Light.ttf
+NotoSansCherokee-Medium.ttf
+NotoSansCherokee-Regular.ttf
+NotoSansCherokee-SemiBold.ttf
+NotoSansCherokee-Thin.ttf
+NotoSansCoptic-Regular.ttf
+NotoSansCuneiform-Regular.ttf
+NotoSansCypriot-Regular.ttf
+NotoSansDeseret-Regular.ttf
+NotoSansDevanagari-Black.ttf
+NotoSansDevanagari-Bold.ttf
+NotoSansDevanagari-Condensed.ttf
+NotoSansDevanagari-CondensedBlack.ttf
+NotoSansDevanagari-CondensedBold.ttf
+NotoSansDevanagari-CondensedExtraBold.ttf
+NotoSansDevanagari-CondensedExtraLight.ttf
+NotoSansDevanagari-CondensedLight.ttf
+NotoSansDevanagari-CondensedMedium.ttf
+NotoSansDevanagari-CondensedSemiBold.ttf
+NotoSansDevanagari-CondensedThin.ttf
+NotoSansDevanagari-ExtraBold.ttf
+NotoSansDevanagari-ExtraCondensed.ttf
+NotoSansDevanagari-ExtraCondensedBlack.ttf
+NotoSansDevanagari-ExtraCondensedBold.ttf
+NotoSansDevanagari-ExtraCondensedExtraBold.ttf
+NotoSansDevanagari-ExtraCondensedExtraLight.ttf
+NotoSansDevanagari-ExtraCondensedLight.ttf
+NotoSansDevanagari-ExtraCondensedMedium.ttf
+NotoSansDevanagari-ExtraCondensedSemiBold.ttf
+NotoSansDevanagari-ExtraCondensedThin.ttf
+NotoSansDevanagari-ExtraLight.ttf
+NotoSansDevanagari-Light.ttf
+NotoSansDevanagari-Medium.ttf
+NotoSansDevanagari-Regular.ttf
+NotoSansDevanagari-SemiBold.ttf
+NotoSansDevanagari-SemiCondensed.ttf
+NotoSansDevanagari-SemiCondensedBlack.ttf
+NotoSansDevanagari-SemiCondensedBold.ttf
+NotoSansDevanagari-SemiCondensedExtraBold.ttf
+NotoSansDevanagari-SemiCondensedExtraLight.ttf
+NotoSansDevanagari-SemiCondensedLight.ttf
+NotoSansDevanagari-SemiCondensedMedium.ttf
+NotoSansDevanagari-SemiCondensedSemiBold.ttf
+NotoSansDevanagari-SemiCondensedThin.ttf
+NotoSansDevanagari-Thin.ttf
+NotoSansDisplay-Black.ttf
+NotoSansDisplay-BlackItalic.ttf
+NotoSansDisplay-Bold.ttf
+NotoSansDisplay-BoldItalic.ttf
+NotoSansDisplay-Condensed.ttf
+NotoSansDisplay-CondensedBlack.ttf
+NotoSansDisplay-CondensedBlackItalic.ttf
+NotoSansDisplay-CondensedBold.ttf
+NotoSansDisplay-CondensedBoldItalic.ttf
+NotoSansDisplay-CondensedExtraBold.ttf
+NotoSansDisplay-CondensedExtraBoldItalic.ttf
+NotoSansDisplay-CondensedExtraLight.ttf
+NotoSansDisplay-CondensedExtraLightItalic.ttf
+NotoSansDisplay-CondensedItalic.ttf
+NotoSansDisplay-CondensedLight.ttf
+NotoSansDisplay-CondensedLightItalic.ttf
+NotoSansDisplay-CondensedMedium.ttf
+NotoSansDisplay-CondensedMediumItalic.ttf
+NotoSansDisplay-CondensedSemiBold.ttf
+NotoSansDisplay-CondensedSemiBoldItalic.ttf
+NotoSansDisplay-CondensedThin.ttf
+NotoSansDisplay-CondensedThinItalic.ttf
+NotoSansDisplay-ExtraBold.ttf
+NotoSansDisplay-ExtraBoldItalic.ttf
+NotoSansDisplay-ExtraCondensed.ttf
+NotoSansDisplay-ExtraCondensedBlack.ttf
+NotoSansDisplay-ExtraCondensedBlackItalic.ttf
+NotoSansDisplay-ExtraCondensedBold.ttf
+NotoSansDisplay-ExtraCondensedBoldItalic.ttf
+NotoSansDisplay-ExtraCondensedExtraBold.ttf
+NotoSansDisplay-ExtraCondensedExtraBoldItalic.ttf
+NotoSansDisplay-ExtraCondensedExtraLight.ttf
+NotoSansDisplay-ExtraCondensedExtraLightItalic.ttf
+NotoSansDisplay-ExtraCondensedItalic.ttf
+NotoSansDisplay-ExtraCondensedLight.ttf
+NotoSansDisplay-ExtraCondensedLightItalic.ttf
+NotoSansDisplay-ExtraCondensedMedium.ttf
+NotoSansDisplay-ExtraCondensedMediumItalic.ttf
+NotoSansDisplay-ExtraCondensedSemiBold.ttf
+NotoSansDisplay-ExtraCondensedSemiBoldItalic.ttf
+NotoSansDisplay-ExtraCondensedThin.ttf
+NotoSansDisplay-ExtraCondensedThinItalic.ttf
+NotoSansDisplay-ExtraLight.ttf
+NotoSansDisplay-ExtraLightItalic.ttf
+NotoSansDisplay-Italic.ttf
+NotoSansDisplay-Light.ttf
+NotoSansDisplay-LightItalic.ttf
+NotoSansDisplay-Medium.ttf
+NotoSansDisplay-MediumItalic.ttf
+NotoSansDisplay-Regular.ttf
+NotoSansDisplay-SemiBold.ttf
+NotoSansDisplay-SemiBoldItalic.ttf
+NotoSansDisplay-SemiCondensed.ttf
+NotoSansDisplay-SemiCondensedBlack.ttf
+NotoSansDisplay-SemiCondensedBlackItalic.ttf
+NotoSansDisplay-SemiCondensedBold.ttf
+NotoSansDisplay-SemiCondensedBoldItalic.ttf
+NotoSansDisplay-SemiCondensedExtraBold.ttf
+NotoSansDisplay-SemiCondensedExtraBoldItalic.ttf
+NotoSansDisplay-SemiCondensedExtraLight.ttf
+NotoSansDisplay-SemiCondensedExtraLightItalic.ttf
+NotoSansDisplay-SemiCondensedItalic.ttf
+NotoSansDisplay-SemiCondensedLight.ttf
+NotoSansDisplay-SemiCondensedLightItalic.ttf
+NotoSansDisplay-SemiCondensedMedium.ttf
+NotoSansDisplay-SemiCondensedMediumItalic.ttf
+NotoSansDisplay-SemiCondensedSemiBold.ttf
+NotoSansDisplay-SemiCondensedSemiBoldItalic.ttf
+NotoSansDisplay-SemiCondensedThin.ttf
+NotoSansDisplay-SemiCondensedThinItalic.ttf
+NotoSansDisplay-Thin.ttf
+NotoSansDisplay-ThinItalic.ttf
+NotoSansDuployan-Regular.ttf
+NotoSansEgyptianHieroglyphs-Regular.ttf
+NotoSansElbasan-Regular.ttf
+NotoSansElymaic-Regular.ttf
+NotoSansEthiopic-Black.ttf
+NotoSansEthiopic-Bold.ttf
+NotoSansEthiopic-Condensed.ttf
+NotoSansEthiopic-CondensedBlack.ttf
+NotoSansEthiopic-CondensedBold.ttf
+NotoSansEthiopic-CondensedExtraBold.ttf
+NotoSansEthiopic-CondensedExtraLight.ttf
+NotoSansEthiopic-CondensedLight.ttf
+NotoSansEthiopic-CondensedMedium.ttf
+NotoSansEthiopic-CondensedSemiBold.ttf
+NotoSansEthiopic-CondensedThin.ttf
+NotoSansEthiopic-ExtraBold.ttf
+NotoSansEthiopic-ExtraCondensed.ttf
+NotoSansEthiopic-ExtraCondensedBlack.ttf
+NotoSansEthiopic-ExtraCondensedBold.ttf
+NotoSansEthiopic-ExtraCondensedExtraBold.ttf
+NotoSansEthiopic-ExtraCondensedExtraLight.ttf
+NotoSansEthiopic-ExtraCondensedLight.ttf
+NotoSansEthiopic-ExtraCondensedMedium.ttf
+NotoSansEthiopic-ExtraCondensedSemiBold.ttf
+NotoSansEthiopic-ExtraCondensedThin.ttf
+NotoSansEthiopic-ExtraLight.ttf
+NotoSansEthiopic-Light.ttf
+NotoSansEthiopic-Medium.ttf
+NotoSansEthiopic-Regular.ttf
+NotoSansEthiopic-SemiBold.ttf
+NotoSansEthiopic-SemiCondensed.ttf
+NotoSansEthiopic-SemiCondensedBlack.ttf
+NotoSansEthiopic-SemiCondensedBold.ttf
+NotoSansEthiopic-SemiCondensedExtraBold.ttf
+NotoSansEthiopic-SemiCondensedExtraLight.ttf
+NotoSansEthiopic-SemiCondensedLight.ttf
+NotoSansEthiopic-SemiCondensedMedium.ttf
+NotoSansEthiopic-SemiCondensedSemiBold.ttf
+NotoSansEthiopic-SemiCondensedThin.ttf
+NotoSansEthiopic-Thin.ttf
+NotoSansGeorgian-Black.ttf
+NotoSansGeorgian-Bold.ttf
+NotoSansGeorgian-Condensed.ttf
+NotoSansGeorgian-CondensedBlack.ttf
+NotoSansGeorgian-CondensedBold.ttf
+NotoSansGeorgian-CondensedExtraBold.ttf
+NotoSansGeorgian-CondensedExtraLight.ttf
+NotoSansGeorgian-CondensedLight.ttf
+NotoSansGeorgian-CondensedMedium.ttf
+NotoSansGeorgian-CondensedSemiBold.ttf
+NotoSansGeorgian-CondensedThin.ttf
+NotoSansGeorgian-ExtraBold.ttf
+NotoSansGeorgian-ExtraCondensed.ttf
+NotoSansGeorgian-ExtraCondensedBlack.ttf
+NotoSansGeorgian-ExtraCondensedBold.ttf
+NotoSansGeorgian-ExtraCondensedExtraBold.ttf
+NotoSansGeorgian-ExtraCondensedExtraLight.ttf
+NotoSansGeorgian-ExtraCondensedLight.ttf
+NotoSansGeorgian-ExtraCondensedMedium.ttf
+NotoSansGeorgian-ExtraCondensedSemiBold.ttf
+NotoSansGeorgian-ExtraCondensedThin.ttf
+NotoSansGeorgian-ExtraLight.ttf
+NotoSansGeorgian-Light.ttf
+NotoSansGeorgian-Medium.ttf
+NotoSansGeorgian-Regular.ttf
+NotoSansGeorgian-SemiBold.ttf
+NotoSansGeorgian-SemiCondensed.ttf
+NotoSansGeorgian-SemiCondensedBlack.ttf
+NotoSansGeorgian-SemiCondensedBold.ttf
+NotoSansGeorgian-SemiCondensedExtraBold.ttf
+NotoSansGeorgian-SemiCondensedExtraLight.ttf
+NotoSansGeorgian-SemiCondensedLight.ttf
+NotoSansGeorgian-SemiCondensedMedium.ttf
+NotoSansGeorgian-SemiCondensedSemiBold.ttf
+NotoSansGeorgian-SemiCondensedThin.ttf
+NotoSansGeorgian-Thin.ttf
+NotoSansGlagolitic-Regular.ttf
+NotoSansGothic-Regular.ttf
+NotoSansGrantha-Regular.ttf
+NotoSansGujarati-Black.ttf
+NotoSansGujarati-Bold.ttf
+NotoSansGujarati-Condensed.ttf
+NotoSansGujarati-CondensedBlack.ttf
+NotoSansGujarati-CondensedBold.ttf
+NotoSansGujarati-CondensedExtraBold.ttf
+NotoSansGujarati-CondensedExtraLight.ttf
+NotoSansGujarati-CondensedLight.ttf
+NotoSansGujarati-CondensedMedium.ttf
+NotoSansGujarati-CondensedSemiBold.ttf
+NotoSansGujarati-CondensedThin.ttf
+NotoSansGujarati-ExtraBold.ttf
+NotoSansGujarati-ExtraCondensed.ttf
+NotoSansGujarati-ExtraCondensedBlack.ttf
+NotoSansGujarati-ExtraCondensedBold.ttf
+NotoSansGujarati-ExtraCondensedExtraBold.ttf
+NotoSansGujarati-ExtraCondensedExtraLight.ttf
+NotoSansGujarati-ExtraCondensedLight.ttf
+NotoSansGujarati-ExtraCondensedMedium.ttf
+NotoSansGujarati-ExtraCondensedSemiBold.ttf
+NotoSansGujarati-ExtraCondensedThin.ttf
+NotoSansGujarati-ExtraLight.ttf
+NotoSansGujarati-Light.ttf
+NotoSansGujarati-Medium.ttf
+NotoSansGujarati-Regular.ttf
+NotoSansGujarati-SemiBold.ttf
+NotoSansGujarati-SemiCondensed.ttf
+NotoSansGujarati-SemiCondensedBlack.ttf
+NotoSansGujarati-SemiCondensedBold.ttf
+NotoSansGujarati-SemiCondensedExtraBold.ttf
+NotoSansGujarati-SemiCondensedExtraLight.ttf
+NotoSansGujarati-SemiCondensedLight.ttf
+NotoSansGujarati-SemiCondensedMedium.ttf
+NotoSansGujarati-SemiCondensedSemiBold.ttf
+NotoSansGujarati-SemiCondensedThin.ttf
+NotoSansGujarati-Thin.ttf
+NotoSansGunjalaGondi-Regular.ttf
+NotoSansGurmukhi-Black.ttf
+NotoSansGurmukhi-Bold.ttf
+NotoSansGurmukhi-Condensed.ttf
+NotoSansGurmukhi-CondensedBlack.ttf
+NotoSansGurmukhi-CondensedBold.ttf
+NotoSansGurmukhi-CondensedExtraBold.ttf
+NotoSansGurmukhi-CondensedExtraLight.ttf
+NotoSansGurmukhi-CondensedLight.ttf
+NotoSansGurmukhi-CondensedMedium.ttf
+NotoSansGurmukhi-CondensedSemiBold.ttf
+NotoSansGurmukhi-CondensedThin.ttf
+NotoSansGurmukhi-ExtraBold.ttf
+NotoSansGurmukhi-ExtraCondensed.ttf
+NotoSansGurmukhi-ExtraCondensedBlack.ttf
+NotoSansGurmukhi-ExtraCondensedBold.ttf
+NotoSansGurmukhi-ExtraCondensedExtraBold.ttf
+NotoSansGurmukhi-ExtraCondensedExtraLight.ttf
+NotoSansGurmukhi-ExtraCondensedLight.ttf
+NotoSansGurmukhi-ExtraCondensedMedium.ttf
+NotoSansGurmukhi-ExtraCondensedSemiBold.ttf
+NotoSansGurmukhi-ExtraCondensedThin.ttf
+NotoSansGurmukhi-ExtraLight.ttf
+NotoSansGurmukhi-Light.ttf
+NotoSansGurmukhi-Medium.ttf
+NotoSansGurmukhi-Regular.ttf
+NotoSansGurmukhi-SemiBold.ttf
+NotoSansGurmukhi-SemiCondensed.ttf
+NotoSansGurmukhi-SemiCondensedBlack.ttf
+NotoSansGurmukhi-SemiCondensedBold.ttf
+NotoSansGurmukhi-SemiCondensedExtraBold.ttf
+NotoSansGurmukhi-SemiCondensedExtraLight.ttf
+NotoSansGurmukhi-SemiCondensedLight.ttf
+NotoSansGurmukhi-SemiCondensedMedium.ttf
+NotoSansGurmukhi-SemiCondensedSemiBold.ttf
+NotoSansGurmukhi-SemiCondensedThin.ttf
+NotoSansGurmukhi-Thin.ttf
+NotoSansHanifiRohingya-Bold.ttf
+NotoSansHanifiRohingya-Medium.ttf
+NotoSansHanifiRohingya-Regular.ttf
+NotoSansHanifiRohingya-SemiBold.ttf
+NotoSansHanunoo-Regular.ttf
+NotoSansHatran-Regular.ttf
+NotoSansHebrew-Black.ttf
+NotoSansHebrew-Bold.ttf
+NotoSansHebrew-Condensed.ttf
+NotoSansHebrew-CondensedBlack.ttf
+NotoSansHebrew-CondensedBold.ttf
+NotoSansHebrew-CondensedExtraBold.ttf
+NotoSansHebrew-CondensedExtraLight.ttf
+NotoSansHebrew-CondensedLight.ttf
+NotoSansHebrew-CondensedMedium.ttf
+NotoSansHebrew-CondensedSemiBold.ttf
+NotoSansHebrew-CondensedThin.ttf
+NotoSansHebrew-ExtraBold.ttf
+NotoSansHebrew-ExtraCondensed.ttf
+NotoSansHebrew-ExtraCondensedBlack.ttf
+NotoSansHebrew-ExtraCondensedBold.ttf
+NotoSansHebrew-ExtraCondensedExtraBold.ttf
+NotoSansHebrew-ExtraCondensedExtraLight.ttf
+NotoSansHebrew-ExtraCondensedLight.ttf
+NotoSansHebrew-ExtraCondensedMedium.ttf
+NotoSansHebrew-ExtraCondensedSemiBold.ttf
+NotoSansHebrew-ExtraCondensedThin.ttf
+NotoSansHebrew-ExtraLight.ttf
+NotoSansHebrew-Light.ttf
+NotoSansHebrew-Medium.ttf
+NotoSansHebrew-Regular.ttf
+NotoSansHebrew-SemiBold.ttf
+NotoSansHebrew-SemiCondensed.ttf
+NotoSansHebrew-SemiCondensedBlack.ttf
+NotoSansHebrew-SemiCondensedBold.ttf
+NotoSansHebrew-SemiCondensedExtraBold.ttf
+NotoSansHebrew-SemiCondensedExtraLight.ttf
+NotoSansHebrew-SemiCondensedLight.ttf
+NotoSansHebrew-SemiCondensedMedium.ttf
+NotoSansHebrew-SemiCondensedSemiBold.ttf
+NotoSansHebrew-SemiCondensedThin.ttf
+NotoSansHebrew-Thin.ttf
+NotoSansImperialAramaic-Regular.ttf
+NotoSansIndicSiyaqNumbers-Regular.ttf
+NotoSansInscriptionalPahlavi-Regular.ttf
+NotoSansInscriptionalParthian-Regular.ttf
+NotoSansJavanese-Bold.ttf
+NotoSansJavanese-Regular.ttf
+NotoSansKaithi-Regular.ttf
+NotoSansKannada-Black.ttf
+NotoSansKannada-Bold.ttf
+NotoSansKannada-Condensed.ttf
+NotoSansKannada-CondensedBlack.ttf
+NotoSansKannada-CondensedBold.ttf
+NotoSansKannada-CondensedExtraBold.ttf
+NotoSansKannada-CondensedExtraLight.ttf
+NotoSansKannada-CondensedLight.ttf
+NotoSansKannada-CondensedMedium.ttf
+NotoSansKannada-CondensedSemiBold.ttf
+NotoSansKannada-CondensedThin.ttf
+NotoSansKannada-ExtraBold.ttf
+NotoSansKannada-ExtraCondensed.ttf
+NotoSansKannada-ExtraCondensedBlack.ttf
+NotoSansKannada-ExtraCondensedBold.ttf
+NotoSansKannada-ExtraCondensedExtraBold.ttf
+NotoSansKannada-ExtraCondensedExtraLight.ttf
+NotoSansKannada-ExtraCondensedLight.ttf
+NotoSansKannada-ExtraCondensedMedium.ttf
+NotoSansKannada-ExtraCondensedSemiBold.ttf
+NotoSansKannada-ExtraCondensedThin.ttf
+NotoSansKannada-ExtraLight.ttf
+NotoSansKannada-Light.ttf
+NotoSansKannada-Medium.ttf
+NotoSansKannada-Regular.ttf
+NotoSansKannada-SemiBold.ttf
+NotoSansKannada-SemiCondensed.ttf
+NotoSansKannada-SemiCondensedBlack.ttf
+NotoSansKannada-SemiCondensedBold.ttf
+NotoSansKannada-SemiCondensedExtraBold.ttf
+NotoSansKannada-SemiCondensedExtraLight.ttf
+NotoSansKannada-SemiCondensedLight.ttf
+NotoSansKannada-SemiCondensedMedium.ttf
+NotoSansKannada-SemiCondensedSemiBold.ttf
+NotoSansKannada-SemiCondensedThin.ttf
+NotoSansKannada-Thin.ttf
+NotoSansKayahLi-Bold.ttf
+NotoSansKayahLi-Medium.ttf
+NotoSansKayahLi-Regular.ttf
+NotoSansKayahLi-SemiBold.ttf
+NotoSansKharoshthi-Regular.ttf
+NotoSansKhmer-Black.ttf
+NotoSansKhmer-Bold.ttf
+NotoSansKhmer-Condensed.ttf
+NotoSansKhmer-CondensedBlack.ttf
+NotoSansKhmer-CondensedBold.ttf
+NotoSansKhmer-CondensedExtraBold.ttf
+NotoSansKhmer-CondensedExtraLight.ttf
+NotoSansKhmer-CondensedLight.ttf
+NotoSansKhmer-CondensedMedium.ttf
+NotoSansKhmer-CondensedSemiBold.ttf
+NotoSansKhmer-CondensedThin.ttf
+NotoSansKhmer-ExtraBold.ttf
+NotoSansKhmer-ExtraCondensed.ttf
+NotoSansKhmer-ExtraCondensedBlack.ttf
+NotoSansKhmer-ExtraCondensedBold.ttf
+NotoSansKhmer-ExtraCondensedExtraBold.ttf
+NotoSansKhmer-ExtraCondensedExtraLight.ttf
+NotoSansKhmer-ExtraCondensedLight.ttf
+NotoSansKhmer-ExtraCondensedMedium.ttf
+NotoSansKhmer-ExtraCondensedSemiBold.ttf
+NotoSansKhmer-ExtraCondensedThin.ttf
+NotoSansKhmer-ExtraLight.ttf
+NotoSansKhmer-Light.ttf
+NotoSansKhmer-Medium.ttf
+NotoSansKhmer-Regular.ttf
+NotoSansKhmer-SemiBold.ttf
+NotoSansKhmer-SemiCondensed.ttf
+NotoSansKhmer-SemiCondensedBlack.ttf
+NotoSansKhmer-SemiCondensedBold.ttf
+NotoSansKhmer-SemiCondensedExtraBold.ttf
+NotoSansKhmer-SemiCondensedExtraLight.ttf
+NotoSansKhmer-SemiCondensedLight.ttf
+NotoSansKhmer-SemiCondensedMedium.ttf
+NotoSansKhmer-SemiCondensedSemiBold.ttf
+NotoSansKhmer-SemiCondensedThin.ttf
+NotoSansKhmer-Thin.ttf
+NotoSansKhojki-Regular.ttf
+NotoSansKhudawadi-Regular.ttf
+NotoSansLao-Black.ttf
+NotoSansLao-Bold.ttf
+NotoSansLao-Condensed.ttf
+NotoSansLao-CondensedBlack.ttf
+NotoSansLao-CondensedBold.ttf
+NotoSansLao-CondensedExtraBold.ttf
+NotoSansLao-CondensedExtraLight.ttf
+NotoSansLao-CondensedLight.ttf
+NotoSansLao-CondensedMedium.ttf
+NotoSansLao-CondensedSemiBold.ttf
+NotoSansLao-CondensedThin.ttf
+NotoSansLao-ExtraBold.ttf
+NotoSansLao-ExtraCondensed.ttf
+NotoSansLao-ExtraCondensedBlack.ttf
+NotoSansLao-ExtraCondensedBold.ttf
+NotoSansLao-ExtraCondensedExtraBold.ttf
+NotoSansLao-ExtraCondensedExtraLight.ttf
+NotoSansLao-ExtraCondensedLight.ttf
+NotoSansLao-ExtraCondensedMedium.ttf
+NotoSansLao-ExtraCondensedSemiBold.ttf
+NotoSansLao-ExtraCondensedThin.ttf
+NotoSansLao-ExtraLight.ttf
+NotoSansLao-Light.ttf
+NotoSansLao-Medium.ttf
+NotoSansLao-Regular.ttf
+NotoSansLao-SemiBold.ttf
+NotoSansLao-SemiCondensed.ttf
+NotoSansLao-SemiCondensedBlack.ttf
+NotoSansLao-SemiCondensedBold.ttf
+NotoSansLao-SemiCondensedExtraBold.ttf
+NotoSansLao-SemiCondensedExtraLight.ttf
+NotoSansLao-SemiCondensedLight.ttf
+NotoSansLao-SemiCondensedMedium.ttf
+NotoSansLao-SemiCondensedSemiBold.ttf
+NotoSansLao-SemiCondensedThin.ttf
+NotoSansLao-Thin.ttf
+NotoSansLepcha-Regular.ttf
+NotoSansLimbu-Regular.ttf
+NotoSansLinearA-Regular.ttf
+NotoSansLinearB-Regular.ttf
+NotoSansLisu-Bold.ttf
+NotoSansLisu-Medium.ttf
+NotoSansLisu-Regular.ttf
+NotoSansLisu-SemiBold.ttf
+NotoSansLycian-Regular.ttf
+NotoSansLydian-Regular.ttf
+NotoSansMahajani-Regular.ttf
+NotoSansMalayalam-Black.ttf
+NotoSansMalayalam-Bold.ttf
+NotoSansMalayalam-Condensed.ttf
+NotoSansMalayalam-CondensedBlack.ttf
+NotoSansMalayalam-CondensedBold.ttf
+NotoSansMalayalam-CondensedExtraBold.ttf
+NotoSansMalayalam-CondensedExtraLight.ttf
+NotoSansMalayalam-CondensedLight.ttf
+NotoSansMalayalam-CondensedMedium.ttf
+NotoSansMalayalam-CondensedSemiBold.ttf
+NotoSansMalayalam-CondensedThin.ttf
+NotoSansMalayalam-ExtraBold.ttf
+NotoSansMalayalam-ExtraCondensed.ttf
+NotoSansMalayalam-ExtraCondensedBlack.ttf
+NotoSansMalayalam-ExtraCondensedBold.ttf
+NotoSansMalayalam-ExtraCondensedExtraBold.ttf
+NotoSansMalayalam-ExtraCondensedExtraLight.ttf
+NotoSansMalayalam-ExtraCondensedLight.ttf
+NotoSansMalayalam-ExtraCondensedMedium.ttf
+NotoSansMalayalam-ExtraCondensedSemiBold.ttf
+NotoSansMalayalam-ExtraCondensedThin.ttf
+NotoSansMalayalam-ExtraLight.ttf
+NotoSansMalayalam-Light.ttf
+NotoSansMalayalam-Medium.ttf
+NotoSansMalayalam-Regular.ttf
+NotoSansMalayalam-SemiBold.ttf
+NotoSansMalayalam-SemiCondensed.ttf
+NotoSansMalayalam-SemiCondensedBlack.ttf
+NotoSansMalayalam-SemiCondensedBold.ttf
+NotoSansMalayalam-SemiCondensedExtraBold.ttf
+NotoSansMalayalam-SemiCondensedExtraLight.ttf
+NotoSansMalayalam-SemiCondensedLight.ttf
+NotoSansMalayalam-SemiCondensedMedium.ttf
+NotoSansMalayalam-SemiCondensedSemiBold.ttf
+NotoSansMalayalam-SemiCondensedThin.ttf
+NotoSansMalayalam-Thin.ttf
+NotoSansMandaic-Regular.ttf
+NotoSansManichaean-Regular.ttf
+NotoSansMarchen-Regular.ttf
+NotoSansMasaramGondi-Regular.ttf
+NotoSansMath-Regular.ttf
+NotoSansMayanNumerals-Regular.ttf
+NotoSansMedefaidrin-Bold.ttf
+NotoSansMedefaidrin-Medium.ttf
+NotoSansMedefaidrin-Regular.ttf
+NotoSansMedefaidrin-SemiBold.ttf
+NotoSansMeeteiMayek-Black.ttf
+NotoSansMeeteiMayek-Bold.ttf
+NotoSansMeeteiMayek-ExtraBold.ttf
+NotoSansMeeteiMayek-ExtraLight.ttf
+NotoSansMeeteiMayek-Light.ttf
+NotoSansMeeteiMayek-Medium.ttf
+NotoSansMeeteiMayek-Regular.ttf
+NotoSansMeeteiMayek-SemiBold.ttf
+NotoSansMeeteiMayek-Thin.ttf
+NotoSansMendeKikakui-Regular.ttf
+NotoSansMeroitic-Regular.ttf
+NotoSansMiao-Regular.ttf
+NotoSansModi-Regular.ttf
+NotoSansMongolian-Regular.ttf
+NotoSansMono-Black.ttf
+NotoSansMono-Bold.ttf
+NotoSansMono-Condensed.ttf
+NotoSansMono-CondensedBlack.ttf
+NotoSansMono-CondensedBold.ttf
+NotoSansMono-CondensedExtraBold.ttf
+NotoSansMono-CondensedExtraLight.ttf
+NotoSansMono-CondensedLight.ttf
+NotoSansMono-CondensedMedium.ttf
+NotoSansMono-CondensedSemiBold.ttf
+NotoSansMono-CondensedThin.ttf
+NotoSansMono-ExtraBold.ttf
+NotoSansMono-ExtraCondensed.ttf
+NotoSansMono-ExtraCondensedBlack.ttf
+NotoSansMono-ExtraCondensedBold.ttf
+NotoSansMono-ExtraCondensedExtraBold.ttf
+NotoSansMono-ExtraCondensedExtraLight.ttf
+NotoSansMono-ExtraCondensedLight.ttf
+NotoSansMono-ExtraCondensedMedium.ttf
+NotoSansMono-ExtraCondensedSemiBold.ttf
+NotoSansMono-ExtraCondensedThin.ttf
+NotoSansMono-ExtraLight.ttf
+NotoSansMono-Light.ttf
+NotoSansMono-Medium.ttf
+NotoSansMono-Regular.ttf
+NotoSansMono-SemiBold.ttf
+NotoSansMono-SemiCondensed.ttf
+NotoSansMono-SemiCondensedBlack.ttf
+NotoSansMono-SemiCondensedBold.ttf
+NotoSansMono-SemiCondensedExtraBold.ttf
+NotoSansMono-SemiCondensedExtraLight.ttf
+NotoSansMono-SemiCondensedLight.ttf
+NotoSansMono-SemiCondensedMedium.ttf
+NotoSansMono-SemiCondensedSemiBold.ttf
+NotoSansMono-SemiCondensedThin.ttf
+NotoSansMono-Thin.ttf
+NotoSansMro-Regular.ttf
+NotoSansMultani-Regular.ttf
+NotoSansMyanmar-Black.ttf
+NotoSansMyanmar-Bold.ttf
+NotoSansMyanmar-Condensed.ttf
+NotoSansMyanmar-CondensedBlack.ttf
+NotoSansMyanmar-CondensedBold.ttf
+NotoSansMyanmar-CondensedExtraBold.ttf
+NotoSansMyanmar-CondensedExtraLight.ttf
+NotoSansMyanmar-CondensedLight.ttf
+NotoSansMyanmar-CondensedMedium.ttf
+NotoSansMyanmar-CondensedSemiBold.ttf
+NotoSansMyanmar-CondensedThin.ttf
+NotoSansMyanmar-ExtraBold.ttf
+NotoSansMyanmar-ExtraCondensed.ttf
+NotoSansMyanmar-ExtraCondensedBlack.ttf
+NotoSansMyanmar-ExtraCondensedBold.ttf
+NotoSansMyanmar-ExtraCondensedExtraBold.ttf
+NotoSansMyanmar-ExtraCondensedExtraLight.ttf
+NotoSansMyanmar-ExtraCondensedLight.ttf
+NotoSansMyanmar-ExtraCondensedMedium.ttf
+NotoSansMyanmar-ExtraCondensedSemiBold.ttf
+NotoSansMyanmar-ExtraCondensedThin.ttf
+NotoSansMyanmar-ExtraLight.ttf
+NotoSansMyanmar-Light.ttf
+NotoSansMyanmar-Medium.ttf
+NotoSansMyanmar-Regular.ttf
+NotoSansMyanmar-SemiBold.ttf
+NotoSansMyanmar-SemiCondensed.ttf
+NotoSansMyanmar-SemiCondensedBlack.ttf
+NotoSansMyanmar-SemiCondensedBold.ttf
+NotoSansMyanmar-SemiCondensedExtraBold.ttf
+NotoSansMyanmar-SemiCondensedExtraLight.ttf
+NotoSansMyanmar-SemiCondensedLight.ttf
+NotoSansMyanmar-SemiCondensedMedium.ttf
+NotoSansMyanmar-SemiCondensedSemiBold.ttf
+NotoSansMyanmar-SemiCondensedThin.ttf
+NotoSansMyanmar-Thin.ttf
+NotoSansNKo-Regular.ttf
+NotoSansNabataean-Regular.ttf
+NotoSansNewTaiLue-Regular.ttf
+NotoSansNewa-Regular.ttf
+NotoSansNushu-Regular.ttf
+NotoSansOgham-Regular.ttf
+NotoSansOlChiki-Bold.ttf
+NotoSansOlChiki-Medium.ttf
+NotoSansOlChiki-Regular.ttf
+NotoSansOlChiki-SemiBold.ttf
+NotoSansOldHungarian-Regular.ttf
+NotoSansOldItalic-Regular.ttf
+NotoSansOldNorthArabian-Regular.ttf
+NotoSansOldPermic-Regular.ttf
+NotoSansOldPersian-Regular.ttf
+NotoSansOldSogdian-Regular.ttf
+NotoSansOldSouthArabian-Regular.ttf
+NotoSansOldTurkic-Regular.ttf
+NotoSansOriya-Black.ttf
+NotoSansOriya-Bold.ttf
+NotoSansOriya-Condensed.ttf
+NotoSansOriya-CondensedBlack.ttf
+NotoSansOriya-CondensedBold.ttf
+NotoSansOriya-CondensedThin.ttf
+NotoSansOriya-ExtraCondensed.ttf
+NotoSansOriya-ExtraCondensedBlack.ttf
+NotoSansOriya-ExtraCondensedBold.ttf
+NotoSansOriya-ExtraCondensedThin.ttf
+NotoSansOriya-Regular.ttf
+NotoSansOriya-Thin.ttf
+NotoSansOsage-Regular.ttf
+NotoSansOsmanya-Regular.ttf
+NotoSansPahawhHmong-Regular.ttf
+NotoSansPalmyrene-Regular.ttf
+NotoSansPauCinHau-Regular.ttf
+NotoSansPhagsPa-Regular.ttf
+NotoSansPhoenician-Regular.ttf
+NotoSansPsalterPahlavi-Regular.ttf
+NotoSansRejang-Regular.ttf
+NotoSansRunic-Regular.ttf
+NotoSansSamaritan-Regular.ttf
+NotoSansSaurashtra-Regular.ttf
+NotoSansSharada-Regular.ttf
+NotoSansShavian-Regular.ttf
+NotoSansSiddham-Regular.ttf
+NotoSansSignWriting-Regular.ttf
+NotoSansSinhala-Black.ttf
+NotoSansSinhala-Bold.ttf
+NotoSansSinhala-Condensed.ttf
+NotoSansSinhala-CondensedBlack.ttf
+NotoSansSinhala-CondensedBold.ttf
+NotoSansSinhala-CondensedExtraBold.ttf
+NotoSansSinhala-CondensedExtraLight.ttf
+NotoSansSinhala-CondensedLight.ttf
+NotoSansSinhala-CondensedMedium.ttf
+NotoSansSinhala-CondensedSemiBold.ttf
+NotoSansSinhala-CondensedThin.ttf
+NotoSansSinhala-ExtraBold.ttf
+NotoSansSinhala-ExtraCondensed.ttf
+NotoSansSinhala-ExtraCondensedBlack.ttf
+NotoSansSinhala-ExtraCondensedBold.ttf
+NotoSansSinhala-ExtraCondensedExtraBold.ttf
+NotoSansSinhala-ExtraCondensedExtraLight.ttf
+NotoSansSinhala-ExtraCondensedLight.ttf
+NotoSansSinhala-ExtraCondensedMedium.ttf
+NotoSansSinhala-ExtraCondensedSemiBold.ttf
+NotoSansSinhala-ExtraCondensedThin.ttf
+NotoSansSinhala-ExtraLight.ttf
+NotoSansSinhala-Light.ttf
+NotoSansSinhala-Medium.ttf
+NotoSansSinhala-Regular.ttf
+NotoSansSinhala-SemiBold.ttf
+NotoSansSinhala-SemiCondensed.ttf
+NotoSansSinhala-SemiCondensedBlack.ttf
+NotoSansSinhala-SemiCondensedBold.ttf
+NotoSansSinhala-SemiCondensedExtraBold.ttf
+NotoSansSinhala-SemiCondensedExtraLight.ttf
+NotoSansSinhala-SemiCondensedLight.ttf
+NotoSansSinhala-SemiCondensedMedium.ttf
+NotoSansSinhala-SemiCondensedSemiBold.ttf
+NotoSansSinhala-SemiCondensedThin.ttf
+NotoSansSinhala-Thin.ttf
+NotoSansSogdian-Regular.ttf
+NotoSansSoraSompeng-Bold.ttf
+NotoSansSoraSompeng-Medium.ttf
+NotoSansSoraSompeng-Regular.ttf
+NotoSansSoraSompeng-SemiBold.ttf
+NotoSansSoyombo-Regular.ttf
+NotoSansSundanese-Bold.ttf
+NotoSansSundanese-Medium.ttf
+NotoSansSundanese-Regular.ttf
+NotoSansSundanese-SemiBold.ttf
+NotoSansSylotiNagri-Regular.ttf
+NotoSansSymbols-Black.ttf
+NotoSansSymbols-Bold.ttf
+NotoSansSymbols-ExtraBold.ttf
+NotoSansSymbols-ExtraLight.ttf
+NotoSansSymbols-Light.ttf
+NotoSansSymbols-Medium.ttf
+NotoSansSymbols-Regular.ttf
+NotoSansSymbols-SemiBold.ttf
+NotoSansSymbols-Thin.ttf
+NotoSansSymbols2-Regular.ttf
+NotoSansSyriac-Black.ttf
+NotoSansSyriac-Regular.ttf
+NotoSansSyriac-Thin.ttf
+NotoSansTagalog-Regular.ttf
+NotoSansTagbanwa-Regular.ttf
+NotoSansTaiLe-Regular.ttf
+NotoSansTaiTham-Bold.ttf
+NotoSansTaiTham-Medium.ttf
+NotoSansTaiTham-Regular.ttf
+NotoSansTaiTham-SemiBold.ttf
+NotoSansTaiViet-Regular.ttf
+NotoSansTakri-Regular.ttf
+NotoSansTamil-Black.ttf
+NotoSansTamil-Bold.ttf
+NotoSansTamil-Condensed.ttf
+NotoSansTamil-CondensedBlack.ttf
+NotoSansTamil-CondensedBold.ttf
+NotoSansTamil-CondensedExtraBold.ttf
+NotoSansTamil-CondensedExtraLight.ttf
+NotoSansTamil-CondensedLight.ttf
+NotoSansTamil-CondensedMedium.ttf
+NotoSansTamil-CondensedSemiBold.ttf
+NotoSansTamil-CondensedThin.ttf
+NotoSansTamil-ExtraBold.ttf
+NotoSansTamil-ExtraCondensed.ttf
+NotoSansTamil-ExtraCondensedBlack.ttf
+NotoSansTamil-ExtraCondensedBold.ttf
+NotoSansTamil-ExtraCondensedExtraBold.ttf
+NotoSansTamil-ExtraCondensedExtraLight.ttf
+NotoSansTamil-ExtraCondensedLight.ttf
+NotoSansTamil-ExtraCondensedMedium.ttf
+NotoSansTamil-ExtraCondensedSemiBold.ttf
+NotoSansTamil-ExtraCondensedThin.ttf
+NotoSansTamil-ExtraLight.ttf
+NotoSansTamil-Light.ttf
+NotoSansTamil-Medium.ttf
+NotoSansTamil-Regular.ttf
+NotoSansTamil-SemiBold.ttf
+NotoSansTamil-SemiCondensed.ttf
+NotoSansTamil-SemiCondensedBlack.ttf
+NotoSansTamil-SemiCondensedBold.ttf
+NotoSansTamil-SemiCondensedExtraBold.ttf
+NotoSansTamil-SemiCondensedExtraLight.ttf
+NotoSansTamil-SemiCondensedLight.ttf
+NotoSansTamil-SemiCondensedMedium.ttf
+NotoSansTamil-SemiCondensedSemiBold.ttf
+NotoSansTamil-SemiCondensedThin.ttf
+NotoSansTamil-Thin.ttf
+NotoSansTamilSupplement-Regular.ttf
+NotoSansTelugu-Black.ttf
+NotoSansTelugu-Bold.ttf
+NotoSansTelugu-Condensed.ttf
+NotoSansTelugu-CondensedBlack.ttf
+NotoSansTelugu-CondensedBold.ttf
+NotoSansTelugu-CondensedExtraBold.ttf
+NotoSansTelugu-CondensedExtraLight.ttf
+NotoSansTelugu-CondensedLight.ttf
+NotoSansTelugu-CondensedMedium.ttf
+NotoSansTelugu-CondensedSemiBold.ttf
+NotoSansTelugu-CondensedThin.ttf
+NotoSansTelugu-ExtraBold.ttf
+NotoSansTelugu-ExtraCondensed.ttf
+NotoSansTelugu-ExtraCondensedBlack.ttf
+NotoSansTelugu-ExtraCondensedBold.ttf
+NotoSansTelugu-ExtraCondensedExtraBold.ttf
+NotoSansTelugu-ExtraCondensedExtraLight.ttf
+NotoSansTelugu-ExtraCondensedLight.ttf
+NotoSansTelugu-ExtraCondensedMedium.ttf
+NotoSansTelugu-ExtraCondensedSemiBold.ttf
+NotoSansTelugu-ExtraCondensedThin.ttf
+NotoSansTelugu-ExtraLight.ttf
+NotoSansTelugu-Light.ttf
+NotoSansTelugu-Medium.ttf
+NotoSansTelugu-Regular.ttf
+NotoSansTelugu-SemiBold.ttf
+NotoSansTelugu-SemiCondensed.ttf
+NotoSansTelugu-SemiCondensedBlack.ttf
+NotoSansTelugu-SemiCondensedBold.ttf
+NotoSansTelugu-SemiCondensedExtraBold.ttf
+NotoSansTelugu-SemiCondensedExtraLight.ttf
+NotoSansTelugu-SemiCondensedLight.ttf
+NotoSansTelugu-SemiCondensedMedium.ttf
+NotoSansTelugu-SemiCondensedSemiBold.ttf
+NotoSansTelugu-SemiCondensedThin.ttf
+NotoSansTelugu-Thin.ttf
+NotoSansThaana-Black.ttf
+NotoSansThaana-Bold.ttf
+NotoSansThaana-ExtraBold.ttf
+NotoSansThaana-ExtraLight.ttf
+NotoSansThaana-Light.ttf
+NotoSansThaana-Medium.ttf
+NotoSansThaana-Regular.ttf
+NotoSansThaana-SemiBold.ttf
+NotoSansThaana-Thin.ttf
+NotoSansThai-Black.ttf
+NotoSansThai-Bold.ttf
+NotoSansThai-Condensed.ttf
+NotoSansThai-CondensedBlack.ttf
+NotoSansThai-CondensedBold.ttf
+NotoSansThai-CondensedExtraBold.ttf
+NotoSansThai-CondensedExtraLight.ttf
+NotoSansThai-CondensedLight.ttf
+NotoSansThai-CondensedMedium.ttf
+NotoSansThai-CondensedSemiBold.ttf
+NotoSansThai-CondensedThin.ttf
+NotoSansThai-ExtraBold.ttf
+NotoSansThai-ExtraCondensed.ttf
+NotoSansThai-ExtraCondensedBlack.ttf
+NotoSansThai-ExtraCondensedBold.ttf
+NotoSansThai-ExtraCondensedExtraBold.ttf
+NotoSansThai-ExtraCondensedExtraLight.ttf
+NotoSansThai-ExtraCondensedLight.ttf
+NotoSansThai-ExtraCondensedMedium.ttf
+NotoSansThai-ExtraCondensedSemiBold.ttf
+NotoSansThai-ExtraCondensedThin.ttf
+NotoSansThai-ExtraLight.ttf
+NotoSansThai-Light.ttf
+NotoSansThai-Medium.ttf
+NotoSansThai-Regular.ttf
+NotoSansThai-SemiBold.ttf
+NotoSansThai-SemiCondensed.ttf
+NotoSansThai-SemiCondensedBlack.ttf
+NotoSansThai-SemiCondensedBold.ttf
+NotoSansThai-SemiCondensedExtraBold.ttf
+NotoSansThai-SemiCondensedExtraLight.ttf
+NotoSansThai-SemiCondensedLight.ttf
+NotoSansThai-SemiCondensedMedium.ttf
+NotoSansThai-SemiCondensedSemiBold.ttf
+NotoSansThai-SemiCondensedThin.ttf
+NotoSansThai-Thin.ttf
+NotoSansTifinagh-Regular.ttf
+NotoSansTifinaghAPT-Regular.ttf
+NotoSansTifinaghAdrar-Regular.ttf
+NotoSansTifinaghAgrawImazighen-Regular.ttf
+NotoSansTifinaghAhaggar-Regular.ttf
+NotoSansTifinaghAir-Regular.ttf
+NotoSansTifinaghAzawagh-Regular.ttf
+NotoSansTifinaghGhat-Regular.ttf
+NotoSansTifinaghHawad-Regular.ttf
+NotoSansTifinaghRhissaIxa-Regular.ttf
+NotoSansTifinaghSIL-Regular.ttf
+NotoSansTifinaghTawellemmet-Regular.ttf
+NotoSansTirhuta-Regular.ttf
+NotoSansUgaritic-Regular.ttf
+NotoSansVai-Regular.ttf
+NotoSansWancho-Regular.ttf
+NotoSansWarangCiti-Regular.ttf
+NotoSansYi-Regular.ttf
+NotoSansZanabazarSquare-Regular.ttf
+NotoSerif-Black.ttf
+NotoSerif-BlackItalic.ttf
+NotoSerif-Bold.ttf
+NotoSerif-BoldItalic.ttf
+NotoSerif-Condensed.ttf
+NotoSerif-CondensedBlack.ttf
+NotoSerif-CondensedBlackItalic.ttf
+NotoSerif-CondensedBold.ttf
+NotoSerif-CondensedBoldItalic.ttf
+NotoSerif-CondensedExtraBold.ttf
+NotoSerif-CondensedExtraBoldItalic.ttf
+NotoSerif-CondensedExtraLight.ttf
+NotoSerif-CondensedExtraLightItalic.ttf
+NotoSerif-CondensedItalic.ttf
+NotoSerif-CondensedLight.ttf
+NotoSerif-CondensedLightItalic.ttf
+NotoSerif-CondensedMedium.ttf
+NotoSerif-CondensedMediumItalic.ttf
+NotoSerif-CondensedSemiBold.ttf
+NotoSerif-CondensedSemiBoldItalic.ttf
+NotoSerif-CondensedThin.ttf
+NotoSerif-CondensedThinItalic.ttf
+NotoSerif-ExtraBold.ttf
+NotoSerif-ExtraBoldItalic.ttf
+NotoSerif-ExtraCondensed.ttf
+NotoSerif-ExtraCondensedBlack.ttf
+NotoSerif-ExtraCondensedBlackItalic.ttf
+NotoSerif-ExtraCondensedBold.ttf
+NotoSerif-ExtraCondensedBoldItalic.ttf
+NotoSerif-ExtraCondensedExtraBold.ttf
+NotoSerif-ExtraCondensedExtraBoldItalic.ttf
+NotoSerif-ExtraCondensedExtraLight.ttf
+NotoSerif-ExtraCondensedExtraLightItalic.ttf
+NotoSerif-ExtraCondensedItalic.ttf
+NotoSerif-ExtraCondensedLight.ttf
+NotoSerif-ExtraCondensedLightItalic.ttf
+NotoSerif-ExtraCondensedMedium.ttf
+NotoSerif-ExtraCondensedMediumItalic.ttf
+NotoSerif-ExtraCondensedSemiBold.ttf
+NotoSerif-ExtraCondensedSemiBoldItalic.ttf
+NotoSerif-ExtraCondensedThin.ttf
+NotoSerif-ExtraCondensedThinItalic.ttf
+NotoSerif-ExtraLight.ttf
+NotoSerif-ExtraLightItalic.ttf
+NotoSerif-Italic.ttf
+NotoSerif-Light.ttf
+NotoSerif-LightItalic.ttf
+NotoSerif-Medium.ttf
+NotoSerif-MediumItalic.ttf
+NotoSerif-Regular.ttf
+NotoSerif-SemiBold.ttf
+NotoSerif-SemiBoldItalic.ttf
+NotoSerif-SemiCondensed.ttf
+NotoSerif-SemiCondensedBlack.ttf
+NotoSerif-SemiCondensedBlackItalic.ttf
+NotoSerif-SemiCondensedBold.ttf
+NotoSerif-SemiCondensedBoldItalic.ttf
+NotoSerif-SemiCondensedExtraBold.ttf
+NotoSerif-SemiCondensedExtraBoldItalic.ttf
+NotoSerif-SemiCondensedExtraLight.ttf
+NotoSerif-SemiCondensedExtraLightItalic.ttf
+NotoSerif-SemiCondensedItalic.ttf
+NotoSerif-SemiCondensedLight.ttf
+NotoSerif-SemiCondensedLightItalic.ttf
+NotoSerif-SemiCondensedMedium.ttf
+NotoSerif-SemiCondensedMediumItalic.ttf
+NotoSerif-SemiCondensedSemiBold.ttf
+NotoSerif-SemiCondensedSemiBoldItalic.ttf
+NotoSerif-SemiCondensedThin.ttf
+NotoSerif-SemiCondensedThinItalic.ttf
+NotoSerif-Thin.ttf
+NotoSerif-ThinItalic.ttf
+NotoSerifAhom-Regular.ttf
+NotoSerifArmenian-Black.ttf
+NotoSerifArmenian-Bold.ttf
+NotoSerifArmenian-Condensed.ttf
+NotoSerifArmenian-CondensedBlack.ttf
+NotoSerifArmenian-CondensedBold.ttf
+NotoSerifArmenian-CondensedExtraBold.ttf
+NotoSerifArmenian-CondensedExtraLight.ttf
+NotoSerifArmenian-CondensedLight.ttf
+NotoSerifArmenian-CondensedMedium.ttf
+NotoSerifArmenian-CondensedSemiBold.ttf
+NotoSerifArmenian-CondensedThin.ttf
+NotoSerifArmenian-ExtraBold.ttf
+NotoSerifArmenian-ExtraCondensed.ttf
+NotoSerifArmenian-ExtraCondensedBlack.ttf
+NotoSerifArmenian-ExtraCondensedBold.ttf
+NotoSerifArmenian-ExtraCondensedExtraBold.ttf
+NotoSerifArmenian-ExtraCondensedExtraLight.ttf
+NotoSerifArmenian-ExtraCondensedLight.ttf
+NotoSerifArmenian-ExtraCondensedMedium.ttf
+NotoSerifArmenian-ExtraCondensedSemiBold.ttf
+NotoSerifArmenian-ExtraCondensedThin.ttf
+NotoSerifArmenian-ExtraLight.ttf
+NotoSerifArmenian-Light.ttf
+NotoSerifArmenian-Medium.ttf
+NotoSerifArmenian-Regular.ttf
+NotoSerifArmenian-SemiBold.ttf
+NotoSerifArmenian-SemiCondensed.ttf
+NotoSerifArmenian-SemiCondensedBlack.ttf
+NotoSerifArmenian-SemiCondensedBold.ttf
+NotoSerifArmenian-SemiCondensedExtraBold.ttf
+NotoSerifArmenian-SemiCondensedExtraLight.ttf
+NotoSerifArmenian-SemiCondensedLight.ttf
+NotoSerifArmenian-SemiCondensedMedium.ttf
+NotoSerifArmenian-SemiCondensedSemiBold.ttf
+NotoSerifArmenian-SemiCondensedThin.ttf
+NotoSerifArmenian-Thin.ttf
+NotoSerifBalinese-Regular.ttf
+NotoSerifBengali-Black.ttf
+NotoSerifBengali-Bold.ttf
+NotoSerifBengali-Condensed.ttf
+NotoSerifBengali-CondensedBlack.ttf
+NotoSerifBengali-CondensedBold.ttf
+NotoSerifBengali-CondensedExtraBold.ttf
+NotoSerifBengali-CondensedExtraLight.ttf
+NotoSerifBengali-CondensedLight.ttf
+NotoSerifBengali-CondensedMedium.ttf
+NotoSerifBengali-CondensedSemiBold.ttf
+NotoSerifBengali-CondensedThin.ttf
+NotoSerifBengali-ExtraBold.ttf
+NotoSerifBengali-ExtraCondensed.ttf
+NotoSerifBengali-ExtraCondensedBlack.ttf
+NotoSerifBengali-ExtraCondensedBold.ttf
+NotoSerifBengali-ExtraCondensedExtraBold.ttf
+NotoSerifBengali-ExtraCondensedExtraLight.ttf
+NotoSerifBengali-ExtraCondensedLight.ttf
+NotoSerifBengali-ExtraCondensedMedium.ttf
+NotoSerifBengali-ExtraCondensedSemiBold.ttf
+NotoSerifBengali-ExtraCondensedThin.ttf
+NotoSerifBengali-ExtraLight.ttf
+NotoSerifBengali-Light.ttf
+NotoSerifBengali-Medium.ttf
+NotoSerifBengali-Regular.ttf
+NotoSerifBengali-SemiBold.ttf
+NotoSerifBengali-SemiCondensed.ttf
+NotoSerifBengali-SemiCondensedBlack.ttf
+NotoSerifBengali-SemiCondensedBold.ttf
+NotoSerifBengali-SemiCondensedExtraBold.ttf
+NotoSerifBengali-SemiCondensedExtraLight.ttf
+NotoSerifBengali-SemiCondensedLight.ttf
+NotoSerifBengali-SemiCondensedMedium.ttf
+NotoSerifBengali-SemiCondensedSemiBold.ttf
+NotoSerifBengali-SemiCondensedThin.ttf
+NotoSerifBengali-Thin.ttf
+NotoSerifDevanagari-Black.ttf
+NotoSerifDevanagari-Bold.ttf
+NotoSerifDevanagari-Condensed.ttf
+NotoSerifDevanagari-CondensedBlack.ttf
+NotoSerifDevanagari-CondensedBold.ttf
+NotoSerifDevanagari-CondensedExtraBold.ttf
+NotoSerifDevanagari-CondensedExtraLight.ttf
+NotoSerifDevanagari-CondensedLight.ttf
+NotoSerifDevanagari-CondensedMedium.ttf
+NotoSerifDevanagari-CondensedSemiBold.ttf
+NotoSerifDevanagari-CondensedThin.ttf
+NotoSerifDevanagari-ExtraBold.ttf
+NotoSerifDevanagari-ExtraCondensed.ttf
+NotoSerifDevanagari-ExtraCondensedBlack.ttf
+NotoSerifDevanagari-ExtraCondensedBold.ttf
+NotoSerifDevanagari-ExtraCondensedExtraBold.ttf
+NotoSerifDevanagari-ExtraCondensedExtraLight.ttf
+NotoSerifDevanagari-ExtraCondensedLight.ttf
+NotoSerifDevanagari-ExtraCondensedMedium.ttf
+NotoSerifDevanagari-ExtraCondensedSemiBold.ttf
+NotoSerifDevanagari-ExtraCondensedThin.ttf
+NotoSerifDevanagari-ExtraLight.ttf
+NotoSerifDevanagari-Light.ttf
+NotoSerifDevanagari-Medium.ttf
+NotoSerifDevanagari-Regular.ttf
+NotoSerifDevanagari-SemiBold.ttf
+NotoSerifDevanagari-SemiCondensed.ttf
+NotoSerifDevanagari-SemiCondensedBlack.ttf
+NotoSerifDevanagari-SemiCondensedBold.ttf
+NotoSerifDevanagari-SemiCondensedExtraBold.ttf
+NotoSerifDevanagari-SemiCondensedExtraLight.ttf
+NotoSerifDevanagari-SemiCondensedLight.ttf
+NotoSerifDevanagari-SemiCondensedMedium.ttf
+NotoSerifDevanagari-SemiCondensedSemiBold.ttf
+NotoSerifDevanagari-SemiCondensedThin.ttf
+NotoSerifDevanagari-Thin.ttf
+NotoSerifDisplay-Black.ttf
+NotoSerifDisplay-BlackItalic.ttf
+NotoSerifDisplay-Bold.ttf
+NotoSerifDisplay-BoldItalic.ttf
+NotoSerifDisplay-Condensed.ttf
+NotoSerifDisplay-CondensedBlack.ttf
+NotoSerifDisplay-CondensedBlackItalic.ttf
+NotoSerifDisplay-CondensedBold.ttf
+NotoSerifDisplay-CondensedBoldItalic.ttf
+NotoSerifDisplay-CondensedExtraBold.ttf
+NotoSerifDisplay-CondensedExtraBoldItalic.ttf
+NotoSerifDisplay-CondensedExtraLight.ttf
+NotoSerifDisplay-CondensedExtraLightItalic.ttf
+NotoSerifDisplay-CondensedItalic.ttf
+NotoSerifDisplay-CondensedLight.ttf
+NotoSerifDisplay-CondensedLightItalic.ttf
+NotoSerifDisplay-CondensedMedium.ttf
+NotoSerifDisplay-CondensedMediumItalic.ttf
+NotoSerifDisplay-CondensedSemiBold.ttf
+NotoSerifDisplay-CondensedSemiBoldItalic.ttf
+NotoSerifDisplay-CondensedThin.ttf
+NotoSerifDisplay-CondensedThinItalic.ttf
+NotoSerifDisplay-ExtraBold.ttf
+NotoSerifDisplay-ExtraBoldItalic.ttf
+NotoSerifDisplay-ExtraCondensed.ttf
+NotoSerifDisplay-ExtraCondensedBlack.ttf
+NotoSerifDisplay-ExtraCondensedBlackItalic.ttf
+NotoSerifDisplay-ExtraCondensedBold.ttf
+NotoSerifDisplay-ExtraCondensedBoldItalic.ttf
+NotoSerifDisplay-ExtraCondensedExtraBold.ttf
+NotoSerifDisplay-ExtraCondensedExtraBoldItalic.ttf
+NotoSerifDisplay-ExtraCondensedExtraLight.ttf
+NotoSerifDisplay-ExtraCondensedExtraLightItalic.ttf
+NotoSerifDisplay-ExtraCondensedItalic.ttf
+NotoSerifDisplay-ExtraCondensedLight.ttf
+NotoSerifDisplay-ExtraCondensedLightItalic.ttf
+NotoSerifDisplay-ExtraCondensedMedium.ttf
+NotoSerifDisplay-ExtraCondensedMediumItalic.ttf
+NotoSerifDisplay-ExtraCondensedSemiBold.ttf
+NotoSerifDisplay-ExtraCondensedSemiBoldItalic.ttf
+NotoSerifDisplay-ExtraCondensedThin.ttf
+NotoSerifDisplay-ExtraCondensedThinItalic.ttf
+NotoSerifDisplay-ExtraLight.ttf
+NotoSerifDisplay-ExtraLightItalic.ttf
+NotoSerifDisplay-Italic.ttf
+NotoSerifDisplay-Light.ttf
+NotoSerifDisplay-LightItalic.ttf
+NotoSerifDisplay-Medium.ttf
+NotoSerifDisplay-MediumItalic.ttf
+NotoSerifDisplay-Regular.ttf
+NotoSerifDisplay-SemiBold.ttf
+NotoSerifDisplay-SemiBoldItalic.ttf
+NotoSerifDisplay-SemiCondensed.ttf
+NotoSerifDisplay-SemiCondensedBlack.ttf
+NotoSerifDisplay-SemiCondensedBlackItalic.ttf
+NotoSerifDisplay-SemiCondensedBold.ttf
+NotoSerifDisplay-SemiCondensedBoldItalic.ttf
+NotoSerifDisplay-SemiCondensedExtraBold.ttf
+NotoSerifDisplay-SemiCondensedExtraBoldItalic.ttf
+NotoSerifDisplay-SemiCondensedExtraLight.ttf
+NotoSerifDisplay-SemiCondensedExtraLightItalic.ttf
+NotoSerifDisplay-SemiCondensedItalic.ttf
+NotoSerifDisplay-SemiCondensedLight.ttf
+NotoSerifDisplay-SemiCondensedLightItalic.ttf
+NotoSerifDisplay-SemiCondensedMedium.ttf
+NotoSerifDisplay-SemiCondensedMediumItalic.ttf
+NotoSerifDisplay-SemiCondensedSemiBold.ttf
+NotoSerifDisplay-SemiCondensedSemiBoldItalic.ttf
+NotoSerifDisplay-SemiCondensedThin.ttf
+NotoSerifDisplay-SemiCondensedThinItalic.ttf
+NotoSerifDisplay-Thin.ttf
+NotoSerifDisplay-ThinItalic.ttf
+NotoSerifDogra-Regular.ttf
+NotoSerifEthiopic-Black.ttf
+NotoSerifEthiopic-Bold.ttf
+NotoSerifEthiopic-Condensed.ttf
+NotoSerifEthiopic-CondensedBlack.ttf
+NotoSerifEthiopic-CondensedBold.ttf
+NotoSerifEthiopic-CondensedExtraBold.ttf
+NotoSerifEthiopic-CondensedExtraLight.ttf
+NotoSerifEthiopic-CondensedLight.ttf
+NotoSerifEthiopic-CondensedMedium.ttf
+NotoSerifEthiopic-CondensedSemiBold.ttf
+NotoSerifEthiopic-CondensedThin.ttf
+NotoSerifEthiopic-ExtraBold.ttf
+NotoSerifEthiopic-ExtraCondensed.ttf
+NotoSerifEthiopic-ExtraCondensedBlack.ttf
+NotoSerifEthiopic-ExtraCondensedBold.ttf
+NotoSerifEthiopic-ExtraCondensedExtraBold.ttf
+NotoSerifEthiopic-ExtraCondensedExtraLight.ttf
+NotoSerifEthiopic-ExtraCondensedLight.ttf
+NotoSerifEthiopic-ExtraCondensedMedium.ttf
+NotoSerifEthiopic-ExtraCondensedSemiBold.ttf
+NotoSerifEthiopic-ExtraCondensedThin.ttf
+NotoSerifEthiopic-ExtraLight.ttf
+NotoSerifEthiopic-Light.ttf
+NotoSerifEthiopic-Medium.ttf
+NotoSerifEthiopic-Regular.ttf
+NotoSerifEthiopic-SemiBold.ttf
+NotoSerifEthiopic-SemiCondensed.ttf
+NotoSerifEthiopic-SemiCondensedBlack.ttf
+NotoSerifEthiopic-SemiCondensedBold.ttf
+NotoSerifEthiopic-SemiCondensedExtraBold.ttf
+NotoSerifEthiopic-SemiCondensedExtraLight.ttf
+NotoSerifEthiopic-SemiCondensedLight.ttf
+NotoSerifEthiopic-SemiCondensedMedium.ttf
+NotoSerifEthiopic-SemiCondensedSemiBold.ttf
+NotoSerifEthiopic-SemiCondensedThin.ttf
+NotoSerifEthiopic-Thin.ttf
+NotoSerifGeorgian-Black.ttf
+NotoSerifGeorgian-Bold.ttf
+NotoSerifGeorgian-Condensed.ttf
+NotoSerifGeorgian-CondensedBlack.ttf
+NotoSerifGeorgian-CondensedBold.ttf
+NotoSerifGeorgian-CondensedExtraBold.ttf
+NotoSerifGeorgian-CondensedExtraLight.ttf
+NotoSerifGeorgian-CondensedLight.ttf
+NotoSerifGeorgian-CondensedMedium.ttf
+NotoSerifGeorgian-CondensedSemiBold.ttf
+NotoSerifGeorgian-CondensedThin.ttf
+NotoSerifGeorgian-ExtraBold.ttf
+NotoSerifGeorgian-ExtraCondensed.ttf
+NotoSerifGeorgian-ExtraCondensedBlack.ttf
+NotoSerifGeorgian-ExtraCondensedBold.ttf
+NotoSerifGeorgian-ExtraCondensedExtraBold.ttf
+NotoSerifGeorgian-ExtraCondensedExtraLight.ttf
+NotoSerifGeorgian-ExtraCondensedLight.ttf
+NotoSerifGeorgian-ExtraCondensedMedium.ttf
+NotoSerifGeorgian-ExtraCondensedSemiBold.ttf
+NotoSerifGeorgian-ExtraCondensedThin.ttf
+NotoSerifGeorgian-ExtraLight.ttf
+NotoSerifGeorgian-Light.ttf
+NotoSerifGeorgian-Medium.ttf
+NotoSerifGeorgian-Regular.ttf
+NotoSerifGeorgian-SemiBold.ttf
+NotoSerifGeorgian-SemiCondensed.ttf
+NotoSerifGeorgian-SemiCondensedBlack.ttf
+NotoSerifGeorgian-SemiCondensedBold.ttf
+NotoSerifGeorgian-SemiCondensedExtraBold.ttf
+NotoSerifGeorgian-SemiCondensedExtraLight.ttf
+NotoSerifGeorgian-SemiCondensedLight.ttf
+NotoSerifGeorgian-SemiCondensedMedium.ttf
+NotoSerifGeorgian-SemiCondensedSemiBold.ttf
+NotoSerifGeorgian-SemiCondensedThin.ttf
+NotoSerifGeorgian-Thin.ttf
+NotoSerifGrantha-Regular.ttf
+NotoSerifGujarati-Black.ttf
+NotoSerifGujarati-Bold.ttf
+NotoSerifGujarati-ExtraBold.ttf
+NotoSerifGujarati-ExtraLight.ttf
+NotoSerifGujarati-Light.ttf
+NotoSerifGujarati-Medium.ttf
+NotoSerifGujarati-Regular.ttf
+NotoSerifGujarati-SemiBold.ttf
+NotoSerifGujarati-Thin.ttf
+NotoSerifGurmukhi-Black.ttf
+NotoSerifGurmukhi-Bold.ttf
+NotoSerifGurmukhi-ExtraBold.ttf
+NotoSerifGurmukhi-ExtraLight.ttf
+NotoSerifGurmukhi-Light.ttf
+NotoSerifGurmukhi-Medium.ttf
+NotoSerifGurmukhi-Regular.ttf
+NotoSerifGurmukhi-SemiBold.ttf
+NotoSerifGurmukhi-Thin.ttf
+NotoSerifHebrew-Black.ttf
+NotoSerifHebrew-Bold.ttf
+NotoSerifHebrew-Condensed.ttf
+NotoSerifHebrew-CondensedBlack.ttf
+NotoSerifHebrew-CondensedBold.ttf
+NotoSerifHebrew-CondensedExtraBold.ttf
+NotoSerifHebrew-CondensedExtraLight.ttf
+NotoSerifHebrew-CondensedLight.ttf
+NotoSerifHebrew-CondensedMedium.ttf
+NotoSerifHebrew-CondensedSemiBold.ttf
+NotoSerifHebrew-CondensedThin.ttf
+NotoSerifHebrew-ExtraBold.ttf
+NotoSerifHebrew-ExtraCondensed.ttf
+NotoSerifHebrew-ExtraCondensedBlack.ttf
+NotoSerifHebrew-ExtraCondensedBold.ttf
+NotoSerifHebrew-ExtraCondensedExtraBold.ttf
+NotoSerifHebrew-ExtraCondensedExtraLight.ttf
+NotoSerifHebrew-ExtraCondensedLight.ttf
+NotoSerifHebrew-ExtraCondensedMedium.ttf
+NotoSerifHebrew-ExtraCondensedSemiBold.ttf
+NotoSerifHebrew-ExtraCondensedThin.ttf
+NotoSerifHebrew-ExtraLight.ttf
+NotoSerifHebrew-Light.ttf
+NotoSerifHebrew-Medium.ttf
+NotoSerifHebrew-Regular.ttf
+NotoSerifHebrew-SemiBold.ttf
+NotoSerifHebrew-SemiCondensed.ttf
+NotoSerifHebrew-SemiCondensedBlack.ttf
+NotoSerifHebrew-SemiCondensedBold.ttf
+NotoSerifHebrew-SemiCondensedExtraBold.ttf
+NotoSerifHebrew-SemiCondensedExtraLight.ttf
+NotoSerifHebrew-SemiCondensedLight.ttf
+NotoSerifHebrew-SemiCondensedMedium.ttf
+NotoSerifHebrew-SemiCondensedSemiBold.ttf
+NotoSerifHebrew-SemiCondensedThin.ttf
+NotoSerifHebrew-Thin.ttf
+NotoSerifKannada-Black.ttf
+NotoSerifKannada-Bold.ttf
+NotoSerifKannada-ExtraBold.ttf
+NotoSerifKannada-ExtraLight.ttf
+NotoSerifKannada-Light.ttf
+NotoSerifKannada-Medium.ttf
+NotoSerifKannada-Regular.ttf
+NotoSerifKannada-SemiBold.ttf
+NotoSerifKannada-Thin.ttf
+NotoSerifKhmer-Black.ttf
+NotoSerifKhmer-Bold.ttf
+NotoSerifKhmer-Condensed.ttf
+NotoSerifKhmer-CondensedBlack.ttf
+NotoSerifKhmer-CondensedBold.ttf
+NotoSerifKhmer-CondensedExtraBold.ttf
+NotoSerifKhmer-CondensedExtraLight.ttf
+NotoSerifKhmer-CondensedLight.ttf
+NotoSerifKhmer-CondensedMedium.ttf
+NotoSerifKhmer-CondensedSemiBold.ttf
+NotoSerifKhmer-CondensedThin.ttf
+NotoSerifKhmer-ExtraBold.ttf
+NotoSerifKhmer-ExtraCondensed.ttf
+NotoSerifKhmer-ExtraCondensedBlack.ttf
+NotoSerifKhmer-ExtraCondensedBold.ttf
+NotoSerifKhmer-ExtraCondensedExtraBold.ttf
+NotoSerifKhmer-ExtraCondensedExtraLight.ttf
+NotoSerifKhmer-ExtraCondensedLight.ttf
+NotoSerifKhmer-ExtraCondensedMedium.ttf
+NotoSerifKhmer-ExtraCondensedSemiBold.ttf
+NotoSerifKhmer-ExtraCondensedThin.ttf
+NotoSerifKhmer-ExtraLight.ttf
+NotoSerifKhmer-Light.ttf
+NotoSerifKhmer-Medium.ttf
+NotoSerifKhmer-Regular.ttf
+NotoSerifKhmer-SemiBold.ttf
+NotoSerifKhmer-SemiCondensed.ttf
+NotoSerifKhmer-SemiCondensedBlack.ttf
+NotoSerifKhmer-SemiCondensedBold.ttf
+NotoSerifKhmer-SemiCondensedExtraBold.ttf
+NotoSerifKhmer-SemiCondensedExtraLight.ttf
+NotoSerifKhmer-SemiCondensedLight.ttf
+NotoSerifKhmer-SemiCondensedMedium.ttf
+NotoSerifKhmer-SemiCondensedSemiBold.ttf
+NotoSerifKhmer-SemiCondensedThin.ttf
+NotoSerifKhmer-Thin.ttf
+NotoSerifKhojki-Bold.ttf
+NotoSerifKhojki-Regular.ttf
+NotoSerifLao-Black.ttf
+NotoSerifLao-Bold.ttf
+NotoSerifLao-Condensed.ttf
+NotoSerifLao-CondensedBlack.ttf
+NotoSerifLao-CondensedBold.ttf
+NotoSerifLao-CondensedExtraBold.ttf
+NotoSerifLao-CondensedExtraLight.ttf
+NotoSerifLao-CondensedLight.ttf
+NotoSerifLao-CondensedMedium.ttf
+NotoSerifLao-CondensedSemiBold.ttf
+NotoSerifLao-CondensedThin.ttf
+NotoSerifLao-ExtraBold.ttf
+NotoSerifLao-ExtraCondensed.ttf
+NotoSerifLao-ExtraCondensedBlack.ttf
+NotoSerifLao-ExtraCondensedBold.ttf
+NotoSerifLao-ExtraCondensedExtraBold.ttf
+NotoSerifLao-ExtraCondensedExtraLight.ttf
+NotoSerifLao-ExtraCondensedLight.ttf
+NotoSerifLao-ExtraCondensedMedium.ttf
+NotoSerifLao-ExtraCondensedSemiBold.ttf
+NotoSerifLao-ExtraCondensedThin.ttf
+NotoSerifLao-ExtraLight.ttf
+NotoSerifLao-Light.ttf
+NotoSerifLao-Medium.ttf
+NotoSerifLao-Regular.ttf
+NotoSerifLao-SemiBold.ttf
+NotoSerifLao-SemiCondensed.ttf
+NotoSerifLao-SemiCondensedBlack.ttf
+NotoSerifLao-SemiCondensedBold.ttf
+NotoSerifLao-SemiCondensedExtraBold.ttf
+NotoSerifLao-SemiCondensedExtraLight.ttf
+NotoSerifLao-SemiCondensedLight.ttf
+NotoSerifLao-SemiCondensedMedium.ttf
+NotoSerifLao-SemiCondensedSemiBold.ttf
+NotoSerifLao-SemiCondensedThin.ttf
+NotoSerifLao-Thin.ttf
+NotoSerifMalayalam-Black.ttf
+NotoSerifMalayalam-Bold.ttf
+NotoSerifMalayalam-ExtraBold.ttf
+NotoSerifMalayalam-ExtraLight.ttf
+NotoSerifMalayalam-Light.ttf
+NotoSerifMalayalam-Medium.ttf
+NotoSerifMalayalam-Regular.ttf
+NotoSerifMalayalam-SemiBold.ttf
+NotoSerifMalayalam-Thin.ttf
+NotoSerifMyanmar-Black.ttf
+NotoSerifMyanmar-Bold.ttf
+NotoSerifMyanmar-Condensed.ttf
+NotoSerifMyanmar-CondensedBlack.ttf
+NotoSerifMyanmar-CondensedBold.ttf
+NotoSerifMyanmar-CondensedExtraBold.ttf
+NotoSerifMyanmar-CondensedExtraLight.ttf
+NotoSerifMyanmar-CondensedLight.ttf
+NotoSerifMyanmar-CondensedMedium.ttf
+NotoSerifMyanmar-CondensedSemiBold.ttf
+NotoSerifMyanmar-CondensedThin.ttf
+NotoSerifMyanmar-ExtraBold.ttf
+NotoSerifMyanmar-ExtraCondensed.ttf
+NotoSerifMyanmar-ExtraCondensedBlack.ttf
+NotoSerifMyanmar-ExtraCondensedBold.ttf
+NotoSerifMyanmar-ExtraCondensedExtraBold.ttf
+NotoSerifMyanmar-ExtraCondensedExtraLight.ttf
+NotoSerifMyanmar-ExtraCondensedLight.ttf
+NotoSerifMyanmar-ExtraCondensedMedium.ttf
+NotoSerifMyanmar-ExtraCondensedSemiBold.ttf
+NotoSerifMyanmar-ExtraCondensedThin.ttf
+NotoSerifMyanmar-ExtraLight.ttf
+NotoSerifMyanmar-Light.ttf
+NotoSerifMyanmar-Medium.ttf
+NotoSerifMyanmar-Regular.ttf
+NotoSerifMyanmar-SemiBold.ttf
+NotoSerifMyanmar-SemiCondensed.ttf
+NotoSerifMyanmar-SemiCondensedBlack.ttf
+NotoSerifMyanmar-SemiCondensedBold.ttf
+NotoSerifMyanmar-SemiCondensedExtraBold.ttf
+NotoSerifMyanmar-SemiCondensedExtraLight.ttf
+NotoSerifMyanmar-SemiCondensedLight.ttf
+NotoSerifMyanmar-SemiCondensedMedium.ttf
+NotoSerifMyanmar-SemiCondensedSemiBold.ttf
+NotoSerifMyanmar-SemiCondensedThin.ttf
+NotoSerifMyanmar-Thin.ttf
+NotoSerifNyiakengPuachueHmong-Bold.ttf
+NotoSerifNyiakengPuachueHmong-Medium.ttf
+NotoSerifNyiakengPuachueHmong-Regular.ttf
+NotoSerifNyiakengPuachueHmong-SemiBold.ttf
+NotoSerifSinhala-Black.ttf
+NotoSerifSinhala-Bold.ttf
+NotoSerifSinhala-Condensed.ttf
+NotoSerifSinhala-CondensedBlack.ttf
+NotoSerifSinhala-CondensedBold.ttf
+NotoSerifSinhala-CondensedExtraBold.ttf
+NotoSerifSinhala-CondensedExtraLight.ttf
+NotoSerifSinhala-CondensedLight.ttf
+NotoSerifSinhala-CondensedMedium.ttf
+NotoSerifSinhala-CondensedSemiBold.ttf
+NotoSerifSinhala-CondensedThin.ttf
+NotoSerifSinhala-ExtraBold.ttf
+NotoSerifSinhala-ExtraCondensed.ttf
+NotoSerifSinhala-ExtraCondensedBlack.ttf
+NotoSerifSinhala-ExtraCondensedBold.ttf
+NotoSerifSinhala-ExtraCondensedExtraBold.ttf
+NotoSerifSinhala-ExtraCondensedExtraLight.ttf
+NotoSerifSinhala-ExtraCondensedLight.ttf
+NotoSerifSinhala-ExtraCondensedMedium.ttf
+NotoSerifSinhala-ExtraCondensedSemiBold.ttf
+NotoSerifSinhala-ExtraCondensedThin.ttf
+NotoSerifSinhala-ExtraLight.ttf
+NotoSerifSinhala-Light.ttf
+NotoSerifSinhala-Medium.ttf
+NotoSerifSinhala-Regular.ttf
+NotoSerifSinhala-SemiBold.ttf
+NotoSerifSinhala-SemiCondensed.ttf
+NotoSerifSinhala-SemiCondensedBlack.ttf
+NotoSerifSinhala-SemiCondensedBold.ttf
+NotoSerifSinhala-SemiCondensedExtraBold.ttf
+NotoSerifSinhala-SemiCondensedExtraLight.ttf
+NotoSerifSinhala-SemiCondensedLight.ttf
+NotoSerifSinhala-SemiCondensedMedium.ttf
+NotoSerifSinhala-SemiCondensedSemiBold.ttf
+NotoSerifSinhala-SemiCondensedThin.ttf
+NotoSerifSinhala-Thin.ttf
+NotoSerifTamil-Black.ttf
+NotoSerifTamil-Bold.ttf
+NotoSerifTamil-Condensed.ttf
+NotoSerifTamil-CondensedBlack.ttf
+NotoSerifTamil-CondensedBold.ttf
+NotoSerifTamil-CondensedExtraBold.ttf
+NotoSerifTamil-CondensedExtraLight.ttf
+NotoSerifTamil-CondensedLight.ttf
+NotoSerifTamil-CondensedMedium.ttf
+NotoSerifTamil-CondensedSemiBold.ttf
+NotoSerifTamil-CondensedThin.ttf
+NotoSerifTamil-ExtraBold.ttf
+NotoSerifTamil-ExtraCondensed.ttf
+NotoSerifTamil-ExtraCondensedBlack.ttf
+NotoSerifTamil-ExtraCondensedBold.ttf
+NotoSerifTamil-ExtraCondensedExtraBold.ttf
+NotoSerifTamil-ExtraCondensedExtraLight.ttf
+NotoSerifTamil-ExtraCondensedLight.ttf
+NotoSerifTamil-ExtraCondensedMedium.ttf
+NotoSerifTamil-ExtraCondensedSemiBold.ttf
+NotoSerifTamil-ExtraCondensedThin.ttf
+NotoSerifTamil-ExtraLight.ttf
+NotoSerifTamil-Light.ttf
+NotoSerifTamil-Medium.ttf
+NotoSerifTamil-Regular.ttf
+NotoSerifTamil-SemiBold.ttf
+NotoSerifTamil-SemiCondensed.ttf
+NotoSerifTamil-SemiCondensedBlack.ttf
+NotoSerifTamil-SemiCondensedBold.ttf
+NotoSerifTamil-SemiCondensedExtraBold.ttf
+NotoSerifTamil-SemiCondensedExtraLight.ttf
+NotoSerifTamil-SemiCondensedLight.ttf
+NotoSerifTamil-SemiCondensedMedium.ttf
+NotoSerifTamil-SemiCondensedSemiBold.ttf
+NotoSerifTamil-SemiCondensedThin.ttf
+NotoSerifTamil-Thin.ttf
+NotoSerifTamilSlanted-Black.ttf
+NotoSerifTamilSlanted-Bold.ttf
+NotoSerifTamilSlanted-Condensed.ttf
+NotoSerifTamilSlanted-CondensedBlack.ttf
+NotoSerifTamilSlanted-CondensedBold.ttf
+NotoSerifTamilSlanted-CondensedExtraBold.ttf
+NotoSerifTamilSlanted-CondensedExtraLight.ttf
+NotoSerifTamilSlanted-CondensedLight.ttf
+NotoSerifTamilSlanted-CondensedMedium.ttf
+NotoSerifTamilSlanted-CondensedSemiBold.ttf
+NotoSerifTamilSlanted-CondensedThin.ttf
+NotoSerifTamilSlanted-ExtraBold.ttf
+NotoSerifTamilSlanted-ExtraCondensed.ttf
+NotoSerifTamilSlanted-ExtraCondensedBlack.ttf
+NotoSerifTamilSlanted-ExtraCondensedBold.ttf
+NotoSerifTamilSlanted-ExtraCondensedExtraBold.ttf
+NotoSerifTamilSlanted-ExtraCondensedExtraLight.ttf
+NotoSerifTamilSlanted-ExtraCondensedLight.ttf
+NotoSerifTamilSlanted-ExtraCondensedMedium.ttf
+NotoSerifTamilSlanted-ExtraCondensedSemiBold.ttf
+NotoSerifTamilSlanted-ExtraCondensedThin.ttf
+NotoSerifTamilSlanted-ExtraLight.ttf
+NotoSerifTamilSlanted-Light.ttf
+NotoSerifTamilSlanted-Medium.ttf
+NotoSerifTamilSlanted-Regular.ttf
+NotoSerifTamilSlanted-SemiBold.ttf
+NotoSerifTamilSlanted-SemiCondensed.ttf
+NotoSerifTamilSlanted-SemiCondensedBlack.ttf
+NotoSerifTamilSlanted-SemiCondensedBold.ttf
+NotoSerifTamilSlanted-SemiCondensedExtraBold.ttf
+NotoSerifTamilSlanted-SemiCondensedExtraLight.ttf
+NotoSerifTamilSlanted-SemiCondensedLight.ttf
+NotoSerifTamilSlanted-SemiCondensedMedium.ttf
+NotoSerifTamilSlanted-SemiCondensedSemiBold.ttf
+NotoSerifTamilSlanted-SemiCondensedThin.ttf
+NotoSerifTamilSlanted-Thin.ttf
+NotoSerifTangut-Regular.ttf
+NotoSerifTelugu-Black.ttf
+NotoSerifTelugu-Bold.ttf
+NotoSerifTelugu-ExtraBold.ttf
+NotoSerifTelugu-ExtraLight.ttf
+NotoSerifTelugu-Light.ttf
+NotoSerifTelugu-Medium.ttf
+NotoSerifTelugu-Regular.ttf
+NotoSerifTelugu-SemiBold.ttf
+NotoSerifTelugu-Thin.ttf
+NotoSerifThai-Black.ttf
+NotoSerifThai-Bold.ttf
+NotoSerifThai-Condensed.ttf
+NotoSerifThai-CondensedBlack.ttf
+NotoSerifThai-CondensedBold.ttf
+NotoSerifThai-CondensedExtraBold.ttf
+NotoSerifThai-CondensedExtraLight.ttf
+NotoSerifThai-CondensedLight.ttf
+NotoSerifThai-CondensedMedium.ttf
+NotoSerifThai-CondensedSemiBold.ttf
+NotoSerifThai-CondensedThin.ttf
+NotoSerifThai-ExtraBold.ttf
+NotoSerifThai-ExtraCondensed.ttf
+NotoSerifThai-ExtraCondensedBlack.ttf
+NotoSerifThai-ExtraCondensedBold.ttf
+NotoSerifThai-ExtraCondensedExtraBold.ttf
+NotoSerifThai-ExtraCondensedExtraLight.ttf
+NotoSerifThai-ExtraCondensedLight.ttf
+NotoSerifThai-ExtraCondensedMedium.ttf
+NotoSerifThai-ExtraCondensedSemiBold.ttf
+NotoSerifThai-ExtraCondensedThin.ttf
+NotoSerifThai-ExtraLight.ttf
+NotoSerifThai-Light.ttf
+NotoSerifThai-Medium.ttf
+NotoSerifThai-Regular.ttf
+NotoSerifThai-SemiBold.ttf
+NotoSerifThai-SemiCondensed.ttf
+NotoSerifThai-SemiCondensedBlack.ttf
+NotoSerifThai-SemiCondensedBold.ttf
+NotoSerifThai-SemiCondensedExtraBold.ttf
+NotoSerifThai-SemiCondensedExtraLight.ttf
+NotoSerifThai-SemiCondensedLight.ttf
+NotoSerifThai-SemiCondensedMedium.ttf
+NotoSerifThai-SemiCondensedSemiBold.ttf
+NotoSerifThai-SemiCondensedThin.ttf
+NotoSerifThai-Thin.ttf
+NotoSerifTibetan-Black.ttf
+NotoSerifTibetan-Bold.ttf
+NotoSerifTibetan-ExtraBold.ttf
+NotoSerifTibetan-ExtraLight.ttf
+NotoSerifTibetan-Light.ttf
+NotoSerifTibetan-Medium.ttf
+NotoSerifTibetan-Regular.ttf
+NotoSerifTibetan-SemiBold.ttf
+NotoSerifTibetan-Thin.ttf
+NotoSerifYezidi-Bold.ttf
+NotoSerifYezidi-Medium.ttf
+NotoSerifYezidi-Regular.ttf
+NotoSerifYezidi-SemiBold.ttf
+NotoTraditionalNushu-Regular.ttf
+
+exec
+/bin/bash -lc 'sha256sum /home/hatch/workspace/yexun/DESIGN_CH1_SLICE.md > /home/hatch/workspace/yexun/docs/design_source.sha256; /home/hatch/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --version; du -sh /home/hatch/workspace/yexun' in /home/hatch
+ succeeded in 592ms:
+4.3.stable.official.77dcf97d8
+26M	/home/hatch/workspace/yexun
+
+exec
+/bin/bash -lc 'rg --files /home/hatch/workspace/yexun/game' in /home/hatch
+ succeeded in 301ms:
+/home/hatch/workspace/yexun/game/import.log
+/home/hatch/workspace/yexun/game/main.gd
+/home/hatch/workspace/yexun/game/Main.tscn
+/home/hatch/workspace/yexun/game/project.godot
+/home/hatch/workspace/yexun/game/font.ttc
+/home/hatch/workspace/yexun/game/smoke.gd
+/home/hatch/workspace/yexun/game/audio/crackers.wav
+/home/hatch/workspace/yexun/game/audio/bell.wav
+/home/hatch/workspace/yexun/game/audio/drum.wav
+
+exec
+/bin/bash -lc 'cat /home/hatch/workspace/yexun/game/main.gd' in /home/hatch
+ succeeded in 39ms:
+extends Node2D
+
+var phase = "title"
+var current = "incense"
+var spirit = true
+var flags: Dictionary = {}
+var remaining = 240.0
+var time_scale = 1.0
+var failure_wait = 0.0
+var pickup_left = 0.0
+var dialogue = ""
+var speaker = "阿澄"
+var history: Array[String] = []
+var font: Font
+var audio: AudioStreamPlayer
+var nodes = {
+ "incense": ["大香炉", "火星上窜", Vector2(95,350)],
+ "sticks": ["签筒", "摇→落一支签", Vector2(220,310)],
+ "candle": ["供桌烛台", "焰斜→燎金纸", Vector2(350,350)],
+ "drum": ["潮鼓", "响一声", Vector2(455,410)],
+ "palanquin": ["神轿（大老爷）", "轻晃→轿铃响", Vector2(650,395)],
+ "flag": ["标旗", "旗面抖响", Vector2(570,235)],
+ "lantern": ["花灯", "亮／旋转", Vector2(1040,180)],
+ "beam": ["灯架横木", "吱呀晃动", Vector2(1020,320)],
+ "crackers": ["鞭炮串", "燃放", Vector2(870,230)],
+ "loudspeaker": ["大声公", "播庙祝公录音「收埕」", Vector2(820,465)],
+ "horse": ["纸扎马", "马头转向", Vector2(470,515)],
+ "umbrella": ["油纸伞", "开伞", Vector2(670,535)]
+}
+var graph = {
+ "incense": ["sticks"], "sticks": ["incense","candle"],
+ "candle": ["sticks","drum"], "drum": ["candle","palanquin","horse"],
+ "palanquin": ["drum","flag","beam"], "flag": ["palanquin","umbrella"],
+ "beam": ["palanquin","lantern"], "lantern": ["beam","crackers"],
+ "crackers": ["lantern"], "horse": ["drum"],
+ "umbrella": ["flag","loudspeaker"], "loudspeaker": ["umbrella"]
+}
+
+func _ready() -> void:
+ font = load("res://font.ttc")
+ audio = AudioStreamPlayer.new()
+ add_child(audio)
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--time-scale="):
+   time_scale = maxf(0.1, float(arg.get_slice("=",1)))
+ var capture = ""
+ var capture_path = ""
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--capture="): capture = arg.get_slice("=",1)
+  if arg.begins_with("--capture-path="): capture_path = arg.get_slice("=",1)
+ if not capture.is_empty():
+  call_deferred("capture_scene",capture,capture_path)
+ queue_redraw()
+
+func say(who: String, line: String) -> void:
+ speaker = who
+ dialogue = line
+ history.append(who + "：" + line)
+ print(who + "：" + line)
+ queue_redraw()
+
+func start_game() -> void:
+ phase = "tutorial"
+ current = "incense"
+ spirit = true
+ flags = {}
+ remaining = 240.0
+ pickup_left = 0.0
+ nodes.crackers[2] = Vector2(870,230)
+ graph.beam = ["palanquin","lantern"]
+ graph.crackers = ["lantern"]
+ say("阿澄", "谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。")
+
+func start_incense() -> void:
+ if phase != "explore": return
+ phase = "playing"
+ remaining = 240.0
+ flags = {}
+ pickup_left = 0.0
+ say("一炷香前", "阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。")
+
+func set_spirit(value: bool) -> void:
+ spirit = value
+ queue_redraw()
+
+func jump_to(id: String) -> bool:
+ if not spirit or phase not in ["tutorial","explore","playing"]: return false
+ if id not in graph[current]: return false
+ if (current == "umbrella" and id == "loudspeaker") or (current == "loudspeaker" and id == "umbrella"):
+  if not flags.get("umbrella",false):
+   say("阿澄", "先让油纸伞张开，借风飘到戏台口。")
+   return false
+ current = id
+ if id == "sticks" and not flags.get("heard",false):
+  flags.heard = true
+  say("庙祝公／小英", "阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。")
+ queue_redraw()
+ return true
+
+func act() -> void:
+ if phase not in ["tutorial","explore","playing"]: return
+ if spirit:
+  say("阿澄", "先切回现实，才可牵动物件。灵域只供观察和跳跃。")
+  return
+ match current:
+  "incense":
+   say("阿澄", "火星上窜，梁上燕子惊起。我的手……能碰到它们。")
+   if phase == "tutorial": phase = "explore"
+  "sticks":
+   if phase == "playing":
+    flags.pickup = true
+    pickup_left = 18.0
+    flags.update1 = true
+    say("命运更新①", "签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！")
+   else: say("阿澄", "一支签落在埕边。先按 F 进入「一炷香前」，才能改写这段命运。")
+  "palanquin":
+   play_sound("bell")
+   flags.second_bell = true
+   if phase == "playing" and flags.get("pickup",false):
+    flags.safe = true
+    flags.update2 = true
+    say("命运更新② · 阿勇", "阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】")
+   else: say("小英", "轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。")
+  "candle":
+   if phase == "playing":
+    flags.moved = true
+    flags.fuse = true
+    nodes.crackers[2] = Vector2(1090,450)
+    graph.beam = ["palanquin","lantern","crackers"]
+    graph.crackers = ["lantern","beam"]
+    say("庙祝公", "金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】")
+   else: say("阿澄", "烛焰斜向金纸。先进入一炷香前。")
+  "drum":
+   play_sound("drum")
+   if phase == "playing":
+    flags.drums = flags.get("drums",0) + 1
+    if flags.drums >= 3: fail("三下潮鼓震松主绳，原命运提前到来。")
+    else: say("阿澄", "鼓震传到灯架。再乱敲，阿弟会来不及离开……（%d／3）" % flags.drums)
+   else: say("阿澄", "鼓声惊动全埕。")
+  "flag":
+   flags.flag = true
+   say("小英／阿勇", "什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】")
+  "lantern":
+   flags.lantern = true
+   say("阿澄", "花灯亮起、缓缓旋转。绳结上有一道不自然的暗影……")
+  "beam":
+   if phase != "playing":
+    say("阿澄", "横木吱呀作响。乱晃只会使它更早倒下。")
+   elif flags.get("safe",false) and flags.get("moved",false) and (flags.get("flag",false) or flags.get("cleared",false)):
+    flags.armed = true
+    say("阿澄", "横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。")
+   else:
+    remaining = maxf(0.0,remaining - 45.0)
+    flags.shakes = flags.get("shakes",0) + 1
+    say("阿澄", "横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。")
+    if flags.shakes >= 3 or remaining <= 0: fail("过早摇晃，灯架提前倒下。")
+  "crackers":
+   if not flags.get("fuse",false): say("阿澄", "引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。")
+   else:
+    play_sound("crackers")
+    if phase == "playing" and flags.get("armed",false): finish()
+    else: say("阿澄", "鞭炮炸响，但横木尚未晃松，未能放倒灯架。")
+  "loudspeaker":
+   flags.cleared = true
+   say("庙祝公录音", "收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】")
+  "horse":
+   flags.horse = true
+   say("阿澄", "纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？")
+  "umbrella":
+   flags.umbrella = true
+   say("阿澄", "油纸伞张开，随风飘向戏台口。现在可以跳到大声公。")
+ queue_redraw()
+
+func advance_time(delta: float) -> void:
+ if phase != "playing" or spirit: return
+ remaining -= delta * time_scale
+ if pickup_left > 0 and not flags.get("safe",false):
+  pickup_left -= delta * time_scale
+  if pickup_left <= 0:
+   flags.pickup = false
+   say("阿弟", "签捡到了……我回去绑绳。")
+ if remaining <= 0: fail("一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。")
+ queue_redraw()
+
+func fail(reason: String) -> void:
+ phase = "failure"
+ failure_wait = 5.0
+ say("阿弟的亡魂", reason + " 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……")
+
+func retry() -> void:
+ start_game()
+ phase = "explore"
+ start_incense()
+ spirit = true
+ say("阿弟的亡魂", "香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。")
+
+func finish() -> void:
+ phase = "ending"
+ current = "lantern"
+ flags.ending = true
+ say("阿弟／阿澄", "若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】")
+ play_sound("bell")
+
+func play_sound(kind: String) -> void:
+ audio.stream = load("res://audio/" + kind + ".wav")
+ audio.play()
+
+func _process(delta: float) -> void:
+ advance_time(delta)
+ if phase == "failure":
+  failure_wait -= delta
+  if failure_wait <= 0: retry()
+
+func _unhandled_input(event: InputEvent) -> void:
+ if event is InputEventKey and event.pressed and not event.echo:
+  match event.keycode:
+   KEY_ENTER:
+    if phase == "title" or phase == "ending": start_game()
+    elif phase == "failure": retry()
+   KEY_TAB: set_spirit(not spirit)
+   KEY_E: act()
+   KEY_F: start_incense()
+   KEY_R:
+    if phase == "failure": retry()
+   KEY_1: time_scale = 1.0
+   KEY_4: time_scale = 4.0
+ if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+  var p = get_global_mouse_position()
+  if phase == "title": start_game(); return
+  for id in nodes:
+   if p.distance_to(nodes[id][2]) < 52:
+    jump_to(id)
+    break
+
+func text_at(pos: Vector2, value: String, size: int = 18, color: Color = Color.WHITE) -> void:
+ draw_string(font,pos,value,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
+
+func _draw() -> void:
+ if font == null: return
+ draw_rect(Rect2(0,0,1280,720),Color("0a1018") if spirit else Color("201a20"))
+ if phase == "title":
+  text_at(Vector2(420,235),"夜 巡",72,Color("a8eeeb"))
+  text_at(Vector2(395,305),"第一章 · 一炷香前",32)
+  text_at(Vector2(300,385),"溪尾村，正月十五夜。你醒来时，香刚点燃。",24)
+  text_at(Vector2(360,465),"Enter / 点击开始  ·  灰盒切片 R1",22)
+  return
+ if phase == "ending":
+  text_at(Vector2(230,180),"花灯残骸照出绳结：整齐的割痕。",28,Color("8dded7"))
+  text_at(Vector2(300,245),"远处，第二声轿铃又响了一次。",24,Color("9dabbc"))
+  text_at(Vector2(230,375),"今晚的巡境，多走了一条路。",42)
+  text_at(Vector2(525,465),"第一章完",30,Color("d8b777"))
+  text_at(Vector2(455,525),"Enter 返回标题教学",20)
+  return
+ draw_rect(Rect2(25,160,385,390),Color("35313a"))
+ draw_rect(Rect2(425,175,800,380),Color("242e38"))
+ text_at(Vector2(50,205),"老爷宫",25,Color("a99b90"))
+ text_at(Vector2(1130,530),"宫埕",24,Color("a99b90"))
+ draw_line(Vector2(1010,200),Vector2(1010,465),Color("ae8d68"),10)
+ draw_line(Vector2(1120,200),Vector2(1120,465),Color("ae8d68"),10)
+ if spirit:
+  for id in graph:
+   for other in graph[id]:
+    draw_line(nodes[id][2],nodes[other][2],Color(0.1,0.45,0.48,0.5),2)
+ for id in nodes:
+  var p: Vector2 = nodes[id][2]
+  var tint = Color("827064") if id != current else Color("d8ba7b")
+  draw_rect(Rect2(p-Vector2(36,20),Vector2(72,40)),tint)
+  if spirit: draw_circle(p,8,Color("53f7eb"))
+  if id == current: draw_arc(p,45,0,TAU,40,Color("72fff5"),3)
+  text_at(p+Vector2(-45,-30),nodes[id][0],18)
+ var npc = "阿弟：扶轿" if flags.get("safe",false) else ("阿弟：埕边捡签" if flags.get("pickup",false) else "阿弟：架下绑绳")
+ text_at(Vector2(900,505),npc,18,Color("efb88f"))
+ text_at(Vector2(30,38),"夜巡 · 一炷香前  |  " + ("灵域 · 时间停顿" if spirit else "现实 · 时间流动"),25,Color("7ae8dd"))
+ text_at(Vector2(30,77),"Tab 切换　点击相邻灵核跳跃　E 使用物件　F 点香回溯　1 / 4 时间倍率",19)
+ text_at(Vector2(30,110),"当前："+nodes[current][0]+"  ·  "+nodes[current][1],21)
+ text_at(Vector2(850,112),"香期 %03d 秒 ×%.0f" % [int(maxf(0,remaining)),time_scale],23)
+ if phase == "explore": text_at(Vector2(460,155),"自由探索 · 按 F 进入一炷香前",21,Color("e8c789"))
+ if flags.get("update1",false): text_at(Vector2(30,150),"命运更新① ✓",19,Color("e8c789"))
+ if flags.get("update2",false): text_at(Vector2(205,150),"命运更新② ✓",19,Color("e8c789"))
+ draw_rect(Rect2(20,574,1240,132),Color("101521"))
+ text_at(Vector2(40,606),speaker,21,Color("79e7dd"))
+ var lines = wrap_line(dialogue, sixty())
+ for i in range(mini(lines.size(),3)):
+  text_at(Vector2(40,636+i*25),lines[i],18)
+ if phase == "failure": text_at(Vector2(420,557),"命运未改 · 亡魂对话后自动重试 / Enter",22,Color("ff8f86"))
+
+func sixty() -> int:
+ return 61
+
+func wrap_line(value: String, count: int) -> Array[String]:
+ var result: Array[String] = []
+ for i in range(0,value.length(),count): result.append(value.substr(i,count))
+ return result
+
+func walk_to(target: String) -> bool:
+ set_spirit(true)
+ var paths: Array = [[current]]
+ var visited: Array = [current]
+ while not paths.is_empty():
+  var path: Array = paths.pop_front()
+  if path.back() == target:
+   for item in path.slice(1):
+    if not jump_to(item): return false
+   return true
+  for neighbor in graph[path.back()]:
+   if neighbor not in visited:
+    visited.append(neighbor)
+    var next = path.duplicate()
+    next.append(neighbor)
+    paths.append(next)
+ return false
+
+func use_at(target: String) -> void:
+ walk_to(target)
+ set_spirit(false)
+ act()
+
+func capture_scene(kind: String, path: String) -> void:
+ start_game()
+ use_at("incense")
+ start_incense()
+ if kind == "ending":
+  for id in ["sticks","palanquin","candle","flag","beam","crackers"]: use_at(id)
+ else:
+  use_at("horse")
+  set_spirit(kind == "spirit")
+ await get_tree().process_frame
+ await get_tree().process_frame
+ await RenderingServer.frame_post_draw
+ var err = get_viewport().get_texture().get_image().save_png(path)
+ print("CAPTURE ",kind," ",path," error=",err)
+ get_tree().quit(err)
+
+codex
+灰盒工程已落盘，12件物件、计时、NPC调度和三种音效已接入。独立审读发现一处软锁：探索到喇叭后点香会清掉开伞状态，导致无法返回；正在修为点香后统一回香炉，并检查“阿弟已安全时仍出现亡魂对白”的问题。
+
+exec
+/bin/bash -lc 'cat /home/hatch/workspace/yexun/game/project.godot; cat /home/hatch/workspace/yexun/game/import.log' in /home/hatch
+ succeeded in 23ms:
+config_version=5
+[application]
+config/name="夜巡 · 第一章：一炷香前"
+run/main_scene="res://Main.tscn"
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+[rendering]
+renderer/rendering_method="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+ERROR: Condition "_sock == -1" is true. Returning: FAILED
+   at: open (drivers/unix/net_socket_posix.cpp:345)
+ERROR: Condition "err != OK" is true. Returning: ERR_CANT_CREATE
+   at: listen (core/io/tcp_server.cpp:57)
+ERROR: Condition "_sock == -1" is true. Returning: FAILED
+   at: open (drivers/unix/net_socket_posix.cpp:345)
+ERROR: Condition "err != OK" is true. Returning: ERR_CANT_CREATE
+   at: listen (core/io/tcp_server.cpp:57)
+
+exec
+/bin/bash -lc 'Xvfb :91 -screen 0 1280x720x24 -nolisten tcp' in /home/hatch
+ exited 1 in 37ms:
+_XSERVTransSocketCreateListener: failed to bind listener
+_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed
+_XSERVTransMakeAllCOTSServerListeners: failed to create listener for local
+_XSERVTransSocketCreateListener: failed to bind listener
+_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed
+_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix
+(EE) 
+Fatal server error:
+(EE) Cannot establish any listening sockets - Make sure an X server isn't already running(EE) 
+
+exec
+/bin/bash -lc 'printenv DISPLAY; ls -la /tmp/.X11-unix; ls /dev/dri' in /home/hatch
+ exited 2 in 31ms:
+total 0
+drwxrwxrwt  2 root root  40 Nov 16 09:31 .
+drwxrwxrwt 12 root root 480 Nov 16 09:37 ..
+ls: cannot access '/dev/dri': No such file or directory
+
+exec
+/bin/bash -lc 'export TMPDIR=/home/hatch/workspace/yexun/game/.tmp
+/home/hatch/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path /home/hatch/workspace/yexun/game --display-driver headless --rendering-method gl_compatibility -- --capture=spirit --capture-path=/home/hatch/workspace/yexun/docs/shots/spirit.png' in /home/hatch
+ exited 130 in 15869ms:
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:90)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio_server.cpp:247)
+
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+阿澄：纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？
+
+exec
+/bin/bash -lc "rg -n 'func start_incense|func fail|func retry|shakes|second_bell|func play' /home/hatch/workspace/yexun/game/main.gd; tail -5 /home/hatch/workspace/yexun/docs/smoke_r1.log" in /home/hatch
+ succeeded in 217ms:
+74:func start_incense() -> void:
+122:   flags.second_bell = true
+161:    flags.shakes = flags.get("shakes",0) + 1
+163:    if flags.shakes >= 2 or remaining <= 0: fail("过早摇晃，灯架提前倒下。")
+192:func fail(reason: String) -> void:
+200:func retry() -> void:
+215:func play_sound(kind: String) -> void:
+PASS BFS route to beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS repeated premature beam shakes fail
+SMOKE RESULT: PASS checks=241 failures=0
+
+codex
+冒烟已通过241项检查，覆盖正解、备选通关、潮鼓三下失败、自动重试、灵域停时和补边后的实际可达性。截图遇到环境限制：Xvfb 被禁止创建显示套接字，本机也没有现成显示服务；Godot 无头模式没有实际渲染帧，不能当作截图交付。我会如实记录这项未完成，并附可在有显示环境中复跑的截图命令。
+
+exec
+/bin/bash -lc "sed -n '68,96p' /home/hatch/workspace/yexun/game/main.gd; sed -n '187,235p' /home/hatch/workspace/yexun/game/main.gd; cat /home/hatch/workspace/yexun/game/Main.tscn; ls -la /home/hatch/workspace/yexun/docs/shots" in /home/hatch
+ succeeded in 128ms:
+ pickup_left = 0.0
+ nodes.crackers[2] = Vector2(870,230)
+ graph.beam = ["palanquin","lantern"]
+ graph.crackers = ["lantern"]
+ say("阿澄", "谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。")
+
+func start_incense() -> void:
+ if phase != "explore": return
+ phase = "playing"
+ current = "incense"
+ nodes.crackers[2] = Vector2(870,230)
+ graph.beam = ["palanquin","lantern"]
+ graph.crackers = ["lantern"]
+ remaining = 240.0
+ flags = {}
+ pickup_left = 0.0
+ say("一炷香前", "阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。")
+
+func set_spirit(value: bool) -> void:
+ spirit = value
+ queue_redraw()
+
+func jump_to(id: String) -> bool:
+ if not spirit or phase not in ["tutorial","explore","playing"]: return false
+ if id not in graph[current]: return false
+ if (current == "umbrella" and id == "loudspeaker") or (current == "loudspeaker" and id == "umbrella"):
+  if not flags.get("umbrella",false):
+   say("阿澄", "先让油纸伞张开，借风飘到戏台口。")
+   return false
+  pickup_left -= delta * time_scale
+  if pickup_left <= 0:
+   flags.pickup = false
+   say("阿弟", "签捡到了……我回去绑绳。")
+ if remaining <= 0: fail("一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。")
+ queue_redraw()
+
+func fail(reason: String) -> void:
+ phase = "failure"
+ failure_wait = 5.0
+ if flags.get("safe",false):
+  say("阿澄", reason + " 阿弟已经扶轿离开落点，但未能完成安全放倒的闭环。回到香点，仍需烛台、停锣或清场，再晃横木燃放。")
+ else:
+  say("阿弟的亡魂", reason + " 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……")
+
+func retry() -> void:
+ var was_safe: bool = flags.get("safe",false)
+ start_game()
+ phase = "explore"
+ start_incense()
+ spirit = true
+ say("阿澄" if was_safe else "阿弟的亡魂", "香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。")
+
+func finish() -> void:
+ phase = "ending"
+ current = "lantern"
+ flags.ending = true
+ say("阿弟／阿澄", "若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】")
+ play_sound("bell")
+
+func play_sound(kind: String) -> void:
+ audio.stream = load("res://audio/" + kind + ".wav")
+ audio.play()
+
+func _process(delta: float) -> void:
+ advance_time(delta)
+ if phase == "failure":
+  failure_wait -= delta
+  if failure_wait <= 0: retry()
+
+func _unhandled_input(event: InputEvent) -> void:
+ if event is InputEventKey and event.pressed and not event.echo:
+  match event.keycode:
+   KEY_ENTER:
+    if phase == "title" or phase == "ending": start_game()
+    elif phase == "failure": retry()
+   KEY_TAB: set_spirit(not spirit)
+   KEY_E: act()
+   KEY_F: start_incense()
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://main.gd" id="1"]
+[node name="NightPatrol" type="Node2D"]
+script = ExtResource("1")
+total 0
+drwxrws--- 1 root nogroup   0 Nov 16 09:31 .
+drwxrws--- 1 root nogroup 168 Nov 16 09:37 ..
+
+exec
+/bin/bash -lc "cat > /home/hatch/workspace/yexun/docs/capture_r1.sh <<'SH'
+#"'!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+GODOT="$HOME/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64"
+export TMPDIR="$ROOT/game/.tmp"
+mkdir -p "$TMPDIR" "$ROOT/docs/shots"
+df -h /tmp
+if [[ -z "${DISPLAY:-}" ]]; then
+  echo '"'FAIL: no DISPLAY. Run this script through xvfb-run -a on a host permitting X sockets.' >&2
+  exit 2
+fi
+for kind in spirit reality ending; do
+  timeout 30 \""'$GODOT" --path "$ROOT/game" --audio-driver Dummy -- --capture="$kind" --capture-path="$ROOT/docs/shots/${kind}_r1.png"
+done
+python3 "$ROOT/docs/verify_shots.py"
+SH
+cat > /home/hatch/workspace/yexun/docs/verify_shots.py <<'"'PY'
+from pathlib import Path
+from collections import Counter
+from PIL import Image
+root = Path(__file__).parent / 'shots'
+for kind in ('spirit', 'reality', 'ending'):
+    path = root / (kind + '_r1.png')
+    image = Image.open(path).convert('RGB')
+    counts = Counter(image.getdata())
+    pixels = image.width * image.height
+    nonuniform = 1 - counts.most_common(1)[0][1] / pixels
+    nonblack = sum(count for color, count in counts.items() if max(color) > 24) / pixels
+    ok = image.size == (1280, 720) and path.stat().st_size > 5000 and nonuniform > .01 and nonblack > .01
+    print(f'{\"PASS\" if ok else \"FAIL\"} {path.name}: {path.stat().st_size} bytes; nonuniform={nonuniform:.4%}; nonblack={nonblack:.4%}')
+    if not ok:
+        raise SystemExit(1)
+PY
+chmod +x /home/hatch/workspace/yexun/docs/capture_r1.sh
+python3 - <<'PY'
+import ast
+from pathlib import Path
+ast.parse(Path('/home/hatch/workspace/yexun/docs/verify_shots.py').read_text())
+PY
+cat > /home/hatch/workspace/yexun/docs/capture_r1.log <<'EOF'
+截图状态：FAIL / 未完成，不存在可交付PNG。
+/tmp: 512M，约84K占用；已设工程.tmp作为TMPDIR。
+实际尝试：Xvfb :91 -screen 0 1280x720x24 -nolisten tcp
+结果：_XSERVTransSocketCreateListener: failed to bind listener
+Cannot establish any listening sockets
+当前环境禁止套接字创建，无DISPLAY，无/dev/dri。
+后备尝试：Godot --display-driver headless --rendering-method gl_compatibility -- --capture=spirit ...
+结果：dummy渲染没有frame_post_draw，无法取得真实渲染图；已终止进程。
+未生成替代图或虚构截图；文件大小与非纯色占比验收尚未执行。
+在允许显示的主机复跑：xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh
+上述脚本逐张取得实际Godot viewport并自动核验大小、尺寸、非纯色和非黑占比。
+EOF" in /home/hatch
+ succeeded in 177ms:
+exec
+/bin/bash -lc "rg -n 'await|play_sound|armed|shakes|update1|update2' /home/hatch/workspace/yexun/game/main.gd; ls /home/hatch/workspace/yexun/docs" in /home/hatch
+ succeeded in 154ms:
+117:    var first_update: bool = not flags.get("update1",false)
+118:    flags.update1 = true
+122:   play_sound("bell")
+124:   get_tree().create_timer(0.45).timeout.connect(func(): play_sound("bell"))
+127:    var first_update: bool = not flags.get("update2",false)
+128:    flags.update2 = true
+141:   play_sound("drum")
+156:   elif flags.get("armed",false):
+159:    flags.armed = true
+163:    flags.shakes = flags.get("shakes",0) + 1
+165:    if flags.shakes >= 2 or remaining <= 0: fail("过早摇晃，灯架提前倒下。")
+169:    play_sound("crackers")
+170:    if phase == "playing" and flags.get("armed",false): finish()
+215: play_sound("bell")
+217:func play_sound(kind: String) -> void:
+291: if flags.get("update1",false): text_at(Vector2(30,150),"命运更新① ✓",19,Color("e8c789"))
+292: if flags.get("update2",false): text_at(Vector2(205,150),"命运更新② ✓",19,Color("e8c789"))
+344: await get_tree().process_frame
+345: await get_tree().process_frame
+346: await RenderingServer.frame_post_draw
+AUDIT_R1.md
+REVIEW_R1.md
+capture_r1.log
+capture_r1.sh
+codex_r1_output.log
+design_source.sha256
+graph_r1.log
+shots
+smoke_r1.log
+verify_shots.py
+work
+
+exec
+/bin/bash -lc 'export TMPDIR=/home/hatch/workspace/yexun/game/.tmp
+/home/hatch/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path /home/hatch/workspace/yexun/game --check-only --script res://main.gd > /home/hatch/workspace/yexun/docs/check_main.log 2>&1
+/home/hatch/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path /home/hatch/workspace/yexun/game --check-only --script res://smoke.gd > /home/hatch/workspace/yexun/docs/check_smoke.log 2>&1
+/home/hatch/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path /home/hatch/workspace/yexun/game --script res://smoke.gd > /home/hatch/workspace/yexun/docs/smoke_r1.log 2>&1' in /home/hatch
+ succeeded in 5590ms:
+exec
+/bin/bash -lc 'tail -2 /home/hatch/workspace/yexun/docs/smoke_r1.log; cat /home/hatch/workspace/yexun/docs/check_main.log /home/hatch/workspace/yexun/docs/check_smoke.log; sha256sum -c /home/hatch/workspace/yexun/docs/design_source.sha256; export TMPDIR=/home/hatch/workspace/yexun/game/.tmp
+/home/hatch/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path /home/hatch/workspace/yexun/game --quit-after 3 > /home/hatch/workspace/yexun/docs/startup_r1.log 2>&1' in /home/hatch
+ succeeded in 1281ms:
+PASS timed chapter clears exploration effects and starts full incense
+SMOKE RESULT: PASS checks=252 failures=0
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+/home/hatch/workspace/yexun/DESIGN_CH1_SLICE.md: OK
+
+exec
+/bin/bash -lc "cat >> /home/hatch/workspace/yexun/docs/REVIEW_R1.md <<'EOF'
+
+## R1 实装细化记录（仍待主控裁定）
+
+- 危险横木晃动每次减少45剧情秒，第二次过早晃动导致失败；满足安全前置后第一次晃为终局准备，准备后再晃同样视为失控，防止无限晃不受负反馈。45秒为工程阈值，并非原稿数字。
+- 点香统一回大香炉并重置动态鞭炮位置/边及探索效果，避免在大声公处清除开伞状态形成困死。
+- 捡签窗口为18现实剧情秒；默认香期240秒，支持1倍/4倍与启动参数。所有这些具体时长均属兼容实现参数。
+- 截图因运行环境禁止创建显示套接字尚未完成，不能把代码审阅和无头通过等同实际画面验收。
+EOF
+cat > /home/hatch/workspace/yexun/docs/DELIVERY_R1.md <<'EOF'
+# 《夜巡》第一章切片 R1 交付说明
+
+设计复核与Godot工程已完成；截图验收未完成，不能宣称三步全部通过。
+
+复核结论：原稿图有10+2两个分量，伞/喇叭与主图不通；引线传火、移位后鞭炮可达、双物件终局顺序及NPC短暂窗口缺条件。详见 REVIEW_R1.md，最小兼容处理均标「待主控裁定」。原件SHA256复验未变。
+
+工程：game/project.godot、Main.tscn、main.gd、smoke.gd、font.ttc、audio/drum.wav、bell.wav、crackers.wav。单场景1280×720，12物件灰盒、标题/教学/自由探索/点香、双域、附身图、一物一技、底框对白、两次命运更新、两解通关、错误失败自动回溯、三文本恐怖钩子及合成音效已接线。
+
+启动：
+"'```sh
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path ~/workspace/yexun/game
+```
+Enter或点击开始；Tab切灵域/现实，灵域点击相邻物件跳跃，现实E施技；香炉教学后F进入一炷香前。1/4切倍率；默认240剧情秒，启动可追加 `-- --time-scale=4`。失败5秒后自动回香点，Enter可提前重试。不存档。
+
+自动验证：main.gd、smoke.gd逐文件check-only通过；最终 smoke_r1.log 为 PASS checks=252 failures=0，包含正解、备选、鼓三下、自动重试、12节点实际双向可达、捡签窗口、时间暂停/超时及探索点香重置。独立审读见 AUDIT_R1.md（该审读采样时241项；最终扩展至252项）。无头主场景启动见 startup_r1.log。
+
+冒烟复跑：
+```sh
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd > ~/workspace/yexun/docs/smoke_r1.log 2>&1
+```
+
+截图预定路径 docs/shots/{spirit,reality,ending}_r1.png，当前目录为空。Xvfb创建显示套接字失败；现环境无DISPLAY、无/dev/dri；headless为dummy渲染，不能用于实际截图。详见 capture_r1.log。已准备 capture_r1.sh 和 verify_shots.py，在允许显示的环境运行 `xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh`，将自动截图并检验尺寸/字节数/非纯色和非黑像素占比。未伪造图片。
+
+未完成：3张真实游戏截图及像素/目视验收；有渲染窗口的交互验收、实际扬声器听验；主控对兼容处理裁定与真人盲玩三问。未扩展第二章，无美术精修、无存档。
+EOF
+cat /home/hatch/workspace/yexun/docs/DELIVERY_R1.md' in /home/hatch
+ succeeded in 59ms:
+# 《夜巡》第一章切片 R1 交付说明
+
+设计复核与Godot工程已完成；截图验收未完成，不能宣称三步全部通过。
+
+复核结论：原稿图有10+2两个分量，伞/喇叭与主图不通；引线传火、移位后鞭炮可达、双物件终局顺序及NPC短暂窗口缺条件。详见 REVIEW_R1.md，最小兼容处理均标「待主控裁定」。原件SHA256复验未变。
+
+工程：game/project.godot、Main.tscn、main.gd、smoke.gd、font.ttc、audio/drum.wav、bell.wav、crackers.wav。单场景1280×720，12物件灰盒、标题/教学/自由探索/点香、双域、附身图、一物一技、底框对白、两次命运更新、两解通关、错误失败自动回溯、三文本恐怖钩子及合成音效已接线。
+
+启动：
+```sh
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path ~/workspace/yexun/game
+```
+Enter或点击开始；Tab切灵域/现实，灵域点击相邻物件跳跃，现实E施技；香炉教学后F进入一炷香前。1/4切倍率；默认240剧情秒，启动可追加 `-- --time-scale=4`。失败5秒后自动回香点，Enter可提前重试。不存档。
+
+自动验证：main.gd、smoke.gd逐文件check-only通过；最终 smoke_r1.log 为 PASS checks=252 failures=0，包含正解、备选、鼓三下、自动重试、12节点实际双向可达、捡签窗口、时间暂停/超时及探索点香重置。独立审读见 AUDIT_R1.md（该审读采样时241项；最终扩展至252项）。无头主场景启动见 startup_r1.log。
+
+冒烟复跑：
+```sh
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --headless --path ~/workspace/yexun/game --script res://smoke.gd > ~/workspace/yexun/docs/smoke_r1.log 2>&1
+```
+
+截图预定路径 docs/shots/{spirit,reality,ending}_r1.png，当前目录为空。Xvfb创建显示套接字失败；现环境无DISPLAY、无/dev/dri；headless为dummy渲染，不能用于实际截图。详见 capture_r1.log。已准备 capture_r1.sh 和 verify_shots.py，在允许显示的环境运行 `xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh`，将自动截图并检验尺寸/字节数/非纯色和非黑像素占比。未伪造图片。
+
+未完成：3张真实游戏截图及像素/目视验收；有渲染窗口的交互验收、实际扬声器听验；主控对兼容处理裁定与真人盲玩三问。未扩展第二章，无美术精修、无存档。
+
+codex
+已完成复核、Godot工程和无头冒烟；截图受环境限制未完成。
+
+- [复核报告](/home/hatch/workspace/yexun/docs/REVIEW_R1.md)：原图存在10＋2孤岛；兼容处理均标“待主控裁定”，设计原件未改。
+- [冒烟日志](/home/hatch/workspace/yexun/docs/smoke_r1.log)：**252项通过，0失败**，覆盖正解、备选、错误失败及自动重试。
+- [交付说明](/home/hatch/workspace/yexun/docs/DELIVERY_R1.md)：已在终端输出，含文件清单、操作方式和验证范围。
+
+启动：
+
+```sh
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path ~/workspace/yexun/game
+```
+
+未完成：三张实际截图。Xvfb被环境禁止创建显示套接字，无头模式无法取得真实画面；已附截图与像素核验脚本，未伪造截图或宣称全部完成。
+tokens used
+80,428
+已完成复核、Godot工程和无头冒烟；截图受环境限制未完成。
+
+- [复核报告](/home/hatch/workspace/yexun/docs/REVIEW_R1.md)：原图存在10＋2孤岛；兼容处理均标“待主控裁定”，设计原件未改。
+- [冒烟日志](/home/hatch/workspace/yexun/docs/smoke_r1.log)：**252项通过，0失败**，覆盖正解、备选、错误失败及自动重试。
+- [交付说明](/home/hatch/workspace/yexun/docs/DELIVERY_R1.md)：已在终端输出，含文件清单、操作方式和验证范围。
+
+启动：
+
+```sh
+~/workspace/tools/godot/Godot_v4.3-stable_linux.x86_64 --path ~/workspace/yexun/game
+```
+
+未完成：三张实际截图。Xvfb被环境禁止创建显示套接字，无头模式无法取得真实画面；已附截图与像素核验脚本，未伪造截图或宣称全部完成。

@@ -1,0 +1,11 @@
+截图状态：FAIL / 未完成，不存在可交付PNG。
+/tmp: 512M，约84K占用；已设工程.tmp作为TMPDIR。
+实际尝试：Xvfb :91 -screen 0 1280x720x24 -nolisten tcp
+结果：_XSERVTransSocketCreateListener: failed to bind listener
+Cannot establish any listening sockets
+当前环境禁止套接字创建，无DISPLAY，无/dev/dri。
+后备尝试：Godot --display-driver headless --rendering-method gl_compatibility -- --capture=spirit ...
+结果：dummy渲染没有frame_post_draw，无法取得真实渲染图；已终止进程。
+未生成替代图或虚构截图；文件大小与非纯色占比验收尚未执行。
+在允许显示的主机复跑：xvfb-run -a bash ~/workspace/yexun/docs/capture_r1.sh
+上述脚本逐张取得实际Godot viewport并自动核验大小、尺寸、非纯色和非黑占比。

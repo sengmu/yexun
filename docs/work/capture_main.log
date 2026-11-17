@@ -1,0 +1,43 @@
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           512M  140K  512M   1% /tmp
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+阿澄：纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？
+CAPTURE spirit /home/hatch/workspace/yexun/docs/shots/spirit_r1.png error=0
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+阿澄：纸扎马头转向……可我一松手，它自己转回了宫门。那里有什么？
+CAPTURE reality /home/hatch/workspace/yexun/docs/shots/reality_r1.png error=0
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+CAPTURE ending /home/hatch/workspace/yexun/docs/shots/ending_r1.png error=0
+PASS spirit_r1.png: 81236 bytes; nonuniform=68.4630%; nonblack=68.4630%
+PASS reality_r1.png: 78409 bytes; nonuniform=68.4499%; nonblack=100.0000%
+PASS ending_r1.png: 49420 bytes; nonuniform=1.8702%; nonblack=100.0000%

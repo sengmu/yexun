@@ -1,0 +1,547 @@
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+YEXUN R1 state-machine smoke: actual game API + legal graph jumps
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to beam
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS six-step canonical ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to loudspeaker
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+PASS BFS route to beam
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS alternative ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to drum
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（1／3）
+PASS BFS route to drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（2／3）
+PASS two drum strikes do not fail immediately
+PASS BFS route to drum
+阿弟的亡魂：三下潮鼓震松主绳，原命运提前到来。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS third drum strike reaches failure
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+阿弟的亡魂：香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。
+PASS failure automatically retries after ghost dialogue
+PASS automatic retry resets possession and puzzle flags
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS spirit realm pauses incense timer
+阿弟的亡魂：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS reality incense timeout reaches death event
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS nonadjacent jump rejected
+PASS BFS route to incense
+PASS BFS route to incense
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS BFS route to incense
+PASS legal jump sticks -> incense
+PASS BFS route to candle
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS BFS route to incense
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to drum
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS BFS route to incense
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to palanquin
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS BFS route to incense
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to flag
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS BFS route to incense
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to beam
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS BFS route to incense
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to lantern
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS BFS route to incense
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to crackers
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+PASS BFS route to incense
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to horse
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> horse
+PASS BFS route to incense
+PASS legal jump horse -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to umbrella
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+PASS BFS route to incense
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to loudspeaker
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+PASS BFS route to incense
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS all 12 nodes actually reachable from and return to incense
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to crackers
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+阿澄：引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。
+PASS unprepared crackers reject ignition
+PASS BFS route to sticks
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+阿弟：签捡到了……我回去绑绳。
+PASS Adi returns to frame when pickup window expires
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+小英：轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。
+PASS missed pickup window cannot silently secure Adi
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to crackers
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> crackers
+阿澄：鞭炮炸响，但横木尚未晃松，未能放倒灯架。
+PASS crackers without beam preparation cannot complete chapter
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to beam
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+PASS premature beam shake accelerates collapse
+PASS BFS route to beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS repeated premature beam shakes fail
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+PASS incense tutorial opens free exploration
+PASS BFS route to loudspeaker
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS starting timed chapter from distant exploration returns to incense
+PASS timed chapter clears exploration effects and starts full incense
+YEXUN ch2 smoke: opponent system + solution chain + error branches
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS ch2 graph: all 12 nodes reachable without the conditional edge (S-2)
+PASS ch2 graph: every edge is two-way
+PASS ch2 graph: any single occupied node leaves the other 11 connected (S-1)
+PASS ch2 opponent opens on the drum (tuned first-encounter phase)
+PASS BFS route to flag
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> flag
+阿澄：里面……有东西了。
+PASS occupied drum rejects possession with the fixed refusal
+PASS BFS route to gong
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS scared-off drum gains the clean mark
+PASS opponent fled the drum after the gong scare
+PASS ch2 fate update 1: its rules are revealed
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+PASS clean drum is never re-occupied (immunity)
+PASS opponent never occupies censer / sign / lampstand
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to gong
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+PASS opponent advances along its written sequence
+PASS lingering player is squeezed back to the previous object
+PASS squeeze-out costs 10 incense seconds
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to minisedan
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> minisedan
+PASS player may enter the small sedan while it is away
+阿澄：轿里一沉，像有什么回来了——我被无声地推了出来。
+PASS player is silently pushed out after 10 reality seconds in the small sedan
+PASS small-sedan overstay eject costs no incense
+PASS BFS route to paperfig
+PASS legal jump palanquin -> minisedan
+PASS legal jump minisedan -> paperfig
+阿澄：轿帘里伸出一只纸手，把你推了出来。
+PASS occupied small sedan rejects entry
+PASS forcing the occupied small sedan costs 5 seconds
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to umbrella
+PASS legal jump censer -> lampstand
+阿澄：缸水静得出奇。街上的轿，一顶一顶都有倒影——只有纸扎店边那顶小轿，水里空空的，什么都没有。
+PASS legal jump lampstand -> vat
+PASS legal jump vat -> umbrella
+阿澄：油纸伞张开，顺着骑楼的风飘高——现在能直接跳上招牌了。
+PASS opened umbrella adds the sign shortcut edge (shortcut only, S-2)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to crackers
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> minisedan
+PASS legal jump minisedan -> crackers
+阿澄：鞭炮在纸扎店门口炸响，红纸屑落了一街。
+PASS early crackers are spent but the chapter is not dead-ended (S-6)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to lampstand
+PASS legal jump censer -> lampstand
+阿澄：花灯举高，光照上茶铺招牌的主绳——断口整齐，纤维是被利刃齐齐割开的，跟灯架那根一模一样。这匾，也是被人割过一半的。
+PASS lampstand investigation reveals the cut rope (guaranteed clue path, S-3)
+PASS BFS route to vat
+阿澄：缸水静得出奇。街上的轿，一顶一顶都有倒影——只有纸扎店边那顶小轿，水里空空的，什么都没有。
+PASS legal jump lampstand -> vat
+PASS vat investigation: only the small sedan casts no reflection
+PASS BFS route to gong
+PASS legal jump vat -> lampstand
+PASS legal jump lampstand -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS first scare from the gong teaches the rules
+PASS BFS route to flag
+PASS legal jump gong -> flag
+小英：什么响动？【领舞的小英停步，回望街西——趁现在，摇神轿的铃喊她压轿！】
+PASS BFS route to palanquin
+PASS legal jump flag -> palanquin
+命运更新② · 阿勇：小英！轿杠沉，过来压轿！【小英走至街心神轿旁压轿，不再回匾下。轿铃余音里，小轿方向又回了一声铃——比宫里那次更近、更清。小英皱眉：谁的轿……在回铃？】
+PASS flag window + sedan bell moves Xiaoying off the sign for good
+PASS ch2 fate update 2 recorded
+PASS BFS route to vat
+PASS legal jump palanquin -> lampstand
+PASS legal jump lampstand -> vat
+莲婶：哎，水缸怎么自个儿漾起来了？【莲婶出门查看，站到缸边同细叔说话——离开了招牌正下方。】
+PASS vat ripples draw Lianshen out from under her sign
+PASS BFS route to teasign
+PASS legal jump vat -> teasign
+阿澄：匾身吱呀倾斜，割伤的绳口崩开一线——松动了。只差一记够响的震动：锣、鼓、鞭炮，任一响起来都行。
+PASS sign loosened once both people are clear (safety preconditions, S-4)
+PASS BFS route to crackers
+PASS legal jump teasign -> vat
+PASS legal jump vat -> paperfig
+PASS legal jump paperfig -> crackers
+小英／莲婶：又是新绳……断口齐得，像刀裁的。【整匾提前落在空街上，碎木四溅，无人受伤。队伍终于要起轿了——出发前，阿勇按名册点人。】
+PASS ch2 canonical ending: sign falls early on the empty street
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to lampstand
+PASS legal jump censer -> lampstand
+阿澄：花灯举高，光照上茶铺招牌的主绳——断口整齐，纤维是被利刃齐齐割开的，跟灯架那根一模一样。这匾，也是被人割过一半的。
+PASS BFS route to gong
+PASS legal jump lampstand -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS BFS route to flag
+PASS legal jump gong -> flag
+小英：什么响动？【领舞的小英停步，回望街西——趁现在，摇神轿的铃喊她压轿！】
+PASS BFS route to palanquin
+PASS legal jump flag -> palanquin
+命运更新② · 阿勇：小英！轿杠沉，过来压轿！【小英走至街心神轿旁压轿，不再回匾下。轿铃余音里，小轿方向又回了一声铃——比宫里那次更近、更清。小英皱眉：谁的轿……在回铃？】
+PASS BFS route to vat
+PASS legal jump palanquin -> lampstand
+阿澄：缸水静得出奇。街上的轿，一顶一顶都有倒影——只有纸扎店边那顶小轿，水里空空的，什么都没有。
+PASS legal jump lampstand -> vat
+莲婶：哎，水缸怎么自个儿漾起来了？【莲婶出门查看，站到缸边同细叔说话——离开了招牌正下方。】
+PASS BFS route to teasign
+PASS legal jump vat -> teasign
+阿澄：匾身吱呀倾斜，割伤的绳口崩开一线——松动了。只差一记够响的震动：锣、鼓、鞭炮，任一响起来都行。
+PASS BFS route to drum
+PASS legal jump teasign -> lampstand
+PASS legal jump lampstand -> palanquin
+PASS legal jump palanquin -> drum
+小英／莲婶：又是新绳……断口齐得，像刀裁的。【整匾提前落在空街上，碎木四溅，无人受伤。队伍终于要起轿了——出发前，阿勇按名册点人。】
+PASS ch2 alternative ending: drum as the final vibration source (distance-exempt)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to teasign
+PASS legal jump censer -> lampstand
+PASS legal jump lampstand -> teasign
+阿澄：匾晃得吓人，香期骤减四十五秒。匾下还有人——先把人引开，再动它。
+PASS blind sign shake costs 45 seconds and cannot finish
+PASS BFS route to teasign
+小英的亡魂：招牌晃到第二下，割伤的主绳再也吊不住——整匾砸向匾下的人。 哥……纸扎人的头，一直在看它在哪。锣、鼓、鞭炮，响的能把它惊走。再来一次吧……
+PASS second blind shake drops the sign: Xiaoying branch (S-8)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+阿澄：香刚点燃。纸扎人的头会告诉我它在哪；响器能惊走它。先把匾下的人引开，再动招牌。
+PASS ch2 failure auto-retries: opponent phase and clean marks reset
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to gong
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS BFS route to drum
+PASS legal jump gong -> drum
+阿澄：声浪撞上骑楼，匾跟着颤。匾下还有人，再乱敲要出事……（1／3）
+PASS BFS route to drum
+阿澄：声浪撞上骑楼，匾跟着颤。匾下还有人，再乱敲要出事……（2／3）
+PASS two drum strikes do not fail immediately (ch2)
+PASS BFS route to drum
+小英的亡魂：锣鼓连响三下，假信号提前震落了招牌——小英还在匾下领舞。 哥……标旗能叫我回头，神轿的铃能喊我去压轿。再来一次，先把我叫离匾下。
+PASS third drum strike drops the sign early: Xiaoying branch
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+阿澄：第二炷香烧到了头。土地庙那边摆了摆手，阿勇喊起轿——匾落下来的那一声，隔着一整条街都听得见。 若小英还站在匾下，先用标旗开窗口、神轿铃喊她压轿；莲婶要用大水缸引开。回到香点，重来。
+PASS ch2 incense timeout fails on the self-talk branch (S-8)
+SMOKE RESULT: PASS checks=403 failures=0
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2284)
+ERROR: 5 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:604)
