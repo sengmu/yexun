@@ -875,7 +875,7 @@ func sync_art() -> void:
   var rshow = in_game and chapter == 6 and bool(flags.get("update1", false)) and (seg6 == 5 or (seg6 == 6 and cam_x > 1400.0))
   sedan_refl_sprite.visible = rshow
   if rshow:
-   sedan_refl_sprite.position = Vector2(3048, 558) - Vector2(cam_x, 0)
+   sedan_refl_sprite.position = Vector2(3048, 546) - Vector2(cam_x, 0)
    var rs = absf(sedan_refl_sprite.scale.x)
    sedan_refl_sprite.scale = Vector2(rs, -rs * 0.40)
    sedan_refl_sprite.modulate = Color(0.78, 0.87, 0.96, 0.50)
@@ -1709,7 +1709,7 @@ func save_game() -> void:
   return
  var data = {"phase": phase, "current": current, "spirit": spirit, "remaining": remaining, "flags": flags, "seen_tips": seen_tips}
  has_save = true
- save_data = data
+ save_data = data.duplicate(true)
  var ls = ls_store()
  if ls != null: ls.setItem(SAVE_KEY, JSON.stringify(data))
 
@@ -1775,10 +1775,10 @@ func continue_game() -> void:
  current = str(d.get("current", "incense"))
  spirit = bool(d.get("spirit", true))
  remaining = float(d.get("remaining", 240.0))
- flags = (d.get("flags", {}) as Dictionary).duplicate()
+ flags = (d.get("flags", {}) as Dictionary).duplicate(true)
  for k in ["drums", "shakes"]:
   if flags.has(k): flags[k] = int(flags[k])
- seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate()
+ seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
  seen_update2 = bool(flags.get("update2", false))
  pickup_left = 12.0 if flags.get("pickup", false) and not flags.get("safe", false) else 0.0
@@ -2988,7 +2988,7 @@ func hint_text2() -> String:
 func save_game2() -> void:
  var data = {"phase": phase, "current": current, "spirit": spirit, "remaining": remaining, "flags": flags, "seen_tips": seen_tips, "opp_pos": opp_pos, "opp_idx": opp_idx, "opp_timer": opp_timer, "clean": clean, "window_left": window_left, "sedan_stay": sedan_stay, "sedan_attempts": sedan_attempts}
  has_save2 = true
- save_data2 = data
+ save_data2 = data.duplicate(true)
  var ls = ls_store()
  if ls != null: ls.setItem(SAVE_KEY2, JSON.stringify(data))
 
@@ -3008,13 +3008,13 @@ func continue_game2() -> void:
  prev_current = current
  spirit = bool(d.get("spirit", true))
  remaining = float(d.get("remaining", 300.0))
- flags = (d.get("flags", {}) as Dictionary).duplicate()
+ flags = (d.get("flags", {}) as Dictionary).duplicate(true)
  for k in ["drums2", "gongs2", "sign_shakes"]:
   if flags.has(k): flags[k] = int(flags[k])
- seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate()
+ seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
  seen_update2 = bool(flags.get("update2", false))
- clean = (d.get("clean", {}) as Dictionary).duplicate()
+ clean = (d.get("clean", {}) as Dictionary).duplicate(true)
  opp_pos = str(d.get("opp_pos", "paperfig"))
  opp_idx = int(d.get("opp_idx", 0))
  opp_timer = float(d.get("opp_timer", 45.0))
@@ -3368,7 +3368,7 @@ func hint_text3() -> String:
 func save_game3() -> void:
  var data = {"phase": phase, "current": current, "spirit": spirit, "remaining": remaining, "flags": flags, "seen_tips": seen_tips, "opp3_pos": opp3_pos, "opp3_idx": opp3_idx, "opp3_timer": opp3_timer, "clean3": clean3, "jump_count": jump_count, "last_skill": last_skill, "keeper_out": keeper_out, "window3_left": window3_left, "squeezed3": squeezed3}
  has_save3 = true
- save_data3 = data
+ save_data3 = data.duplicate(true)
  var ls = ls_store()
  if ls != null: ls.setItem(SAVE_KEY3, JSON.stringify(data))
 
@@ -3388,10 +3388,10 @@ func continue_game3() -> void:
  prev_current = current
  spirit = bool(d.get("spirit", true))
  remaining = float(d.get("remaining", 330.0))
- flags = (d.get("flags", {}) as Dictionary).duplicate()
- seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate()
+ flags = (d.get("flags", {}) as Dictionary).duplicate(true)
+ seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
- clean3 = (d.get("clean3", {}) as Dictionary).duplicate()
+ clean3 = (d.get("clean3", {}) as Dictionary).duplicate(true)
  opp3_pos = str(d.get("opp3_pos", "horse"))
  opp3_idx = int(d.get("opp3_idx", 0))
  opp3_timer = float(d.get("opp3_timer", 45.0))
@@ -3399,7 +3399,7 @@ func continue_game3() -> void:
  last_skill = str(d.get("last_skill", ""))
  keeper_out = bool(d.get("keeper_out", false))
  window3_left = float(d.get("window3_left", 12.0 if keeper_out and not flags.get("archive_taken", false) else 0.0))
- squeezed3 = (d.get("squeezed3", {}) as Dictionary).duplicate()
+ squeezed3 = (d.get("squeezed3", {}) as Dictionary).duplicate(true)
  say("阿澄", "香还燃着……回到没走完的那一步。")
  queue_redraw()
 
@@ -3807,7 +3807,7 @@ func hint_text4() -> String:
 func save_game4() -> void:
  var data = {"phase": phase, "current": current, "spirit": spirit, "remaining": remaining, "flags": flags, "seen_tips": seen_tips, "opp4_pos": opp4_pos, "opp4_idx": opp4_idx, "opp4_timer": opp4_timer, "clean4": clean4, "bm_round": bm_round, "bm_first_done": bm_first_done, "bm_teach_used": bm_teach_used, "squeezed4": squeezed4, "bm_active": bm_active, "bm_window_open": bm_window_open, "bm_window": bm_window, "bm_gap": bm_gap}
  has_save4 = true
- save_data4 = data
+ save_data4 = data.duplicate(true)
  var ls = ls_store()
  if ls != null: ls.setItem(SAVE_KEY4, JSON.stringify(data))
 
@@ -3827,11 +3827,11 @@ func continue_game4() -> void:
  prev_current = current
  spirit = bool(d.get("spirit", true))
  remaining = float(d.get("remaining", 360.0))
- flags = (d.get("flags", {}) as Dictionary).duplicate()
- seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate()
+ flags = (d.get("flags", {}) as Dictionary).duplicate(true)
+ seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
  seen_update2 = bool(flags.get("update2", false))
- clean4 = (d.get("clean4", {}) as Dictionary).duplicate()
+ clean4 = (d.get("clean4", {}) as Dictionary).duplicate(true)
  opp4_pos = str(d.get("opp4_pos", "paperfig"))
  opp4_idx = int(d.get("opp4_idx", 0))
  opp4_timer = float(d.get("opp4_timer", 45.0))
@@ -3842,7 +3842,7 @@ func continue_game4() -> void:
  bm_window_open = bool(d.get("bm_window_open", false))
  bm_window = float(d.get("bm_window", 0.0))
  bm_gap = float(d.get("bm_gap", 0.0))
- squeezed4 = (d.get("squeezed4", {}) as Dictionary).duplicate()
+ squeezed4 = (d.get("squeezed4", {}) as Dictionary).duplicate(true)
  if not bm_active: bm_maybe_enter()
  say("阿澄", "香还燃着……回到没走完的那一步。")
  queue_redraw()
@@ -3906,7 +3906,7 @@ func start_incense5() -> void:
 func seg5_begin(n: int, announce: bool, resnap: bool = true) -> void:
  seg5 = n
  if resnap:
-  seg5_snap = {"trade": trade5_used, "clean": clean5.duplicate(), "flags": flags.duplicate(true)}
+  seg5_snap = {"trade": trade5_used, "clean": clean5.duplicate(true), "flags": flags.duplicate(true)}
  remaining = CH5_SEG_DUR[n - 1]
  current = "everlamp"
  prev_current = "everlamp"
@@ -4242,7 +4242,7 @@ func fail5(reason: String, kind: String) -> void:
 func retry5() -> void:
  if seg5_snap.has("trade"):
   trade5_used = int(seg5_snap["trade"])
-  clean5 = (seg5_snap["clean"] as Dictionary).duplicate()
+  clean5 = (seg5_snap["clean"] as Dictionary).duplicate(true)
   flags = (seg5_snap["flags"] as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
  seen_update2 = bool(flags.get("update2", false))
@@ -4303,7 +4303,7 @@ func hint_text5() -> String:
 func save_game5() -> void:
  var data = {"phase": phase, "current": current, "spirit": spirit, "remaining": remaining, "flags": flags, "seen_tips": seen_tips, "seg5": seg5, "trade5_used": trade5_used, "clean5": clean5, "opp5_pos": opp5_pos, "opp5_idx": opp5_idx, "opp5_timer": opp5_timer, "wait5": wait5, "wait5_left": wait5_left, "yield5_left": yield5_left, "yield5_from": yield5_from, "adi5_left": adi5_left, "bang5_used": bang5_used, "beat5_done": beat5_done, "teach5_done": teach5_done, "teach5_scare": teach5_scare, "adi5_pause": adi5_pause, "squeezed5": squeezed5, "snap": seg5_snap}
  has_save5 = true
- save_data5 = data
+ save_data5 = data.duplicate(true)
  var ls = ls_store()
  if ls != null: ls.setItem(SAVE_KEY5, JSON.stringify(data))
 
@@ -4323,14 +4323,14 @@ func continue_game5() -> void:
  prev_current = current
  spirit = bool(d.get("spirit", true))
  remaining = float(d.get("remaining", 180.0))
- flags = (d.get("flags", {}) as Dictionary).duplicate()
- seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate()
+ flags = (d.get("flags", {}) as Dictionary).duplicate(true)
+ seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
  seen_update2 = bool(flags.get("update2", false))
  seen_update3 = bool(flags.get("update3", false))
  seg5 = int(d.get("seg5", 1))
  trade5_used = int(d.get("trade5_used", 0))
- clean5 = (d.get("clean5", {}) as Dictionary).duplicate()
+ clean5 = (d.get("clean5", {}) as Dictionary).duplicate(true)
  opp5_pos = str(d.get("opp5_pos", CH5_SEG_OPEN[seg5 - 1]))
  opp5_idx = int(d.get("opp5_idx", 0))
  opp5_timer = float(d.get("opp5_timer", 45.0))
@@ -4340,7 +4340,7 @@ func continue_game5() -> void:
  yield5_from = str(d.get("yield5_from", ""))
  adi5_left = float(d.get("adi5_left", 0.0))
  adi5_pause = float(d.get("adi5_pause", 0.0))
- squeezed5 = (d.get("squeezed5", {}) as Dictionary).duplicate()
+ squeezed5 = (d.get("squeezed5", {}) as Dictionary).duplicate(true)
  bang5_used = bool(d.get("bang5_used", false))
  beat5_done = bool(d.get("beat5_done", false))
  teach5_done = bool(d.get("teach5_done", false))
@@ -4481,7 +4481,7 @@ func seg6_begin(n: int, announce: bool, resnap: bool = true) -> void:
  npc_pos = ch6_npc_defaults()
  npc_walking = {}
  if resnap:
-  seg6_snap = {"flags": flags.duplicate(true), "reported": reported6.duplicate(), "rnodes": reported_nodes6.duplicate(), "trio": trio6.duplicate(), "remaining": remaining, "trade": trade6_left}
+  seg6_snap = {"flags": flags.duplicate(true), "reported": reported6.duplicate(true), "rnodes": reported_nodes6.duplicate(true), "trio": trio6.duplicate(true), "remaining": remaining, "trade": trade6_left}
  phase = "playing"
  if announce:
   match n:
@@ -4770,9 +4770,9 @@ func fail6() -> void:
 func retry6() -> void:
  if seg6_snap.has("flags"):
   flags = (seg6_snap["flags"] as Dictionary).duplicate(true)
-  reported6 = (seg6_snap["reported"] as Dictionary).duplicate()
-  reported_nodes6 = (seg6_snap["rnodes"] as Dictionary).duplicate()
-  trio6 = (seg6_snap["trio"] as Dictionary).duplicate()
+  reported6 = (seg6_snap["reported"] as Dictionary).duplicate(true)
+  reported_nodes6 = (seg6_snap["rnodes"] as Dictionary).duplicate(true)
+  trio6 = (seg6_snap["trio"] as Dictionary).duplicate(true)
   trade6_left = int(seg6_snap["trade"])
   remaining = float(seg6_snap["remaining"])
  seen_update1 = bool(flags.get("update1", false))
@@ -4874,7 +4874,7 @@ func hint_text6() -> String:
 func save_game6() -> void:
  var data = {"phase": phase, "current": current, "spirit": spirit, "remaining": remaining, "flags": flags, "seen_tips": seen_tips, "seg6": seg6, "reported6": reported6, "rnodes": reported_nodes6, "trio6": trio6, "trade6_left": trade6_left, "fog6": fog6, "scare_tried6": scare_tried6, "branch6": branch6, "acct_d": acct6s_drive, "acct_a": acct6s_answer, "snap": seg6_snap}
  has_save6 = true
- save_data6 = data
+ save_data6 = data.duplicate(true)
  var ls = ls_store()
  if ls != null: ls.setItem(SAVE_KEY6, JSON.stringify(data))
 
@@ -4899,13 +4899,13 @@ func continue_game6() -> void:
  prev_current = current
  spirit = bool(d.get("spirit", true))
  remaining = float(d.get("remaining", 360.0))
- flags = (d.get("flags", {}) as Dictionary).duplicate()
- seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate()
+ flags = (d.get("flags", {}) as Dictionary).duplicate(true)
+ seen_tips = (d.get("seen_tips", {}) as Dictionary).duplicate(true)
  seen_update1 = bool(flags.get("update1", false))
  seen_update2 = bool(flags.get("update2", false))
- reported6 = (d.get("reported6", {}) as Dictionary).duplicate()
- reported_nodes6 = (d.get("rnodes", {}) as Dictionary).duplicate()
- trio6 = (d.get("trio6", {}) as Dictionary).duplicate()
+ reported6 = (d.get("reported6", {}) as Dictionary).duplicate(true)
+ reported_nodes6 = (d.get("rnodes", {}) as Dictionary).duplicate(true)
+ trio6 = (d.get("trio6", {}) as Dictionary).duplicate(true)
  trade6_left = int(d.get("trade6_left", 1))
  fog6 = str(d.get("fog6", ""))
  scare_tried6 = bool(d.get("scare_tried6", false))

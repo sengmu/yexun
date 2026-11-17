@@ -149,6 +149,7 @@ func run() -> void:
  run_ch5()
  run_ch6()
  run_fix_r1()
+ run_fix_r2()
  print("SMOKE RESULT: ", "PASS" if errors == 0 else "FAIL", " checks=", checks, " failures=", errors)
  quit(0 if errors == 0 else 1)
 
@@ -1284,13 +1285,16 @@ func run_fix_r1() -> void:
  game.bm_active = true
  game.bm_window_open = true
  game.bm_window = 13.0
+ game.bm_gap = 7.5
  game.save_game()
  game.squeezed4 = {}
  game.bm_active = false
  game.bm_window_open = false
  game.bm_window = 0.0
+ game.bm_gap = 0.0
  game.continue_game4()
  check(bool(game.squeezed4.has("gong")) and bool(game.bm_active) and bool(game.bm_window_open) and absf(game.bm_window - 13.0) < 0.01, "FIX-R1 F-06: ch4 squeezed set and the open borrow-mouth window survive a round trip")
+ check(absf(game.bm_gap - 7.5) < 0.01, "FIX-R2 N-02: ch4 borrow-mouth gap (bm_gap) survives the save-continue round trip")
  fresh5()
  game.adi5_pause = 33.0
  game.squeezed5["gong"] = true
@@ -1338,3 +1342,59 @@ func run_fix_r1() -> void:
  game.set_spirit(false)
  game.sync_art()
  check(bool(game.sedan_refl_sprite.visible), "FIX-R1 A-02: the reflection also shows in the realm domain (dual-domain exception)")
+ var refl_bottom = game.sedan_refl_sprite.position.y + 362.0 * absf(game.sedan_refl_sprite.scale.y)
+ check(refl_bottom < 574.0, "FIX-R2 A-02: the reflection whole flipped texture ends above the dialogue box (bottom " + str(snappedf(refl_bottom, 0.1)) + " < 574)")
+func run_fix_r2() -> void:
+ print("YEXUN FIX-R2 smoke: N-01 snapshot isolation via the legal R2 counterexample path")
+ # ---- N-01: trade -> save (autosave entry) -> burn/refund -> pause to title -> continue ----
+ # State is produced only by legal play + real time flow; save_game() is the same entry
+ # the 5s autosave in _process calls. No internal variable is assigned to fabricate state.
+ fresh5()
+ use5("everlamp")
+ check(bool(game.flags.get("lamp_seen", false)), "FIX-R2 N-01 setup: the lamp is probed first")
+ use5("oilpot")
+ use5("palanquin")
+ check(game.trade5_used == 1 and bool(game.clean5.has("candle")) and game.yield5_left > 100.0, "FIX-R2 N-01 setup: the candle trade opens the 120s yield window")
+ move5("everlamp")
+ game.set_spirit(false)
+ game.advance_time(117.0)
+ check(game.yield5_left > 0.0 and game.yield5_left <= 5.0, "FIX-R2 N-01 setup: waited in reality until the window had under 5s left")
+ game.save_game()
+ game.advance_time(4.0)
+ check(game.trade5_used == 0 and not bool(game.clean5.has("candle")), "FIX-R2 N-01: the burned window refunds the live trade (count 0, clean revoked)")
+ var snap5: Dictionary = game.save_data5
+ check(int(snap5.get("trade5_used", -1)) == 1 and bool((snap5.get("clean5", {}) as Dictionary).has("candle")) and bool((snap5.get("flags", {}) as Dictionary).get("trade1_done", false)), "FIX-R2 N-01: the pre-burn snapshot is NOT polluted by the refund (save isolation)")
+ game.pause_to_title()
+ check(str(game.phase) == "title", "FIX-R2 N-01: paused back to the title before any further save")
+ game.continue_game5()
+ check(game.trade5_used == 1 and bool(game.clean5.has("candle")) and bool(game.flags.get("trade1_done", false)) and str(game.yield5_from) == "candle" and game.yield5_left > 0.0, "FIX-R2 N-01: title-continue restores a self-consistent state (count 1, its clean mark, its open window)")
+ game.advance_time(game.yield5_left + 1.0)
+ check(game.trade5_used == 0 and not bool(game.clean5.has("candle")) and not bool(game.flags.get("trade1_done", false)), "FIX-R2 N-01: the restored window burns into a real refund (no ghost count survives)")
+ # cycle it back to the candle with scares: waits lapse in reality, moves happen in spirit
+ move5("drum")
+ game.set_spirit(false)
+ game.advance_time(15.1)
+ game.act()
+ game.set_spirit(true)
+ check(str(game.opp5_pos) == "drum", "FIX-R2 N-01 cycle: scaring the gong sends it to the drum (squeeze-out)")
+ move5("palanquin")
+ game.set_spirit(false)
+ game.advance_time(15.1)
+ game.act()
+ game.set_spirit(true)
+ check(str(game.opp5_pos) == "paperfig", "FIX-R2 N-01 cycle: scaring the drum sends it to the paper figure")
+ move5("gong")
+ game.set_spirit(false)
+ game.advance_time(15.1)
+ game.act()
+ game.set_spirit(true)
+ check(str(game.opp5_pos) == "candle", "FIX-R2 N-01 cycle: scaring the paper figure returns it to the candle, waiting")
+ move5("palanquin")
+ game.set_spirit(false)
+ game.act()
+ game.set_spirit(true)
+ check(game.trade5_used == 1 and bool(game.clean5.has("candle")) and game.yield5_left > 0.0, "FIX-R2 N-01: the candle station is bought again after the cycle")
+ use5("everlamp")
+ check(game.seg5 == 2 and int(game.seg5_snap.get("trade", -1)) == 1, "FIX-R2 N-01: segment 2 begins and seg5_snap.trade reads exactly 1 (no dead-end count)")
+ use5("gong")
+ check(bool(game.flags.get("update2", false)) and game.trade5_used == 2, "FIX-R2 N-01: segment 2 only entry (the paper-figure trade) still opens")
