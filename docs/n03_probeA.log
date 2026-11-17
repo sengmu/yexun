@@ -1,0 +1,77 @@
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+JoypadLinux: udev enabled, but detected incompatible sandboxed mode. Falling back to /dev/input to detect joypads.
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 966092234
+EDITOR API HASH: 444927587
+Loaded system CA certificates
+PROBE-A: running run_fix_r2() standalone from cold start
+YEXUN FIX-R2 smoke: N-01 snapshot isolation via the legal R2 counterexample path
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS FIX-R2 N-01 setup: the lamp is probed first
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS FIX-R2 N-01 setup: the candle trade opens the 120s yield window
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+PASS FIX-R2 N-01 setup: waited in reality until the window had under 5s left
+PASS FIX-R2 N-01: the burned window refunds the live trade (count 0, clean revoked)
+PASS FIX-R2 N-01: the pre-burn snapshot is NOT polluted by the refund (save isolation)
+PASS FIX-R2 N-01: paused back to the title before any further save
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+阿澄：香还燃着……回到没守完的那一段。
+PASS FIX-R2 N-01: title-continue restores a self-consistent state (count 1, its clean mark, its open window)
+PASS FIX-R2 N-01: the restored window burns into a real refund (no ghost count survives)
+PASS BFS route (avoiding it) to drum
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+阿澄：惊走了。它绕去别处——赶得走它，报不了到，这一站没有留下「净」记。
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；它静候时响器是开价，普通占位时响器是驱赶。】
+PASS FIX-R2 N-01 cycle: scaring the gong sends it to the drum (squeeze-out)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump candle -> palanquin
+阿澄：惊走了。它绕去别处——赶得走它，报不了到，这一站没有留下「净」记。
+PASS FIX-R2 N-01 cycle: scaring the drum sends it to the paper figure
+PASS BFS route (avoiding it) to gong
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> gong
+阿澄：惊走了。它绕去别处——赶得走它，报不了到，这一站没有留下「净」记。
+PASS FIX-R2 N-01 cycle: scaring the paper figure returns it to the candle, waiting
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump gong -> drum
+PASS legal jump drum -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS FIX-R2 N-01: the candle station is bought again after the cycle
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS FIX-R2 N-01: segment 2 begins and seg5_snap.trade reads exactly 1 (no dead-end count)
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄／阿弟：锣声轻点，尾音放长——替它报到：宫埕站，报「宫门」。它离开纸扎人，退场时打宫门方向过——纸扎人的头追着它，缓缓转过去，正对上站在宫门口的阿弟。阿弟钉住了：它在看我。他攥签的手，慢慢松开，走回埕心，在神轿的轿杠边坐下。【命运更新②：要走的人，留下来了。更梆响过一记，第三炷香点起——守队伍。】
+PASS FIX-R2 N-01: segment 2 only entry (the paper-figure trade) still opens
+PROBE-A after-flow: orphan_nodes=0 nodes=113 objects=1700 resources=99
+PROBE-A after-free: orphan_nodes=0 nodes=1 objects=1354 resources=2
+SMOKE RESULT: PASS checks=44 failures=0
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

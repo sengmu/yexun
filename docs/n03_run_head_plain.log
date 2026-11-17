@@ -1,0 +1,2216 @@
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+YEXUN R1 state-machine smoke: actual game API + legal graph jumps
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to beam
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS six-step canonical ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS fate update 1 recorded
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS fate update 2 recorded
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to loudspeaker
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+PASS BFS route to beam
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木已经晃松。趁停锣清场的空隙，跳向架脚鞭炮燃放。
+PASS BFS route to crackers
+PASS legal jump beam -> crackers
+阿弟／阿澄：若我还在下头……【灯架倒向空埕，无人受伤，夜巡推迟。附回花灯残骸，灯光照出绳结整齐的割痕。远处第二声轿铃又响了一次。】
+PASS alternative ending
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to drum
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（1／3）
+PASS BFS route to drum
+阿澄：鼓震传到灯架。再乱敲，阿弟会来不及离开……（2／3）
+PASS two drum strikes do not fail immediately
+PASS BFS route to drum
+阿弟的亡魂：三下潮鼓震松主绳，原命运提前到来。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS third drum strike reaches failure
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+阿弟的亡魂：香刚点燃。先看签筒，再听轿铃；架脚的鞭炮，要等烛台引来爷爷。
+PASS failure automatically retries after ghost dialogue
+PASS automatic retry resets possession and puzzle flags
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS spirit realm pauses incense timer
+阿弟的亡魂：一炷香燃尽，第三下出发锣响，灯架倒下。未完成改命。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS reality incense timeout reaches death event
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS nonadjacent jump rejected
+PASS BFS route to incense
+PASS BFS route to incense
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS BFS route to incense
+PASS legal jump sticks -> incense
+PASS BFS route to candle
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS BFS route to incense
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to drum
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS BFS route to incense
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to palanquin
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS BFS route to incense
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to flag
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS BFS route to incense
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to beam
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS BFS route to incense
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to lantern
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS BFS route to incense
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to crackers
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+PASS BFS route to incense
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to horse
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> horse
+PASS BFS route to incense
+PASS legal jump horse -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to umbrella
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+PASS BFS route to incense
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS BFS route to loudspeaker
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+PASS BFS route to incense
+PASS legal jump loudspeaker -> umbrella
+PASS legal jump umbrella -> flag
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+PASS legal jump sticks -> incense
+PASS all 12 nodes actually reachable from and return to incense
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to crackers
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> lantern
+PASS legal jump lantern -> crackers
+阿澄：引线纸还未燎过，无法燃放。烛台的火能引来庙祝公。
+PASS unprepared crackers reject ignition
+PASS BFS route to sticks
+PASS legal jump crackers -> lantern
+PASS legal jump lantern -> beam
+PASS legal jump beam -> palanquin
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+阿弟：签捡到了……我回去绑绳。
+PASS Adi returns to frame when pickup window expires
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+小英：轿铃之后，宫里又有第二声铃……阿弟还在架下，先让他注意到落签。
+PASS missed pickup window cannot silently secure Adi
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to sticks
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+命运更新①：签文：逢冲则避。阿弟离架两步捡签，但很快会回来。趁现在叫他扶轿！
+PASS BFS route to palanquin
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+命运更新② · 阿勇：阿弟！轿杠沉，过来扶！【宫内慢半拍又响一铃。小英皱眉。落点下没人了。】
+PASS BFS route to candle
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> candle
+庙祝公：金纸烧起来了！【扑火，顺手摘下鞭炮，挪到灯架底座石礅；燎过的引线纸可以燃放。】
+PASS BFS route to flag
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+小英／阿勇：什么声音？【小英望向埕西，背对埕心；旗影扫过，阿勇停手，出发锣暂缓。】
+PASS BFS route to crackers
+PASS legal jump flag -> palanquin
+PASS legal jump palanquin -> beam
+PASS legal jump beam -> crackers
+阿澄：鞭炮炸响，但横木尚未晃松，未能放倒灯架。
+PASS crackers without beam preparation cannot complete chapter
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS BFS route to beam
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+PASS premature beam shake accelerates collapse
+PASS BFS route to beam
+阿澄：横木猛晃！灯架更不稳了，香期骤减四十五秒。必须先让阿弟离开、安排震源并停锣或清场。
+阿弟的亡魂：过早摇晃，灯架提前倒下。 哥，签筒能叫我离架，神轿能留住我。烛台会让爷爷挪鞭炮。再来一次吧……
+PASS repeated premature beam shakes fail
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+PASS incense tutorial opens free exploration
+PASS BFS route to loudspeaker
+庙祝公／小英：阿弟顶了他哥哥的轿位。／灯架今晚……绳是新换的。
+PASS legal jump incense -> sticks
+PASS legal jump sticks -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> umbrella
+阿澄：油纸伞张开，随风飘向戏台口。现在可以跳到大声公。
+PASS legal jump umbrella -> loudspeaker
+庙祝公录音：收埕！闲人离埕心，夜巡暂缓！【备选调度就绪；仍需阿弟扶轿、鞭炮就位，再晃横木燃放。】
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS starting timed chapter from distant exploration returns to incense
+PASS timed chapter clears exploration effects and starts full incense
+YEXUN ch2 smoke: opponent system + solution chain + error branches
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS ch2 graph: all 12 nodes reachable without the conditional edge (S-2)
+PASS ch2 graph: every edge is two-way
+PASS ch2 graph: any single occupied node leaves the other 11 connected (S-1)
+PASS ch2 opponent opens on the drum (tuned first-encounter phase)
+PASS BFS route to flag
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> flag
+阿澄：里面……有东西了。
+PASS occupied drum rejects possession with the fixed refusal
+PASS BFS route to gong
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS scared-off drum gains the clean mark
+PASS opponent fled the drum after the gong scare
+PASS ch2 fate update 1: its rules are revealed
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+PASS clean drum is never re-occupied (immunity)
+PASS opponent never occupies censer / sign / lampstand
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to gong
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+PASS opponent advances along its written sequence
+PASS lingering player is squeezed back to the previous object
+PASS squeeze-out costs 10 incense seconds
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to minisedan
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> minisedan
+PASS player may enter the small sedan while it is away
+阿澄：轿里一沉，像有什么回来了——我被无声地推了出来。
+PASS player is silently pushed out after 10 reality seconds in the small sedan
+PASS small-sedan overstay eject costs no incense
+PASS BFS route to paperfig
+PASS legal jump palanquin -> minisedan
+PASS legal jump minisedan -> paperfig
+阿澄：轿帘里伸出一只纸手，把你推了出来。
+PASS occupied small sedan rejects entry
+PASS forcing the occupied small sedan costs 5 seconds
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to umbrella
+PASS legal jump censer -> lampstand
+阿澄：缸水静得出奇。街上的轿，一顶一顶都有倒影——只有纸扎店边那顶小轿，水里空空的，什么都没有。
+PASS legal jump lampstand -> vat
+PASS legal jump vat -> umbrella
+阿澄：油纸伞张开，顺着骑楼的风飘高——现在能直接跳上招牌了。
+PASS opened umbrella adds the sign shortcut edge (shortcut only, S-2)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to crackers
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> minisedan
+PASS legal jump minisedan -> crackers
+阿澄：鞭炮在纸扎店门口炸响，红纸屑落了一街。
+PASS early crackers are spent but the chapter is not dead-ended (S-6)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to lampstand
+PASS legal jump censer -> lampstand
+阿澄：花灯举高，光照上茶铺招牌的主绳——断口整齐，纤维是被利刃齐齐割开的，跟灯架那根一模一样。这匾，也是被人割过一半的。
+PASS lampstand investigation reveals the cut rope (guaranteed clue path, S-3)
+PASS BFS route to vat
+阿澄：缸水静得出奇。街上的轿，一顶一顶都有倒影——只有纸扎店边那顶小轿，水里空空的，什么都没有。
+PASS legal jump lampstand -> vat
+PASS vat investigation: only the small sedan casts no reflection
+PASS BFS route to gong
+PASS legal jump vat -> lampstand
+PASS legal jump lampstand -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS first scare from the gong teaches the rules
+PASS BFS route to flag
+PASS legal jump gong -> flag
+小英：什么响动？【领舞的小英停步，回望街西——趁现在，摇神轿的铃喊她压轿！】
+PASS BFS route to palanquin
+PASS legal jump flag -> palanquin
+命运更新② · 阿勇：小英！轿杠沉，过来压轿！【小英走至街心神轿旁压轿，不再回匾下。轿铃余音里，小轿方向又回了一声铃——比宫里那次更近、更清。小英皱眉：谁的轿……在回铃？】
+PASS flag window + sedan bell moves Xiaoying off the sign for good
+PASS ch2 fate update 2 recorded
+PASS BFS route to vat
+PASS legal jump palanquin -> lampstand
+PASS legal jump lampstand -> vat
+莲婶：哎，水缸怎么自个儿漾起来了？【莲婶出门查看，站到缸边同细叔说话——离开了招牌正下方。】
+PASS vat ripples draw Lianshen out from under her sign
+PASS BFS route to teasign
+PASS legal jump vat -> teasign
+阿澄：匾身吱呀倾斜，割伤的绳口崩开一线——松动了。只差一记够响的震动：锣、鼓、鞭炮，任一响起来都行。
+PASS sign loosened once both people are clear (safety preconditions, S-4)
+PASS BFS route to crackers
+PASS legal jump teasign -> vat
+PASS legal jump vat -> paperfig
+PASS legal jump paperfig -> crackers
+小英／莲婶：又是新绳……断口齐得，像刀裁的。【整匾提前落在空街上，碎木四溅，无人受伤。队伍终于要起轿了——出发前，阿勇按名册点人。】
+PASS ch2 canonical ending: sign falls early on the empty street
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to lampstand
+PASS legal jump censer -> lampstand
+阿澄：花灯举高，光照上茶铺招牌的主绳——断口整齐，纤维是被利刃齐齐割开的，跟灯架那根一模一样。这匾，也是被人割过一半的。
+PASS BFS route to gong
+PASS legal jump lampstand -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS BFS route to flag
+PASS legal jump gong -> flag
+小英：什么响动？【领舞的小英停步，回望街西——趁现在，摇神轿的铃喊她压轿！】
+PASS BFS route to palanquin
+PASS legal jump flag -> palanquin
+命运更新② · 阿勇：小英！轿杠沉，过来压轿！【小英走至街心神轿旁压轿，不再回匾下。轿铃余音里，小轿方向又回了一声铃——比宫里那次更近、更清。小英皱眉：谁的轿……在回铃？】
+PASS BFS route to vat
+PASS legal jump palanquin -> lampstand
+阿澄：缸水静得出奇。街上的轿，一顶一顶都有倒影——只有纸扎店边那顶小轿，水里空空的，什么都没有。
+PASS legal jump lampstand -> vat
+莲婶：哎，水缸怎么自个儿漾起来了？【莲婶出门查看，站到缸边同细叔说话——离开了招牌正下方。】
+PASS BFS route to teasign
+PASS legal jump vat -> teasign
+阿澄：匾身吱呀倾斜，割伤的绳口崩开一线——松动了。只差一记够响的震动：锣、鼓、鞭炮，任一响起来都行。
+PASS BFS route to drum
+PASS legal jump teasign -> lampstand
+PASS legal jump lampstand -> palanquin
+PASS legal jump palanquin -> drum
+小英／莲婶：又是新绳……断口齐得，像刀裁的。【整匾提前落在空街上，碎木四溅，无人受伤。队伍终于要起轿了——出发前，阿勇按名册点人。】
+PASS ch2 alternative ending: drum as the final vibration source (distance-exempt)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to teasign
+PASS legal jump censer -> lampstand
+PASS legal jump lampstand -> teasign
+阿澄：匾晃得吓人，香期骤减四十五秒。匾下还有人——先把人引开，再动它。
+PASS blind sign shake costs 45 seconds and cannot finish
+PASS BFS route to teasign
+小英的亡魂：招牌晃到第二下，割伤的主绳再也吊不住——整匾砸向匾下的人。 哥……纸扎人的头，一直在看它在哪。锣、鼓、鞭炮，响的能把它惊走。再来一次吧……
+PASS second blind shake drops the sign: Xiaoying branch (S-8)
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+阿澄：香刚点燃。纸扎人的头会告诉我它在哪；响器能惊走它。先把匾下的人引开，再动招牌。
+PASS ch2 failure auto-retries: opponent phase and clean marks reset
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+PASS BFS route to gong
+PASS legal jump censer -> palanquin
+PASS legal jump palanquin -> flag
+PASS legal jump flag -> gong
+命运更新①：响声炸开，那件物件里的「东西」被惊走了。【命运更新①：看清它的规矩了——它怕响；被惊走的地方，它不敢再回。】
+PASS BFS route to drum
+PASS legal jump gong -> drum
+阿澄：声浪撞上骑楼，匾跟着颤。匾下还有人，再乱敲要出事……（1／3）
+PASS BFS route to drum
+阿澄：声浪撞上骑楼，匾跟着颤。匾下还有人，再乱敲要出事……（2／3）
+PASS two drum strikes do not fail immediately (ch2)
+PASS BFS route to drum
+小英的亡魂：锣鼓连响三下，假信号提前震落了招牌——小英还在匾下领舞。 哥……标旗能叫我回头，神轿的铃能喊我去压轿。再来一次，先把我叫离匾下。
+PASS third drum strike drops the sign early: Xiaoying branch
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+阿澄：第二炷香烧到了头。土地庙那边摆了摆手，阿勇喊起轿——匾落下来的那一声，隔着一整条街都听得见。 若小英还站在匾下，先用标旗开窗口、神轿铃喊她压轿；莲婶要用大水缸引开。回到香点，重来。
+PASS ch2 incense timeout fails on the self-talk branch (S-8)
+YEXUN ch3 smoke: mimic opponent + dual scene graph + solution chain
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS ch3 graph: all 12 nodes reachable across both scenes (S-1/S-2)
+PASS ch3 graph: every edge is two-way (incl. both relay edges)
+PASS ch3 graph: any single occupied node leaves the other 11 connected (S-1, dual scene)
+PASS ch3 graph: incense relay cut, paper route still connects both scenes
+PASS ch3 graph: one paper-route foot cut, the other plus incense relay still connect
+PASS ch3 graph: other paper-route foot cut, still fully connected
+PASS ch3 opponent opens on the paper horse in the corridor
+阿澄：里面……有东西了。
+PASS occupied paper horse rejects possession with the fixed refusal
+PASS opponent never occupies roster / sedan remains (never-occupy list)
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS two jumps do not trigger the mimic advance
+PASS third jump triggers mimic advance (sequence fallback when no skill was used)
+PASS mimic move is presented as the fake light trail (no landing glow)
+PASS mimic advance resets jump count and station timer together
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to teatable
+PASS legal jump hallcenser -> teatable
+阿澄／六叔公：茶盖轻响。六叔公以为茶凉了，起身续水，顺手把守柜的管事也支去烧水。【册柜前空出 25 秒——趁现在，小英取档。】
+PASS tea lid summons the steward away: dispatch window opens
+PASS tea-table window is 25 seconds (primary dispatch)
+PASS BFS route to roster
+PASS legal jump teatable -> roster
+阿澄／小英：小英以核对行次为名抱出历年旧档，与今晚排班册分开放。【翻今晚排班册：今晚的人一笔不差；换绳栏明明白白——「库房新绳，水生经手。」绳，出自祠堂库房。】
+PASS roster inside the window: the new rope came from the storehouse (clue 1)
+PASS BFS route to roster
+阿澄／管册老者：翻历年旧档——六十三年前那一年的巡境记录，整页不见了，装订线上一排整齐的撕口。这页不是朽烂脱落，是被人整页撕走的。【小英问管册老者，老者答：我爹那辈的事，问我我也说不清。六叔公在一旁斟茶，不阻拦、不动怒，只用一道茶把所有人的火气压在杯沿上。】
+PASS old archive: the page was torn out whole, not rotted (clue 2)
+PASS mimic advance lands on the last used skill object (the tea table, designed first encounter)
+PASS first mimic encounter speaks the two tells (paper-horse radar + unlit landing)
+PASS BFS route to bell
+PASS legal jump hallcenser -> bell
+阿澄／水生：惊走了——茶桌空出来，它学来的坐姿散在半空。【小英拿换绳栏去问水生，水生脱口而出：没有。库房灯一整晚没亮过。——说得太快，快得像背过。阿勇在旁边皱了皱眉。】
+PASS bell scare wins the tea table back with the clean mark
+PASS scaring it off also resets the jump count
+PASS opponent fled the tea table after the scare
+PASS same beat: Shuisheng's too-quick lie is heard
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS mimic target already clean: falls forward to the next sequence station
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS setup: player waits on the bell
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【它落到了我刚用过的物件上；被占的物件进不去，相邻的响器能把它惊走。】
+PASS timer advance follows the written sequence onto the bell
+PASS lingering player is squeezed back to the previous object
+PASS squeeze-out costs 10 incense seconds
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to hallcenser
+阿澄：火星上窜，管册老者起身添香，离开了册柜。【窗口只有 15 秒——趁现在去翻名册。】
+PASS altar sparks open the shorter 15 second window (alternative dispatch)
+阿澄：六叔公端着续好的水回座，管册老者也回了柜前。窗口过了——再想法子把人引开就是。
+PASS window closes when it lapses unused; the steward returns
+PASS BFS route to roster
+PASS legal jump hallcenser -> roster
+阿澄：管册老者守在柜前，寸步不离。当面翻册，等于当面翻脸——得先把人引开。（茶桌的茶盖、香案的火星，都能支开他。）
+PASS roster cannot be read while the steward watches (dispatch first, S-5)
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to chest
+PASS legal jump hallcenser -> oldcenser
+PASS legal jump oldcenser -> chest
+阿澄：箱盖轻响。箱底压着当年封存的清单，字迹尚清：「纸轿一顶，拆存。」【封存是真事，拆存是实据。】
+PASS optional: chest list confirms the paper sedan was sealed and stored (bonus clue)
+PASS BFS route to oldcenser
+PASS legal jump chest -> oldcenser
+阿澄：余烬微光。炉底泛起一瞬旧火的残影——一盏曾经亮过的灯的形状，只给形状，不给解释。
+PASS optional: old censer ember shows a lamp shape (bonus, no explanation)
+PASS BFS route to sedanrem
+PASS legal jump oldcenser -> chest
+PASS legal jump chest -> sedanrem
+阿澄／小英：掀开牌位布——布上的字被水渍吃掉大半，只剩一个「灶」字的下半截，和「西巷」两个字。【同一拍，小英在旧档夹层里翻到一张漏网的支出账页，一字一字读出声：纸扎陈阿灶，扎引路纸轿一顶，工钱未结。——陈阿灶这个名字，六十三年第一次重新被人读出来。】
+PASS sedan remains and the account page corroborate each other (clue 3)
+PASS BFS route to bamboo
+PASS legal jump sedanrem -> bamboo
+阿澄（记忆）：竹料的触感裂开一道残影——傍晚，我发现割痕后往竹棚走，余光里祠堂库房的灯亮着，灯影里有人站在门口。【脸还没看清，记忆断了。可这一块已经够了：库房的灯亮过——水生，说了谎。】
+PASS bamboo touch restores the first memory: the storehouse lamp was lit (the lie breaks)
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to oldcenser
+PASS legal jump hallcenser -> oldcenser
+PASS BFS route to crackers
+PASS legal jump oldcenser -> crackers
+阿澄：惊走了。它跳去了别处，这件物件它不敢再回。学步的节奏，也断了。
+PASS crackers scare the bamboo stand clean from next door (B-field ringer)
+PASS crackers are one-shot; spent early they still leave a way through (S-6)
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to flag
+PASS legal jump hallcenser -> teatable
+PASS legal jump teatable -> flag
+PASS BFS route to horse
+PASS legal jump flag -> horse
+PASS BFS route to sedanrem
+PASS legal jump horse -> sedanrem
+PASS paper route alone reaches the storage room (flag -> paper horse -> remains)
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to teatable
+PASS legal jump hallcenser -> teatable
+阿澄／六叔公：茶盖轻响。六叔公以为茶凉了，起身续水，顺手把守柜的管事也支去烧水。【册柜前空出 25 秒——趁现在，小英取档。】
+PASS BFS route to roster
+PASS legal jump teatable -> roster
+阿澄／小英：小英以核对行次为名抱出历年旧档，与今晚排班册分开放。【翻今晚排班册：今晚的人一笔不差；换绳栏明明白白——「库房新绳，水生经手。」绳，出自祠堂库房。】
+PASS BFS route to roster
+阿澄／管册老者：翻历年旧档——六十三年前那一年的巡境记录，整页不见了，装订线上一排整齐的撕口。这页不是朽烂脱落，是被人整页撕走的。【小英问管册老者，老者答：我爹那辈的事，问我我也说不清。六叔公在一旁斟茶，不阻拦、不动怒，只用一道茶把所有人的火气压在杯沿上。】
+PASS BFS route to bell
+PASS legal jump roster -> bell
+阿澄／水生：惊走了——茶桌空出来，它学来的坐姿散在半空。【小英拿换绳栏去问水生，水生脱口而出：没有。库房灯一整晚没亮过。——说得太快，快得像背过。阿勇在旁边皱了皱眉。】
+PASS canonical pace: mimic takes the tea table, bell scare clears it
+PASS canonical pace: the lie surfaces in the same beat
+PASS BFS route to oldcenser
+PASS legal jump bell -> hallcenser
+PASS legal jump hallcenser -> oldcenser
+PASS BFS route to chest
+PASS legal jump oldcenser -> chest
+PASS BFS route to sedanrem
+PASS legal jump chest -> sedanrem
+阿澄／小英：掀开牌位布——布上的字被水渍吃掉大半，只剩一个「灶」字的下半截，和「西巷」两个字。【同一拍，小英在旧档夹层里翻到一张漏网的支出账页，一字一字读出声：纸扎陈阿灶，扎引路纸轿一顶，工钱未结。——陈阿灶这个名字，六十三年第一次重新被人读出来。】
+PASS BFS route to bamboo
+PASS legal jump sedanrem -> bamboo
+阿澄（记忆）：竹料的触感裂开一道残影——傍晚，我发现割痕后往竹棚走，余光里祠堂库房的灯亮着，灯影里有人站在门口。【脸还没看清，记忆断了。可这一块已经够了：库房的灯亮过——水生，说了谎。】
+PASS BFS route to flag
+PASS legal jump bamboo -> sedanrem
+PASS legal jump sedanrem -> horse
+PASS legal jump horse -> flag
+阿澄／阿勇：旗面抖响，压过满坪议论——全场都看向前坪。【小英攥着账页起身要问，又被这一下顿住。就差一声钟（或一记鼓），把场面定住。】
+PASS canonical pace: flag gathers the courtyard once the evidence chain is complete
+PASS BFS route to bell
+PASS legal jump flag -> teatable
+PASS legal jump teatable -> bell
+命运更新① · 阿勇：一声定局。阿勇趁势整队，扬声把话说圆：厝边头尾，有话天亮讲——先过桥！【命运更新①：今夜队伍不会散了——质问推迟到桥头之后，该走的路，一站不会少。小英攥着账页，退后一步。队伍起轿续行。】
+PASS ch3 canonical ending: flag then bell keeps the team together
+PASS ch3 fate update (the situation itself) recorded
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to bell
+PASS legal jump hallcenser -> bell
+阿澄：证据还没齐，现在按不住。【钟声响过，场面只是将起，又缓缓落回去。】
+PASS finale stays locked before the evidence chain is complete (S-4)
+PASS BFS route to teatable
+PASS legal jump bell -> teatable
+阿澄／六叔公：茶盖轻响。六叔公以为茶凉了，起身续水，顺手把守柜的管事也支去烧水。【册柜前空出 25 秒——趁现在，小英取档。】
+PASS BFS route to roster
+PASS legal jump teatable -> roster
+阿澄／小英：小英以核对行次为名抱出历年旧档，与今晚排班册分开放。【翻今晚排班册：今晚的人一笔不差；换绳栏明明白白——「库房新绳，水生经手。」绳，出自祠堂库房。】
+PASS BFS route to roster
+阿澄／管册老者：翻历年旧档——六十三年前那一年的巡境记录，整页不见了，装订线上一排整齐的撕口。这页不是朽烂脱落，是被人整页撕走的。【小英问管册老者，老者答：我爹那辈的事，问我我也说不清。六叔公在一旁斟茶，不阻拦、不动怒，只用一道茶把所有人的火气压在杯沿上。】
+PASS BFS route to oldcenser
+PASS legal jump roster -> hallcenser
+PASS legal jump hallcenser -> oldcenser
+PASS BFS route to chest
+PASS legal jump oldcenser -> chest
+PASS BFS route to sedanrem
+PASS legal jump chest -> sedanrem
+阿澄／小英：掀开牌位布——布上的字被水渍吃掉大半，只剩一个「灶」字的下半截，和「西巷」两个字。【同一拍，小英在旧档夹层里翻到一张漏网的支出账页，一字一字读出声：纸扎陈阿灶，扎引路纸轿一顶，工钱未结。——陈阿灶这个名字，六十三年第一次重新被人读出来。】
+PASS BFS route to bamboo
+PASS legal jump sedanrem -> bamboo
+阿澄（记忆）：竹料的触感裂开一道残影——傍晚，我发现割痕后往竹棚走，余光里祠堂库房的灯亮着，灯影里有人站在门口。【脸还没看清，记忆断了。可这一块已经够了：库房的灯亮过——水生，说了谎。】
+PASS BFS route to oldcenser
+PASS legal jump bamboo -> chest
+PASS legal jump chest -> oldcenser
+PASS BFS route to hallcenser
+PASS legal jump oldcenser -> hallcenser
+PASS BFS route to bell
+PASS legal jump hallcenser -> bell
+阿澄：证据还没齐，现在按不住。【钟声响过，场面只是将起，又缓缓落回去。】
+PASS bell before flag only scatters the sound: no finale, redo allowed
+PASS BFS route to bell
+阿澄／水生：惊走了——茶桌空出来，它学来的坐姿散在半空。【小英拿换绳栏去问水生，水生脱口而出：没有。库房灯一整晚没亮过。——说得太快，快得像背过。阿勇在旁边皱了皱眉。】
+PASS alternative path also hears the lie before the finale (FIX-R1 F-03)
+PASS BFS route to flag
+PASS legal jump bell -> teatable
+PASS legal jump teatable -> flag
+阿澄／阿勇：旗面抖响，压过满坪议论——全场都看向前坪。【小英攥着账页起身要问，又被这一下顿住。就差一声钟（或一记鼓），把场面定住。】
+PASS flag first: every eye turns to the courtyard
+PASS BFS route to drum
+PASS legal jump flag -> drum
+命运更新① · 阿勇：一声定局。阿勇趁势整队，扬声把话说圆：厝边头尾，有话天亮讲——先过桥！【命运更新①：今夜队伍不会散了——质问推迟到桥头之后，该走的路，一站不会少。小英攥着账页，退后一步。队伍起轿续行。】
+PASS ch3 alternative ending: drum settles the team in place of the bell
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS ch3 spirit realm pauses the third incense
+阿澄：第三炷香烧到了头。质问在祠堂前当场爆开，队员撂了挑子——队伍在祠堂前散了，今夜的巡境，办不成了。【名册柜还没看全——先以茶盖或火星引开管事，再翻今晚排班册与历年旧档。】回到香点，重来。
+PASS ch3 incense timeout: the team breaks up (situation failure only, S-8)
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+阿澄：香刚点燃。它会学我走路——看纸扎马指的方向，落点不亮的是它。先引开管事查册，再去杂物间。
+PASS ch3 failure auto-retries: opponent phase, clean marks and jump count reset
+YEXUN ch4 smoke: borrow-mouth dialogue + warning chain + bridge graph
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS ch4 graph: all 12 nodes reachable on the long scroll (S-1/S-2)
+PASS ch4 graph: every edge is two-way (incl. the ferry-rope crossing)
+PASS ch4 graph: any single occupied node leaves the other 11 connected (S-1)
+PASS ch4 graph: ferry-rope route cut, bridge routes still cross
+PASS ch4 graph: one bridge route cut, the other crossings still hold
+PASS ch4 graph: sedan bridge link cut, still fully connected
+PASS ch4 opponent opens on the paper figure at the river port
+阿澄：里面……有东西了。
+PASS occupied paper figure rejects possession with the fixed refusal
+PASS opponent never occupies shrine / sedan / bridge rope (never-occupy list)
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to drum
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> drum
+阿澄：惊走了。它跳去了别处，这件物件它不敢再回。
+PASS adjacent ringer scares a normally-occupied station clean
+PASS opponent fled the lampstand after the scare
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgebell
+PASS legal jump shrine -> bridgebell
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+PASS timer advance follows the written sequence onto the bell
+PASS lingering player is squeezed back to the previous object
+PASS squeeze-out costs 10 incense seconds
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgerope
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS rope investigation states the cut outright (guaranteed clue, S-3)
+PASS BFS route to lampstand
+PASS legal jump bridgerope -> drum
+PASS legal jump drum -> lampstand
+阿澄：花灯举高，光扫过桥栏——可没人抬头，白照了。【先有个响动，把桥头的人叫起来，再举灯。】
+PASS lamp before bell lights nothing: chain order enforced, feedback only
+PASS BFS route to drum
+PASS legal jump lampstand -> drum
+阿澄：响声撞上桥栏，割口跟着颤。桥栏没加固之前，桥头的响器别乱敲……（1／3）
+PASS drum before the light cannot stop the team
+PASS BFS route to bridgebell
+PASS legal jump drum -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS warning chain 1: the bell lifts every head
+PASS BFS route to lampstand
+PASS legal jump bridgebell -> shrine
+PASS legal jump shrine -> lampstand
+阿勇／小英：灯光沿桥栏扫过去，正照在那处断口上——阿勇和小英，都看见了。【示警第二段：把断口送到他们眼前。】
+PASS warning chain 2: the light puts the cut before their eyes
+PASS BFS route to drum
+PASS legal jump lampstand -> drum
+阿勇：停轿！桥栏有问题！【示警第三段：一记不合节拍的重音——阿勇听出鼓点不对，吼停了队伍。】
+PASS warning chain 3: the off-beat drum stops the team
+PASS no crossing before the rope is reinforced (S-4)
+PASS BFS route to sedanrope
+PASS legal jump drum -> lampstand
+PASS legal jump lampstand -> sedanrope
+阿勇：备具坪里绳响了一声——阿勇想起整捆备用轿绳，带人取绳，当众把桥栏割口一段缠固三层。【加固完成：桥栏，稳住了。】
+命运更新① · 阿勇／小英／陈六合：缠好了——过桥！【队伍起轿过桥：神轿行至桥面中段，栏绳在缠固处绷紧，发出一声闷响——没有断。命运更新①：桥，稳住了，金身安然过桥，桥头的人都亲眼看见了那处断口。河埠落轿，小英当众举起换下来的半截旧栏绳：这不是头一根了。人群里一句话当晚就传开——祠堂的绳，根根都是割的。陈六合伸手摸了摸断口，指尖一缩，「意外」两个字没说出来，只说：先过桥。阿勇整队：厝边头尾，歇脚食口茶再走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS reinforcement completes the preconditions: the team crosses
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to sedanrope
+PASS legal jump shrine -> sedanrope
+阿勇：备具坪里绳响了一声——阿勇想起整捆备用轿绳，带人取绳，当众把桥栏割口一段缠固三层。【加固完成：桥栏，稳住了。】
+PASS alternative: reinforcement may come before the warning chain
+PASS BFS route to bridgerope
+PASS legal jump sedanrope -> shrine
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS BFS route to bridgebell
+PASS legal jump bridgerope -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS BFS route to lampstand
+PASS legal jump bridgebell -> shrine
+PASS legal jump shrine -> lampstand
+阿勇／小英：灯光沿桥栏扫过去，正照在那处断口上——阿勇和小英，都看见了。【示警第二段：把断口送到他们眼前。】
+PASS BFS route to drum
+PASS legal jump lampstand -> drum
+阿勇：停轿！桥栏有问题！【示警第三段：一记不合节拍的重音——阿勇听出鼓点不对，吼停了队伍。】
+命运更新① · 阿勇／小英／陈六合：缠好了——过桥！【队伍起轿过桥：神轿行至桥面中段，栏绳在缠固处绷紧，发出一声闷响——没有断。命运更新①：桥，稳住了，金身安然过桥，桥头的人都亲眼看见了那处断口。河埠落轿，小英当众举起换下来的半截旧栏绳：这不是头一根了。人群里一句话当晚就传开——祠堂的绳，根根都是割的。陈六合伸手摸了摸断口，指尖一缩，「意外」两个字没说出来，只说：先过桥。阿勇整队：厝边头尾，歇脚食口茶再走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS alternative order still crosses once all three preconditions hold
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to boat
+PASS legal jump shrine -> sedanrope
+PASS legal jump sedanrope -> boat
+船工：船身轻晃，船工搭话：他爹那辈说，六十三年前涨水的那一夜，是摆渡人把西巷逃出来的人一船一船往高处送。送到的都在，差的那几位，是没等到船。【可选调查：西巷之夜，活人侧的重量。】
+PASS optional: the ferryman's father ferried the west-alley survivors (bonus)
+PASS BFS route to papercargo
+PASS legal jump boat -> papercargo
+阿澄：纸料担底压着一张发黄的旧纸样——六十三年前的引路轿轿样，边角有一个「灶」字的起笔。【可选调查：细叔认旧手艺的伏笔。错过也不影响点破。】
+PASS optional: the old guide-sedan paper pattern under the cargo (bonus)
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgerope
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS BFS route to bridgebell
+PASS legal jump bridgerope -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS BFS route to lampstand
+PASS legal jump bridgebell -> shrine
+PASS legal jump shrine -> lampstand
+阿勇／小英：灯光沿桥栏扫过去，正照在那处断口上——阿勇和小英，都看见了。【示警第二段：把断口送到他们眼前。】
+PASS BFS route to sedanrope
+PASS legal jump lampstand -> sedanrope
+阿勇：备具坪里绳响了一声——阿勇想起整捆备用轿绳，带人取绳，当众把桥栏割口一段缠固三层。【加固完成：桥栏，稳住了。】
+PASS BFS route to drum
+PASS legal jump sedanrope -> lampstand
+PASS legal jump lampstand -> drum
+阿勇：停轿！桥栏有问题！【示警第三段：一记不合节拍的重音——阿勇听出鼓点不对，吼停了队伍。】
+命运更新① · 阿勇／小英／陈六合：缠好了——过桥！【队伍起轿过桥：神轿行至桥面中段，栏绳在缠固处绷紧，发出一声闷响——没有断。命运更新①：桥，稳住了，金身安然过桥，桥头的人都亲眼看见了那处断口。河埠落轿，小英当众举起换下来的半截旧栏绳：这不是头一根了。人群里一句话当晚就传开——祠堂的绳，根根都是割的。陈六合伸手摸了摸断口，指尖一缩，「意外」两个字没说出来，只说：先过桥。阿勇整队：厝边头尾，歇脚食口茶再走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS ch4 crossing once rope seen + warning chain + reinforcement all hold
+PASS ch4 fate update 1: the bridge holds, the golden body crosses
+PASS borrow-mouth begins when it holds the paper figure after the crossing
+阿澄：「把我的路……」【锣声轻点……像在回它的话。它说话的时候，响器是回话，不是驱赶——在它旁边的响器（开道锣、神轿）上按 E，应答它。】
+PASS borrow-mouth: the 45 second station timer is paused while it waits
+PASS the first answer window opens (teaching length)
+PASS BFS route to papercargo
+PASS legal jump drum -> bridgerope
+PASS legal jump bridgerope -> palanquin
+PASS legal jump palanquin -> papercargo
+阿澄：它听不懂这个。
+PASS non-ringer skill inside the window: fixed refusal, no progress
+PASS BFS route to drum
+PASS legal jump papercargo -> riverlamp
+PASS legal jump riverlamp -> bridgerope
+PASS legal jump bridgerope -> drum
+阿澄：离它太远，它听不见。
+PASS ringer from a non-adjacent object inside the window: neither answer nor scare
+PASS BFS route to gong
+PASS legal jump drum -> bridgerope
+PASS legal jump bridgerope -> palanquin
+PASS legal jump palanquin -> gong
+纸灶（借嘴）：「把我的路……」——「……还给我。」【第一句，成句了。活人那头，纸扎人只漏出一阵纸响，和一个「路」字。】
+PASS answer round 1 from the gong: the first full sentence lands
+阿澄：它话没说完——这时候的响，是驱赶，不是回话。【轮次之间它在攒气；等它把碎句说出口，再应答。这一次，不算惊走。】
+PASS first out-of-window ringer between rounds only teaches; it stays
+阿澄：赶走了……它还会回来。它想说的，还没说。【纸扎人没有留下「净」记——它绕序列一圈，还会回来，把话说完。】
+PASS second out-of-window ringer scares it off between rounds
+PASS borrow-mouth scare leaves NO clean mark on the paper figure (the written exception)
+PASS completed rounds survive the scare-away (no dead end)
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS it circles the sequence and returns to resume the dialogue
+纸扎人：「宫门……土地庙……溪尾街……桥头……」【它在等回话。】
+PASS resumed dialogue reopens its answer window
+纸扎人：「宫门……土地庙……溪尾街……桥头……」【它把碎句又说了一遍——窗口重开，不扣香、不重置轮次。】
+PASS a missed window only repeats the fragment: no penalty, no round reset
+纸扎人：「宫门……土地庙……溪尾街……桥头……」【它在等回话。】
+PASS the window reopens after the repeat
+PASS BFS route to palanquin
+纸灶（借嘴）／庙祝公／老花灯匠：「宫门……土地庙……溪尾街……桥头……」——「……西巷。」【命运更新②：它要的不是哪件物件，是西巷那一站。庙祝公听见纸响里漏出的「路」「锣」二字，脸色当场变了，当着小英与阿勇说出旧规：引路小轿本就是巡境的正式编制，是空轿，专供路上捡到的无主之物搭乘；正式经过一站，响器要应答一声，叫「报到」。金身在座的轿，他坐不进去。老花灯匠望着队尾，一字一句：扎那顶轿的人叫陈阿灶，西巷的纸扎匠；那年改道漏了西巷，他妻女没出来，他抱着轿在宫门口等队伍回来补走那一站，等到天亮。老爷保号，没保住他。那个背影走路的样子，像极了当年的灶叔。老人又拉住小英：你是西巷林家的丫头吧？你娘小时候跟我说，铃要响两遍，才算队伍到齐——她听了一辈子少掉的那一遍。】
+PASS answer round 2 from the sedan bell: fate update 2, the route is named
+PASS after round 2 it leaves the paper figure of its own accord
+PASS BFS route to lampstand
+PASS legal jump palanquin -> bridgerope
+PASS legal jump bridgerope -> drum
+阿澄（记忆）：花灯担的竹骨受潮发霉，触感裂开记忆——傍晚，我发现灯架主绳的割痕，攥着绳头去问庙祝公「这口子怎么齐得像刀裁的」，他支吾着没敢接话；我爬上戏台竹棚，脚下脆响；坠落前最后一眼——祠堂库房门口，水生站在那里，看着我，一个字也没说。【死因全揭：四件事，在同一瞬间对上了。我望向桥下的水，想起那一眼里闪过的不是求救，是——他怎么站在库房门口。】
+PASS legal jump drum -> lampstand
+阿澄：花灯举高，灯光稳稳压在桥栏上。断口在光里，清清楚楚。
+PASS lampstand touch after the crossing restores the full memory (the death, fully revealed)
+PASS BFS route to papercargo
+PASS legal jump lampstand -> sedanrope
+PASS legal jump sedanrope -> boat
+PASS legal jump boat -> papercargo
+细叔：纸料一响，细叔抬起头——当着众人的面摊开竹篾色纸，扎一顶新的引路小轿，手稳得不像在赶夜工：编制里的引路轿，缺一顶正经的。旧的那顶……走了六十三年，该歇了。胶己人的活，慢慢做。【新轿扎成，先在河埠棚下供着。】
+PASS paper cargo summons Xishu to make the new guide sedan
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS with bridge crossed, route answered and new sedan made, it returns for the last sentence
+纸扎人：「那年……」【它在等回话。】
+PASS the final answer window opens only with all finale preconditions in place (S-4)
+PASS BFS route to riverlamp
+PASS legal jump papercargo -> riverlamp
+PASS BFS route to gong
+PASS legal jump riverlamp -> gong
+纸灶（借嘴）：「那年……」——「……他们没响锣。」【它一字一顿说完，自愿离开纸扎人，退回棚后的小轿方向，雾沉下去。同一拍，桥那头人影晃动——祠堂的人传话到了：今年巡境，到此为止。】
+PASS ch4 canonical ending: the last sentence is finished, the message from the hall arrives
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgerope
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS BFS route to bridgerope
+阿澄：栏绳猛晃，割口又崩开一线，香期骤减四十五秒。没加固之前别再晃它——先让活人看见，先加固。
+PASS first blind rope shake costs 45 seconds
+PASS BFS route to bridgerope
+阿澄：第二下盲晃，割伤的栏绳当场崩断——桥未断、人未上桥，可今夜过桥无望，半程中断。 【断在桥下，不是桥上：先让活人看见割口、先加固，再谈过桥。】回到香点，重来。
+PASS second blind shake snaps the rope early: branch 3, under the bridge (S-8)
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+阿澄：香刚点燃。先看桥栏，再铃、光、鼓；它借纸扎人的嘴说话时，响器是回话，不是驱赶。
+PASS ch4 failure auto-retries: opponent phase, clean marks and dialogue rounds reset
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgebell
+PASS legal jump shrine -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS BFS route to bridgebell
+阿澄：响声撞上桥栏，割口跟着颤。桥栏没加固之前，桥头的响器别乱敲……（1／3）
+PASS BFS route to bridgebell
+阿澄：响声撞上桥栏，割口跟着颤。桥栏没加固之前，桥头的响器别乱敲……（2／3）
+PASS chain ring plus two idle rings do not fail yet
+PASS BFS route to bridgebell
+阿澄：桥头的响器连敲三下，震动提前崩断了割伤的栏绳——队伍还没上桥，今夜却到此为止了。 【断在桥下，不是桥上：先让活人看见割口、先加固，再谈过桥。】回到香点，重来。
+PASS third idle bridgehead ring shakes the cut rope loose: branch 3
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+纸扎小轿方向：第四炷香烧到了头。安全前置未齐，队伍照常起轿——行至桥面中段，割伤的栏绳崩断，神轿倾侧，金身受损，巡境当众半途而废。 【小轿方向漏出断续纸响，拼出半个字音——「……栏……」它比谁都怕这座桥再断一次。先去桥栏绳看清割口，再铃、光、鼓把人叫停、把桥加固。】
+PASS ch4 timeout before the crossing: the sedan falls on the bridge (branch 1, paper-sedan hint)
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgerope
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS BFS route to bridgebell
+PASS legal jump bridgerope -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS BFS route to lampstand
+PASS legal jump bridgebell -> shrine
+PASS legal jump shrine -> lampstand
+阿勇／小英：灯光沿桥栏扫过去，正照在那处断口上——阿勇和小英，都看见了。【示警第二段：把断口送到他们眼前。】
+PASS BFS route to sedanrope
+PASS legal jump lampstand -> sedanrope
+阿勇：备具坪里绳响了一声——阿勇想起整捆备用轿绳，带人取绳，当众把桥栏割口一段缠固三层。【加固完成：桥栏，稳住了。】
+PASS BFS route to drum
+PASS legal jump sedanrope -> lampstand
+PASS legal jump lampstand -> drum
+阿勇：停轿！桥栏有问题！【示警第三段：一记不合节拍的重音——阿勇听出鼓点不对，吼停了队伍。】
+命运更新① · 阿勇／小英／陈六合：缠好了——过桥！【队伍起轿过桥：神轿行至桥面中段，栏绳在缠固处绷紧，发出一声闷响——没有断。命运更新①：桥，稳住了，金身安然过桥，桥头的人都亲眼看见了那处断口。河埠落轿，小英当众举起换下来的半截旧栏绳：这不是头一根了。人群里一句话当晚就传开——祠堂的绳，根根都是割的。陈六合伸手摸了摸断口，指尖一缩，「意外」两个字没说出来，只说：先过桥。阿勇整队：厝边头尾，歇脚食口茶再走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS ch4 crossing once rope seen + warning chain + reinforcement all hold
+PASS ch4 fate update 1: the bridge holds, the golden body crosses
+阿澄：「把我的路……」【锣声轻点……像在回它的话。它说话的时候，响器是回话，不是驱赶——在它旁边的响器（开道锣、神轿）上按 E，应答它。】
+阿澄：第四炷香烧到了头。桥是过了，可它的话还没说完——祠堂的传话先一步抵达，队伍奉命回宫，河埠的灯一盏盏熄了。 【它在等回话——应答不是驱赶：等它把碎句说出口，在它旁边的响器上回它。】回到香点，重来。
+PASS ch4 timeout after the crossing with the dialogue unfinished: branch 2 (S-8)
+YEXUN ch5 smoke: trade system + three-incense relay + segment checkpoints
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS ch5 graph: all 12 nodes reachable across the three zones (S-1/S-2)
+PASS ch5 graph: every edge is two-way (no conditional edges, S-2)
+PASS ch5 graph: any single occupied node leaves the other 11 connected (S-1)
+PASS ch5 graph: one incense-smoke strand cut, the other still links hall and courtyard
+PASS ch5 graph: the other incense-smoke strand cut, still fully connected
+PASS ch5 graph: paper route cut, corridor route still links courtyard and back hall
+PASS ch5 graph: corridor route cut, paper route still links the back hall
+阿澄：里面……有东西了。
+PASS occupied altar candle rejects possession with the fixed refusal
+PASS opponent never occupies the lamp / sedan / sedan remains (never-occupy list)
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS first wait is the long teaching window (25s)
+PASS wait lapses into ordinary occupation; the 45s station clock starts after
+PASS BFS route (avoiding it) to drum
+PASS legal jump everlamp -> palanquin
+PASS legal jump palanquin -> drum
+阿澄：赶走了……可灯旁的位子，它还会回来。得跟它买。【惊走只是驱赶，不是报到——这一站没有留下「净」记。】
+PASS scare in ch5 leaves NO clean mark (reporting, not driving, earns clean)
+PASS opponent fled the candle after the scare
+PASS first scare at the candle speaks the buy-don't-drive teaching line
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> oilpot
+PASS legal jump oilpot -> gengbang
+PASS legal jump gengbang -> gong
+阿澄：离它太远，它听不见。
+PASS ringer beyond adjacency during the wait: fixed too-far line, no trade
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump gong -> gengbang
+PASS legal jump gengbang -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS dispatch objects still work beside the waiting station (the oil run is not blocked)
+PASS BFS route (avoiding it) to horse
+PASS legal jump oilpot -> gengbang
+PASS legal jump gengbang -> horse
+阿澄：它只认响器。【它在等开价——只有响器（潮鼓／开道锣／神轿铃）的应答，它才听得懂。】
+PASS flavor object beside the waiting station: fixed ringers-only line, no trade
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS ch5 seg1: wick inspection first (the probe step is mandatory)
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS ch5 seg1: oil fetched to the altar by Xiaoying (dispatch)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS ch5 trade 1: reporting for it buys the candle station clean
+PASS ch5 trade 1: it withdraws to the small sedan, yield window open
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS ch5 fate update 1: the lamp that was out for ten years burns steady
+PASS ch5 segment 2 begins: 150 seconds, checkpoint taken
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS setup: trade 1 opens the yield window
+PASS yield window burned unused: the clean mark is revoked, the station can be bought again (no dead end)
+PASS burned trade is refunded (FIX-R1 F-01); it returns to the sequence
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS ch5 seg1: wick inspection first (the probe step is mandatory)
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS ch5 seg1: oil fetched to the altar by Xiaoying (dispatch)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS ch5 trade 1: reporting for it buys the candle station clean
+PASS ch5 trade 1: it withdraws to the small sedan, yield window open
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS ch5 fate update 1: the lamp that was out for ten years burns steady
+PASS ch5 segment 2 begins: 150 seconds, checkpoint taken
+PASS segment 2 opens with it waiting in the paper figure
+PASS segment 2: Adi's walk to the gate runs on story seconds
+PASS BFS route (avoiding it) to gengbang
+PASS legal jump everlamp -> oilpot
+PASS legal jump oilpot -> gengbang
+阿勇：梆声一响，阿勇想起巡更点名，扬声喊住正要离队的阿弟：「阿弟！名册上还差你一个！」阿弟停步回头。【更梆拖延：阿弟的脚步停住 45 秒——买的是时间，不是解决。全章只此一次。】
+PASS watch-clapper dispatch: Ayong's roll call pauses Adi once (45s)
+PASS Adi stays put while the roll-call pause lasts
+PASS BFS route (avoiding it) to gong
+PASS legal jump gengbang -> gong
+阿澄／阿弟：锣声轻点，尾音放长——替它报到：宫埕站，报「宫门」。它离开纸扎人，退场时打宫门方向过——纸扎人的头追着它，缓缓转过去，正对上站在宫门口的阿弟。阿弟钉住了：它在看我。他攥签的手，慢慢松开，走回埕心，在神轿的轿杠边坐下。【命运更新②：要走的人，留下来了。更梆响过一记，第三炷香点起——守队伍。】
+PASS ch5 trade 2 at the paper figure: fate update 2, Adi stays
+PASS segment 3 begins: 210 seconds, trade count carried over (2 used)
+PASS segment 3: it waits in the paper figure one last time
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄：「最后一次，等你回家的时候，我亲手给你报到。」【响器以应答版轻响一声——它雾动如点头，自愿让开。宫埕地面上，一条淡淡的雾径一闪而过，指向西巷。】
+PASS the third trade is locked: the pledge is spoken, no count spent, no clean taken
+PASS finale stays locked before the people are gathered (S-4)
+PASS BFS route (avoiding it) to porridge
+PASS legal jump gong -> paperfig
+PASS legal jump paperfig -> porridge
+夜粥摊老阿伯：揭盖——蒸汽与粥香漫进宫埕。老阿伯把炉火拨旺，冲宫里喊：「守夜的人，出来食碗糜再守——厝边一场，算我的。」守夜的人陆续走出来，端碗蹲在埕边。【粥摊前有人闲谈：一个说明年去深圳打工，一个说他爹问他抬轿抬到几时。】
+PASS porridge stall dispatch done; one dish is not yet a crowd
+PASS BFS route (avoiding it) to cake
+PASS legal jump porridge -> cake
+莲婶：粿盘轻响——莲婶端着那盘年节供桌上的红桃粿，一个一个分过去，红艳艳地冒着热气：「胶己人，先垫垫肚子。」【她是西巷后人——她留在宫里守夜，本身就是「补路」二字的人形注脚。】
+PASS cake dispatch completes the gathering: the people are all here
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump cake -> palanquin
+PASS legal jump palanquin -> everlamp
+庙祝公：「绳是新换的。割口我傍晚就验出来了。我拿去问六叔公，他说祠堂的事，轮不到宫里管。我没敢再说。阿澄那晚……是看见了割口，才上的竹棚——他攥着绳头来问过我，问这口子怎么齐得像刀裁的，我支吾着没敢接话。他要是等到我一句话，就不会自己爬上去。」【他带出私签来历：「逢冲则避」是我早年自己塞进签筒的——我这辈子，话都让签替我说了。又说起善堂：纸灶的身后，是善堂的人收的。施棺簿上写着呢——陈阿灶，施棺一口，葬西巷尾。这事从来不是没人记，是没人敢提。说完，宫埕里静了很久，只有粥摊的蒸汽还在往上冒。】
+PASS with everyone present, Miaozhu speaks the whole sentence at last
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump everlamp -> palanquin
+命运更新③ · 水生／阿勇：人群散去一半时，水生从宫门外走进来——没人押他，没人喊他。他怀里抱着那截带割痕的旧绳，放在神轿前，跪下说全：绳是他割的，是六叔公授意的；阿澄坠落时，他就在库房门口。问他为什么留着这截绳，他说：「扔了，我就真当没这回事了。」埕角那几个年轻队员一个一个站回来，阿勇翻开名册逐个点名，声音稳了：老爷保号，人齐了。【命运更新③：要散的队伍，站齐了。】
+PASS Shuisheng walks in on his own and lays the cut rope before the sedan: fate update 3
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+阿澄：三线皆守、真相在活人世界全揭。我望着重新亮稳的长明灯，第一次感到疲惫——香快烧完了，我能做的事正在变少，活人能做的事，正在变多。【第三炷香烧到最后一截，宫门口的暗处，有了动静。】
+PASS ch5 canonical ending: lamp, boy and team all held; the hook at the gate
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+庙祝公：第一炷香烧到了头。油尽了——长明灯的火苗矮下去，一点一点，灭了。 【他捧着灯盏站在黑里，半天说出一句：「十年了……又熄了。」先附长明灯拨芯看清油面——油在侧间房里，它占着灯旁。】回到本段香点，重来——已守住的段落不回滚。
+PASS ch5 segment 1 timeout: the lamp dies (branch 1, Miaozhu hint)
+阿澄：香刚点燃——回到这一段的开头。已守住的段落、已落的命运更新，都不回滚。
+PASS failure retries only segment 1: checkpoint state restored
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS ch5 seg1: wick inspection first (the probe step is mandatory)
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS ch5 seg1: oil fetched to the altar by Xiaoying (dispatch)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS ch5 trade 1: reporting for it buys the candle station clean
+PASS ch5 trade 1: it withdraws to the small sedan, yield window open
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS ch5 fate update 1: the lamp that was out for ten years burns steady
+PASS ch5 segment 2 begins: 150 seconds, checkpoint taken
+阿勇：阿弟攥着签走出了宫门——去库房的路，夜里黑。他和水生的话，今夜要说岔了。 【他的喊声在宫门外回响——「名册上还差你一个」还没喊出口。更梆能替他喊住阿弟一次；可阿弟真正留下，要等纸扎人静候时，替它报到、让它把头转过来。】回到本段香点，重来。
+PASS ch5 segment 2: Adi walks out of the gate (branch 2, Ayong hint)
+阿澄：香刚点燃——回到这一段的开头。已守住的段落、已落的命运更新，都不回滚。
+PASS segment 2 retry keeps segment 1's fate update and the segment-start trade count
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS ch5 seg1: wick inspection first (the probe step is mandatory)
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS ch5 seg1: oil fetched to the altar by Xiaoying (dispatch)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS ch5 trade 1: reporting for it buys the candle station clean
+PASS ch5 trade 1: it withdraws to the small sedan, yield window open
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS ch5 fate update 1: the lamp that was out for ten years burns steady
+PASS ch5 segment 2 begins: 150 seconds, checkpoint taken
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄／阿弟：锣声轻点，尾音放长——替它报到：宫埕站，报「宫门」。它离开纸扎人，退场时打宫门方向过——纸扎人的头追着它，缓缓转过去，正对上站在宫门口的阿弟。阿弟钉住了：它在看我。他攥签的手，慢慢松开，走回埕心，在神轿的轿杠边坐下。【命运更新②：要走的人，留下来了。更梆响过一记，第三炷香点起——守队伍。】
+PASS BFS route (avoiding it) to porridge
+PASS legal jump everlamp -> oilpot
+PASS legal jump oilpot -> gengbang
+PASS legal jump gengbang -> porridge
+夜粥摊老阿伯：揭盖——蒸汽与粥香漫进宫埕。老阿伯把炉火拨旺，冲宫里喊：「守夜的人，出来食碗糜再守——厝边一场，算我的。」守夜的人陆续走出来，端碗蹲在埕边。【粥摊前有人闲谈：一个说明年去深圳打工，一个说他爹问他抬轿抬到几时。】
+PASS BFS route (avoiding it) to cake
+PASS legal jump porridge -> cake
+莲婶：粿盘轻响——莲婶端着那盘年节供桌上的红桃粿，一个一个分过去，红艳艳地冒着热气：「胶己人，先垫垫肚子。」【她是西巷后人——她留在宫里守夜，本身就是「补路」二字的人形注脚。】
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump cake -> palanquin
+PASS legal jump palanquin -> everlamp
+庙祝公：「绳是新换的。割口我傍晚就验出来了。我拿去问六叔公，他说祠堂的事，轮不到宫里管。我没敢再说。阿澄那晚……是看见了割口，才上的竹棚——他攥着绳头来问过我，问这口子怎么齐得像刀裁的，我支吾着没敢接话。他要是等到我一句话，就不会自己爬上去。」【他带出私签来历：「逢冲则避」是我早年自己塞进签筒的——我这辈子，话都让签替我说了。又说起善堂：纸灶的身后，是善堂的人收的。施棺簿上写着呢——陈阿灶，施棺一口，葬西巷尾。这事从来不是没人记，是没人敢提。说完，宫埕里静了很久，只有粥摊的蒸汽还在往上冒。】
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump everlamp -> palanquin
+命运更新③ · 水生／阿勇：人群散去一半时，水生从宫门外走进来——没人押他，没人喊他。他怀里抱着那截带割痕的旧绳，放在神轿前，跪下说全：绳是他割的，是六叔公授意的；阿澄坠落时，他就在库房门口。问他为什么留着这截绳，他说：「扔了，我就真当没这回事了。」埕角那几个年轻队员一个一个站回来，阿勇翻开名册逐个点名，声音稳了：老爷保号，人齐了。【命运更新③：要散的队伍，站齐了。】
+PASS setup: reach segment 3 finale
+纸灶小轿方向：第三炷香烧到了头。人没齐，话没说完——守夜的人一个个起身，往宫门外走。 【小轿方向漏出断续纸响，拼出半个字音——「……人……齐……」它比谁都懂：人不齐，话说不完。夜粥摊的盖、红桃粿盘的粿，两件都齐了，人才齐。】回到本段香点，重来。
+PASS ch5 segment 3 timeout: the team drifts away (branch 3, paper-sedan hint)
+阿澄：香刚点燃——回到这一段的开头。已守住的段落、已落的命运更新，都不回滚。
+PASS segment 3 retry keeps the first two fate updates (relay never rolls back)
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> oilpot
+PASS legal jump oilpot -> gengbang
+PASS legal jump gengbang -> gong
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；它静候时响器是开价，普通占位时响器是驱赶。】
+PASS timer advance follows the written sequence candle -> gong
+PASS lingering player is squeezed back to the previous object
+PASS squeeze-out costs 10 incense seconds
+YEXUN ch6 smoke: clear-the-way + report + relay graph + behaviour ledger + finale
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 seg1 graph: relay subgraph size 6 (team + station items)
+PASS ch6 seg1 graph: every edge two-way (no conditional edges, S-2)
+PASS ch6 seg1 graph: the fortune slip is a terminal node, never in the traversal graph
+PASS ch6 seg1 graph: no edge leads to the slip
+PASS ch6 seg1: fog-bound node matches the written table
+PASS ch6 seg1 graph: any single fog-bound/removed node leaves the rest connected (S-1)
+PASS ch6 seg1 graph: no bridge edges (every edge has an alternate route)
+PASS ch6 seg2 graph: relay subgraph size 7 (team + station items)
+PASS ch6 seg2 graph: every edge two-way (no conditional edges, S-2)
+PASS ch6 seg2 graph: the fortune slip is a terminal node, never in the traversal graph
+PASS ch6 seg2 graph: no edge leads to the slip
+PASS ch6 seg2: fog-bound node matches the written table
+PASS ch6 seg2 graph: any single fog-bound/removed node leaves the rest connected (S-1)
+PASS ch6 seg2 graph: no bridge edges (every edge has an alternate route)
+PASS ch6 seg3 graph: relay subgraph size 5 (team + station items)
+PASS ch6 seg3 graph: every edge two-way (no conditional edges, S-2)
+PASS ch6 seg3 graph: the fortune slip is a terminal node, never in the traversal graph
+PASS ch6 seg3 graph: no edge leads to the slip
+PASS ch6 seg3: fog-bound node matches the written table
+PASS ch6 seg3 graph: any single fog-bound/removed node leaves the rest connected (S-1)
+PASS ch6 seg3 graph: no bridge edges (every edge has an alternate route)
+PASS ch6 seg4 graph: relay subgraph size 5 (team + station items)
+PASS ch6 seg4 graph: every edge two-way (no conditional edges, S-2)
+PASS ch6 seg4 graph: the fortune slip is a terminal node, never in the traversal graph
+PASS ch6 seg4 graph: no edge leads to the slip
+PASS ch6 seg4: fog-bound node matches the written table
+PASS ch6 seg4 graph: any single fog-bound/removed node leaves the rest connected (S-1)
+PASS ch6 seg4 graph: no bridge edges (every edge has an alternate route)
+PASS ch6 seg5 graph: relay subgraph size 8 (team + station items)
+PASS ch6 seg5 graph: every edge two-way (no conditional edges, S-2)
+PASS ch6 seg5 graph: the fortune slip is a terminal node, never in the traversal graph
+PASS ch6 seg5 graph: no edge leads to the slip
+PASS ch6 seg5: fog-bound node matches the written table
+PASS ch6 seg5 graph: any single fog-bound/removed node leaves the rest connected (S-1)
+PASS ch6 seg5 graph: no bridge edges (every edge has an alternate route)
+PASS ch6 seg6 graph: relay subgraph size 6 (team + station items)
+PASS ch6 seg6 graph: every edge two-way (no conditional edges, S-2)
+PASS ch6 seg6 graph: the fortune slip is a terminal node, never in the traversal graph
+PASS ch6 seg6 graph: no edge leads to the slip
+PASS ch6 seg6: fog-bound node matches the written table
+PASS ch6 seg6 graph: any single fog-bound/removed node leaves the rest connected (S-1)
+PASS ch6 seg6 graph: no bridge edges (every edge has an alternate route)
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+阿澄：阿弟把签攥得很紧，像怕它凉。【归程还没走完——补路报全、补页写完，才轮到这最后一附。】
+PASS ch6: the slip refuses possession long before its preconditions
+PASS ch6: early slip attempt gives the fixed atmosphere line, no punishment
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+PASS ch6 step 2: departure itself is the palace-gate report
+PASS ch6 seg2: the temple bell is fog-bound on arrival
+PASS ch6 BFS route to censer
+PASS ch6 legal jump palanquin -> censer
+阿澄／庙祝公：火星上窜——引燃庙祝公刚续上的新香，庙香重燃；同拍，铜铃上的雾退开。【解锢：它近不得有主的香火——这一站欠的，是庙里断了的香。补上，它就让开。】庙祝公停香行礼——起身时回望宫里的方向：那点灯火隔着一夜的路，还亮着。【附铜铃按 E——报到 · 土地庙。】
+PASS ch6 step 3: temple incense relit with an owner's fire, the fog unbinds
+PASS ch6 BFS route to templebell
+PASS ch6 legal jump censer -> templebell
+阿澄：铜铃响——报到 · 土地庙成立，队伍的锣鼓同拍跟上半套。【土地庙段收束。】队伍行至溪尾街：茶铺门口，莲婶站在挂好的新招牌下等队伍——绳是阿勇亲手换的，招牌稳稳的。【先附花灯担按 E 举高，照亮这条街。】
+PASS ch6 step 4: temple report, street segment begins
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+莲婶：灯光扫过整条街面：雾里显形——开道锣被锢住了，锣面覆着水渍纹，锣架旁的雾沉得比别处低。莲婶迎出两步，站到招牌正下方——六十三年前，她父辈就是站在这门口等队伍的：「今年走到我门口，锣要响大声点，我爹在天上也听听。」【莲婶到位。欠茶铺账的队员被她当众讨账，讪笑着说回来就还。先附潮鼓按 E 应它一声，解开锣；再响锣报到。】
+PASS ch6 step 5: lantern raised, Lianshen in place under the new signboard
+PASS ch6 BFS route to drum
+PASS ch6 legal jump lampstand -> drum
+阿澄：潮鼓以应答版在锢住的开道锣旁响一声——雾听了一下，缓缓退开。【解锢：这站欠的不是香，是没人应它一声。先应它，它才肯让人响。附开道锣按 E——报到 · 溪尾街。】
+PASS ch6 step 6a: answer-first on the drum unbinds the road gong
+PASS ch6 BFS route to gong
+PASS ch6 legal jump drum -> gong
+阿澄：开道锣响——报到 · 溪尾街成立。活人侧的锣手同拍把锣敲得又响又稳：莲婶那句「响大声点」，由活人自己的手兑现。【溪尾街段收束。】队伍行至桥头——桥面的雾比往年浓，花灯担被雾锢住，灯光发闷。【先应它一声：神轿轿铃或潮鼓，应答版。】
+PASS ch6 step 6b: street report, bridge segment begins
+PASS ch6: station reports never consume the trade count (separate ledgers)
+PASS ch6 seg4: the lantern stand is fog-bound on arrival
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump gong -> drum
+PASS ch6 legal jump drum -> palanquin
+阿澄：轿铃以应答版轻响——雾听了一下，缓缓退开：花灯重新亮起。【解锢：这站欠的，是没人应它一声。附花灯担按 E 举高，照开桥面。】
+PASS ch6 step 7a: sedan-bell answer-first unbinds the lantern (source 1 of 2)
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+阿澄／摆渡人后代：花灯举高——灯光照开桥面，露出桥心干爽的路面；四章加固过的桥栏绳，在灯光里一闪。桥头站着摆渡人的后代送行：他爷爷那辈在溪上摆渡，六十三年前涨水的那夜，渡船拴在祠堂这岸，一整夜没人来坐——「不是河过不去，是没人想起西巷还有人。」他说他今年不摆渡了，要跟队走一趟西巷。【照桥完成。附神轿按 E 晃铃，阿勇点名。】
+PASS ch6 step 7b: lantern raised, the bridge is lit
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump lampstand -> palanquin
+阿勇：轿铃轻响，阿勇就着灯光逐个点名：数到队尾时顿了顿，喊——「引路轿，跟上。」小轿的铃同拍应了一声。【第九个，被活人自己点名认领了。附潮鼓按 E 响鼓——报到 · 桥头。】
+PASS ch6 step 8a: Ayong's roll call claims the ninth - the guide sedan
+PASS ch6 BFS route to drum
+PASS ch6 legal jump palanquin -> drum
+阿澄：潮鼓响——报到 · 桥头成立，大锣鼓的重音落在桥心，声场过溪。【队伍过桥。桥头段收束。】桥那头就是西巷：雾不沉、只是厚——它不在这里停住，它在等队伍进来。【附标旗按 E 展开进巷；旧宅门口，先叩门，再报到。】
+PASS ch6 step 8b: bridge report, west alley segment begins
+PASS ch6: the default harmony account does not trigger the dispersal branch
+PASS ch6 BFS route to flag
+PASS ch6 legal jump drum -> palanquin
+PASS ch6 legal jump palanquin -> flag
+阿澄／小英：标旗在巷口展开——潮绣旗面在花灯光里立起来，小英领舞入巷，英歌槌起势。花灯光扫过连排的下山虎旧厝：有几家的门环上还缠着褪色的红绳——当年走的人家，门一直没锁过。【可选：西巷的空置不是荒废，是等。】队伍在旧宅门口停轿——附西巷门环按 E，先叩门。
+PASS ch6 step 9: banner unfurled at the alley mouth, team enters
+PASS ch6 BFS route to doorring
+PASS ch6 legal jump flag -> doorring
+阿澄／六叔公：队伍在旧宅门口停轿，六叔公放下轿杠，对着旧宅门口深深弯下腰。门环轻叩——第一叩，锈涩、声哑。【回家先叩门。附花灯担按 E 举高，把光移到门口，再叩。】
+PASS ch6 step 10a: first knock is rusty, knocking not yet complete
+PASS ch6 BFS route to doorring
+阿澄：还是锈涩声——等灯光移到门口。【先附花灯担按 E 举高。】
+PASS ch6 step 10b: knocking again before the light arrives stays rusty (no punishment, no lock)
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump doorring -> flag
+PASS ch6 legal jump flag -> palanquin
+PASS ch6 legal jump palanquin -> lampstand
+阿澄：花灯举高，光移到旧宅门口——门环上的锈，在光里看得清清楚楚。【再附门环按 E 轻叩。】
+PASS ch6 step 10c: lantern light moved to the old house door
+PASS ch6 BFS route to doorring
+PASS ch6 legal jump lampstand -> palanquin
+PASS ch6 legal jump palanquin -> flag
+PASS ch6 legal jump flag -> doorring
+阿澄：第二叩——锈屑落下，声清了。【叩门完成。报到三件：开道锣、潮鼓、深波锣，次序自由，各响一次——第一件响起，就是替它报到的那一次。】
+PASS ch6 step 10d: second knock runs clear - knocking complete
+PASS ch6: the third trade is still locked and pending before the alley report
+PASS ch6 BFS route to deepgong
+PASS ch6 legal jump doorring -> deepgong
+阿澄：「最后一次——我亲手给你报到。」【交易第 3 次，在此兑现：交易锣记最后一枚亮起、随声散去，计数归零。还剩两件。】
+PASS ch6 step 11a: the first report ringer redeems the locked third trade (bound to the critical path)
+PASS ch6 BFS route to gong
+PASS ch6 legal jump deepgong -> gong
+阿澄：报到三件，已响 2 件——还差 1 件。
+PASS ch6 BFS route to drum
+PASS ch6 legal jump gong -> drum
+命运更新① · 西巷：三件响完，整套报到成立——活人侧同拍：阿勇把锣槌递到阿弟手里：「这一声，你来。」阿弟双手握槌，亲手敲响补路的第一声锣；潮鼓、轿铃、深波锣、苏锣层层叠进来，唢呐在最后拔起一条亮线——六十三年前没响的那一声，被补成了一整套。灵域里，小轿旁的雾散开，纸灶恢复完整形态一瞬：一个抱着纸轿的普通中年人，衣角还带着六十三年前那夜的水。他把纸轿轻轻放在旧宅门口，转头望了一眼队伍，点了点头。纸扎人的头，缓缓垂下、正对前方。旧宅门口的水洼里，第一次映出纸轿完整的倒影——它有了倒影，等于它完整了。细叔上前把旧纸轿在门口摆正：「厝边的物件，厝边的人送到。」【命运更新①：欠了六十三年的一站，报到了。】天边开始发白——队伍回程，祠堂前还有一站。
+PASS ch6 step 11b: fate update 1 - the station owed for 63 years is reported
+PASS ch6: the return segment begins after the alley report
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump drum -> palanquin
+六叔公／庙祝公：神轿在祠堂前停轿行礼——这一站的报到，是停轿礼成。六叔公当众认错：改道是他祖父定的、撕页是他父亲做的、割绳是他授意的，阿澄的死，祠堂担「失察」二字。庙祝公把名册递到他手里，他把撕掉的那一页补写回来——哪一站、漏了谁、谁家的人没回来，第一个签上自己的名，退了理事之位。水生站在他身后，把自己的名字写在补页的边角。阿勇接过名册，扬声点名收束：「胶己人，一个不少。」【死因线至此全格收束：不送官、不翻案为命案。】队伍回宫——天快亮了，香只剩最后一截。【灵域里点阿弟怀里的签——最后一附。】
+PASS ch6 step 12: confession heard, the torn roster page rewritten (performance station)
+阿澄／阿弟：最后一附——我落在阿弟怀里的签上。签面浮起一行水汽般的字影，转瞬隐去。阿弟只来得及认出一个字的轮廓，没有读全；他先是愣住，然后把签贴在胸口，哭得站不稳，又慢慢站直。那行字的全文，他当晚在梦里逐字看清——写的是什么，故事不说。【命运更新②：该走的人，换成了自愿走的。】破晓的阳光越过宫墙时，我随最后一缕香烟散去——香尽，天亮。这一程，走完了。
+PASS ch6 step 13: the last possession - onto the slip in Adi's arms; Acheng disperses at dawn
+PASS ch6 step 13b: fate update 2 - the one who had to go, goes willingly
+PASS ch6: the full-volume clear mark is set for the title screen
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+阿澄：铃面像蒙着水，响不透。【雾锢：它停在这里，把铜铃压住了。这一站欠的东西补上，雾才肯退——先附土地公小香炉，火星上窜，重燃庙香。】
+PASS ch6: the fog-bound bell refuses possession
+PASS ch6: bound-bell refusal is the station's fixed muffled line
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+PASS ch6 BFS route to censer
+PASS ch6 legal jump palanquin -> censer
+阿澄／庙祝公：火星上窜——引燃庙祝公刚续上的新香，庙香重燃；同拍，铜铃上的雾退开。【解锢：它近不得有主的香火——这一站欠的，是庙里断了的香。补上，它就让开。】庙祝公停香行礼——起身时回望宫里的方向：那点灯火隔着一夜的路，还亮着。【附铜铃按 E——报到 · 土地庙。】
+PASS ch6 BFS route to templebell
+PASS ch6 legal jump censer -> templebell
+阿澄：铜铃响——报到 · 土地庙成立，队伍的锣鼓同拍跟上半套。【土地庙段收束。】队伍行至溪尾街：茶铺门口，莲婶站在挂好的新招牌下等队伍——绳是阿勇亲手换的，招牌稳稳的。【先附花灯担按 E 举高，照亮这条街。】
+PASS ch6 BFS route to palanquin
+阿澄：轿铃满音量响过去——雾，不动。【赶不走的。它没占着什么——它是在等这一站走完。】
+PASS ch6: full-volume ringing at the fog-bound gong does nothing - the one-time rule line is spoken
+PASS ch6: the scare attempt leaves the fog exactly as it was (no scare judgement in ch6)
+PASS ch6 BFS route to drum
+PASS ch6 legal jump palanquin -> drum
+阿澄：潮鼓以应答版在锢住的开道锣旁响一声——雾听了一下，缓缓退开。【解锢：这站欠的不是香，是没人应它一声。先应它，它才肯让人响。附开道锣按 E——报到 · 溪尾街。】
+PASS ch6 alt: unbinding before the lantern dispatch is allowed (order swap, street)
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump drum -> lampstand
+莲婶：灯光扫过整条街面：雾里显形——开道锣被锢住了，锣面覆着水渍纹，锣架旁的雾沉得比别处低。莲婶迎出两步，站到招牌正下方——六十三年前，她父辈就是站在这门口等队伍的：「今年走到我门口，锣要响大声点，我爹在天上也听听。」【莲婶到位。欠茶铺账的队员被她当众讨账，讪笑着说回来就还。先附潮鼓按 E 应它一声，解开锣；再响锣报到。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump lampstand -> drum
+PASS ch6 legal jump drum -> gong
+阿澄：开道锣响——报到 · 溪尾街成立。活人侧的锣手同拍把锣敲得又响又稳：莲婶那句「响大声点」，由活人自己的手兑现。【溪尾街段收束。】队伍行至桥头——桥面的雾比往年浓，花灯担被雾锢住，灯光发闷。【先应它一声：神轿轿铃或潮鼓，应答版。】
+PASS ch6 alt: street report still lands after the swapped order
+PASS ch6 BFS route to drum
+PASS ch6 legal jump gong -> drum
+阿澄：潮鼓以应答版在花灯担旁响一声——雾退开，花灯重新亮起。【解锢。附花灯担按 E 举高，照开桥面。】
+PASS ch6 alt: drum answer-first unbinds the lantern (source 2 of 2)
+PASS ch6 BFS route to drum
+阿澄：雾没散，鼓声传不到桥心。【报到未齐：花灯要先解锢、照桥，阿勇的点名要先落。】
+PASS ch6: premature bridge report gives the fixed line and does not advance
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+PASS ch6 BFS route to censer
+PASS ch6 legal jump palanquin -> censer
+阿澄／庙祝公：火星上窜——引燃庙祝公刚续上的新香，庙香重燃；同拍，铜铃上的雾退开。【解锢：它近不得有主的香火——这一站欠的，是庙里断了的香。补上，它就让开。】庙祝公停香行礼——起身时回望宫里的方向：那点灯火隔着一夜的路，还亮着。【附铜铃按 E——报到 · 土地庙。】
+PASS ch6 BFS route to templebell
+PASS ch6 legal jump censer -> templebell
+阿澄：铜铃响——报到 · 土地庙成立，队伍的锣鼓同拍跟上半套。【土地庙段收束。】队伍行至溪尾街：茶铺门口，莲婶站在挂好的新招牌下等队伍——绳是阿勇亲手换的，招牌稳稳的。【先附花灯担按 E 举高，照亮这条街。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+莲婶：灯光扫过整条街面：雾里显形——开道锣被锢住了，锣面覆着水渍纹，锣架旁的雾沉得比别处低。莲婶迎出两步，站到招牌正下方——六十三年前，她父辈就是站在这门口等队伍的：「今年走到我门口，锣要响大声点，我爹在天上也听听。」【莲婶到位。欠茶铺账的队员被她当众讨账，讪笑着说回来就还。先附潮鼓按 E 应它一声，解开锣；再响锣报到。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump lampstand -> drum
+阿澄：潮鼓以应答版在锢住的开道锣旁响一声——雾听了一下，缓缓退开。【解锢：这站欠的不是香，是没人应它一声。先应它，它才肯让人响。附开道锣按 E——报到 · 溪尾街。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump drum -> gong
+阿澄：开道锣响——报到 · 溪尾街成立。活人侧的锣手同拍把锣敲得又响又稳：莲婶那句「响大声点」，由活人自己的手兑现。【溪尾街段收束。】队伍行至桥头——桥面的雾比往年浓，花灯担被雾锢住，灯光发闷。【先应它一声：神轿轿铃或潮鼓，应答版。】
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump gong -> drum
+PASS ch6 legal jump drum -> palanquin
+阿澄：轿铃以应答版轻响——雾听了一下，缓缓退开：花灯重新亮起。【解锢：这站欠的，是没人应它一声。附花灯担按 E 举高，照开桥面。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+阿澄／摆渡人后代：花灯举高——灯光照开桥面，露出桥心干爽的路面；四章加固过的桥栏绳，在灯光里一闪。桥头站着摆渡人的后代送行：他爷爷那辈在溪上摆渡，六十三年前涨水的那夜，渡船拴在祠堂这岸，一整夜没人来坐——「不是河过不去，是没人想起西巷还有人。」他说他今年不摆渡了，要跟队走一趟西巷。【照桥完成。附神轿按 E 晃铃，阿勇点名。】
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump lampstand -> palanquin
+阿勇：轿铃轻响，阿勇就着灯光逐个点名：数到队尾时顿了顿，喊——「引路轿，跟上。」小轿的铃同拍应了一声。【第九个，被活人自己点名认领了。附潮鼓按 E 响鼓——报到 · 桥头。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump palanquin -> drum
+阿澄：潮鼓响——报到 · 桥头成立，大锣鼓的重音落在桥心，声场过溪。【队伍过桥。桥头段收束。】桥那头就是西巷：雾不沉、只是厚——它不在这里停住，它在等队伍进来。【附标旗按 E 展开进巷；旧宅门口，先叩门，再报到。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump drum -> gong
+阿澄：锣声闷在雾里，没有出去。【报到未齐：沿途三站要先报全，旧宅的门要先叩响，队伍要先进巷到齐。】
+PASS ch6: report trio before its preconditions gives muffled feedback only
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+PASS ch6 BFS route to censer
+PASS ch6 legal jump palanquin -> censer
+阿澄／庙祝公：火星上窜——引燃庙祝公刚续上的新香，庙香重燃；同拍，铜铃上的雾退开。【解锢：它近不得有主的香火——这一站欠的，是庙里断了的香。补上，它就让开。】庙祝公停香行礼——起身时回望宫里的方向：那点灯火隔着一夜的路，还亮着。【附铜铃按 E——报到 · 土地庙。】
+PASS ch6 BFS route to templebell
+PASS ch6 legal jump censer -> templebell
+阿澄：铜铃响——报到 · 土地庙成立，队伍的锣鼓同拍跟上半套。【土地庙段收束。】队伍行至溪尾街：茶铺门口，莲婶站在挂好的新招牌下等队伍——绳是阿勇亲手换的，招牌稳稳的。【先附花灯担按 E 举高，照亮这条街。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+莲婶：灯光扫过整条街面：雾里显形——开道锣被锢住了，锣面覆着水渍纹，锣架旁的雾沉得比别处低。莲婶迎出两步，站到招牌正下方——六十三年前，她父辈就是站在这门口等队伍的：「今年走到我门口，锣要响大声点，我爹在天上也听听。」【莲婶到位。欠茶铺账的队员被她当众讨账，讪笑着说回来就还。先附潮鼓按 E 应它一声，解开锣；再响锣报到。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump lampstand -> drum
+阿澄：潮鼓以应答版在锢住的开道锣旁响一声——雾听了一下，缓缓退开。【解锢：这站欠的不是香，是没人应它一声。先应它，它才肯让人响。附开道锣按 E——报到 · 溪尾街。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump drum -> gong
+阿澄：开道锣响——报到 · 溪尾街成立。活人侧的锣手同拍把锣敲得又响又稳：莲婶那句「响大声点」，由活人自己的手兑现。【溪尾街段收束。】队伍行至桥头——桥面的雾比往年浓，花灯担被雾锢住，灯光发闷。【先应它一声：神轿轿铃或潮鼓，应答版。】
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump gong -> drum
+PASS ch6 legal jump drum -> palanquin
+阿澄：轿铃以应答版轻响——雾听了一下，缓缓退开：花灯重新亮起。【解锢：这站欠的，是没人应它一声。附花灯担按 E 举高，照开桥面。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+阿澄／摆渡人后代：花灯举高——灯光照开桥面，露出桥心干爽的路面；四章加固过的桥栏绳，在灯光里一闪。桥头站着摆渡人的后代送行：他爷爷那辈在溪上摆渡，六十三年前涨水的那夜，渡船拴在祠堂这岸，一整夜没人来坐——「不是河过不去，是没人想起西巷还有人。」他说他今年不摆渡了，要跟队走一趟西巷。【照桥完成。附神轿按 E 晃铃，阿勇点名。】
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump lampstand -> palanquin
+阿勇：轿铃轻响，阿勇就着灯光逐个点名：数到队尾时顿了顿，喊——「引路轿，跟上。」小轿的铃同拍应了一声。【第九个，被活人自己点名认领了。附潮鼓按 E 响鼓——报到 · 桥头。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump palanquin -> drum
+阿澄：潮鼓响——报到 · 桥头成立，大锣鼓的重音落在桥心，声场过溪。【队伍过桥。桥头段收束。】桥那头就是西巷：雾不沉、只是厚——它不在这里停住，它在等队伍进来。【附标旗按 E 展开进巷；旧宅门口，先叩门，再报到。】
+PASS ch6 BFS route to flag
+PASS ch6 legal jump drum -> palanquin
+PASS ch6 legal jump palanquin -> flag
+阿澄／小英：标旗在巷口展开——潮绣旗面在花灯光里立起来，小英领舞入巷，英歌槌起势。花灯光扫过连排的下山虎旧厝：有几家的门环上还缠着褪色的红绳——当年走的人家，门一直没锁过。【可选：西巷的空置不是荒废，是等。】队伍在旧宅门口停轿——附西巷门环按 E，先叩门。
+PASS ch6 BFS route to doorring
+PASS ch6 legal jump flag -> doorring
+阿澄／六叔公：队伍在旧宅门口停轿，六叔公放下轿杠，对着旧宅门口深深弯下腰。门环轻叩——第一叩，锈涩、声哑。【回家先叩门。附花灯担按 E 举高，把光移到门口，再叩。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump doorring -> flag
+PASS ch6 legal jump flag -> palanquin
+PASS ch6 legal jump palanquin -> lampstand
+阿澄：花灯举高，光移到旧宅门口——门环上的锈，在光里看得清清楚楚。【再附门环按 E 轻叩。】
+PASS ch6 BFS route to doorring
+PASS ch6 legal jump lampstand -> palanquin
+PASS ch6 legal jump palanquin -> flag
+PASS ch6 legal jump flag -> doorring
+阿澄：第二叩——锈屑落下，声清了。【叩门完成。报到三件：开道锣、潮鼓、深波锣，次序自由，各响一次——第一件响起，就是替它报到的那一次。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump doorring -> deepgong
+PASS ch6 legal jump deepgong -> drum
+阿澄：「最后一次——我亲手给你报到。」【交易第 3 次，在此兑现：交易锣记最后一枚亮起、随声散去，计数归零。还剩两件。】
+PASS ch6 alt: trio in drum-first order still redeems the third trade on the first ringer
+PASS ch6 BFS route to deepgong
+PASS ch6 legal jump drum -> deepgong
+阿澄：报到三件，已响 2 件——还差 1 件。
+PASS ch6 BFS route to gong
+PASS ch6 legal jump deepgong -> gong
+命运更新① · 西巷：三件响完，整套报到成立——活人侧同拍：阿勇把锣槌递到阿弟手里：「这一声，你来。」阿弟双手握槌，亲手敲响补路的第一声锣；潮鼓、轿铃、深波锣、苏锣层层叠进来，唢呐在最后拔起一条亮线——六十三年前没响的那一声，被补成了一整套。灵域里，小轿旁的雾散开，纸灶恢复完整形态一瞬：一个抱着纸轿的普通中年人，衣角还带着六十三年前那夜的水。他把纸轿轻轻放在旧宅门口，转头望了一眼队伍，点了点头。纸扎人的头，缓缓垂下、正对前方。旧宅门口的水洼里，第一次映出纸轿完整的倒影——它有了倒影，等于它完整了。细叔上前把旧纸轿在门口摆正：「厝边的物件，厝边的人送到。」【命运更新①：欠了六十三年的一站，报到了。】天边开始发白——队伍回程，祠堂前还有一站。
+PASS ch6 alt: trio order is free - alley report lands in any order
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 branch: drive>0 and answer=0 triggers the dispersal branch at the alley mouth
+PASS ch6 BFS route to flag
+PASS ch6 legal jump palanquin -> flag
+庙祝公／阿澄：西巷入口，雾比别处更浓，沉成一道横在巷口的雾墙。我的手先动了——满音量的一记响器：雾被撕开一瞬，随即合拢，比先前更厚。纸扎人的头猛地垂下又抬起。活人侧，庙祝公恰在此时开口（他看不见雾墙，他说的是规矩）：「响器不是赶人的。是报到的——走到人家门口，先报到，才进门。」我收了手。【驱散支线：惊走版的声音，只此一次。解法、前置，分毫不变。】
+PASS ch6 branch: the dispersal performance plays first (full-volume scare fails, Miaozhu's line)
+PASS ch6 BFS route to flag
+阿澄／小英：标旗在巷口展开——潮绣旗面在花灯光里立起来，小英领舞入巷，英歌槌起势。花灯光扫过连排的下山虎旧厝：有几家的门环上还缠着褪色的红绳——当年走的人家，门一直没锁过。【可选：西巷的空置不是荒废，是等。】队伍在旧宅门口停轿——附西巷门环按 E，先叩门。
+PASS ch6 branch: after the performance, the main line resumes unchanged
+PASS ch6 BFS route to drum
+PASS ch6 legal jump flag -> palanquin
+PASS ch6 legal jump palanquin -> drum
+阿澄：「最后一次——我亲手给你报到。」【交易第 3 次，在此兑现：交易锣记最后一枚亮起、随声散去，计数归零。还剩两件。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump drum -> gong
+阿澄：报到三件，已响 2 件——还差 1 件。
+PASS ch6 BFS route to deepgong
+PASS ch6 legal jump gong -> deepgong
+命运更新① · 西巷：三件响完，整套报到成立——活人侧同拍：阿勇把锣槌递到阿弟手里，阿弟双手握槌，亲手敲响补路的第一声锣；潮鼓、轿铃、深波锣、苏锣层层叠进来，唢呐在最后拔起一条亮线。灵域里，小轿旁的雾散开：它把纸轿放下，没有回头，径直散入晨光。旧宅门口的水洼里，第一次映出纸轿完整的倒影。细叔上前把旧纸轿在门口摆正：「厝边的物件，厝边的人送到。」【命运更新①：欠了六十三年的一站，报到了。】天边开始发白——队伍回程，祠堂前还有一站。
+PASS ch6 branch consequence 1: no turning back, no nod - it leaves by the back view
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 branch: a zero ledger (no drives, no answers) stays on the canon path
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 branch: any recorded answer keeps the canon path
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+PASS ch6 BFS route to censer
+PASS ch6 legal jump palanquin -> censer
+阿澄／庙祝公：火星上窜——引燃庙祝公刚续上的新香，庙香重燃；同拍，铜铃上的雾退开。【解锢：它近不得有主的香火——这一站欠的，是庙里断了的香。补上，它就让开。】庙祝公停香行礼——起身时回望宫里的方向：那点灯火隔着一夜的路，还亮着。【附铜铃按 E——报到 · 土地庙。】
+PASS ch6 BFS route to templebell
+PASS ch6 legal jump censer -> templebell
+阿澄：铜铃响——报到 · 土地庙成立，队伍的锣鼓同拍跟上半套。【土地庙段收束。】队伍行至溪尾街：茶铺门口，莲婶站在挂好的新招牌下等队伍——绳是阿勇亲手换的，招牌稳稳的。【先附花灯担按 E 举高，照亮这条街。】
+莲婶：茶铺的灯一盏盏熄了，莲婶还站在招牌下等——等锣响大声点。【指向：花灯照街、潮鼓应锣、开道锣报到。回到溪尾街段起点。】
+PASS ch6 rollback: street segment timeout is voiced by Lianshen's waiting (per-segment source, S-8)
+阿澄：香刚点燃——回到这一段的开头。已报到的站、已落的命运更新，都不回滚。
+PASS ch6 rollback: only the current segment restarts, incense restored to segment start
+PASS ch6 rollback: finished reports stand, the current segment's fog is restored
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+庙祝公：香在长明灯前烧到尽头，庙祝公重新点香——他的手很稳：「心不齐，路走不远。重来。」【回到宫门段起点：列队、起轿，重来。】
+PASS ch6 rollback: palace-gate timeout is voiced by Miaozhu (per-segment source, S-8)
+阿澄：香刚点燃——回到这一段的开头。已报到的站、已落的命运更新，都不回滚。
+PASS ch6 rollback: segment 1 restarts at the full 360 seconds
+YEXUN FIX-R1 smoke: audit regression assertions + audio wiring
+阿澄：谁也看不见我……青色光点在香炉里。按 E 火星上窜；Tab 切现实／灵域。
+阿澄：火星上窜，梁上燕子惊起。我的手……能碰到它们。
+一炷香前：阿弟仍在灯架下绑绳。现实时间流动，灵域时间停顿。签筒、神轿或许能叫他离开。
+PASS title -> incense tutorial -> timed chapter
+PASS FIX-R1 audio: all 40 new streams load
+PASS FIX-R1 audio: play_gong uses the real gong stream at pitch 1.0
+PASS FIX-R1 audio: play_answer(bell) uses answer_bell at pitch 1.0
+PASS FIX-R1 audio: play_report6 uses the single report_full stream
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to bell
+PASS legal jump hallcenser -> bell
+阿澄：惊走了——它在茶桌上学来的坐姿里，藏着一句话没漏出来。【先去翻今晚的名册，再回来惊这一场——有些话，得等看过册子才听得懂。】
+PASS FIX-R1 F-03: scaring the tea table before reading the roster leaves NO clean mark
+PASS FIX-R1 F-03: the lie is not heard before the roster is read
+PASS BFS route to teatable
+PASS legal jump bell -> teatable
+阿澄／六叔公：茶盖轻响。六叔公以为茶凉了，起身续水，顺手把守柜的管事也支去烧水。【册柜前空出 25 秒——趁现在，小英取档。】
+PASS BFS route to roster
+PASS legal jump teatable -> roster
+阿澄／小英：小英以核对行次为名抱出历年旧档，与今晚排班册分开放。【翻今晚排班册：今晚的人一笔不差；换绳栏明明白白——「库房新绳，水生经手。」绳，出自祠堂库房。】
+PASS FIX-R1 F-03 setup: roster read after the dispatch
+PASS BFS route to bell
+PASS legal jump roster -> bell
+阿澄／水生：惊走了——茶桌空出来，它学来的坐姿散在半空。【小英拿换绳栏去问水生，水生脱口而出：没有。库房灯一整晚没亮过。——说得太快，快得像背过。阿勇在旁边皱了皱眉。】
+PASS FIX-R1 F-03: after the roster, the same scare lands the clean mark and the lie
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+PASS BFS route to flag
+PASS legal jump hallcenser -> teatable
+PASS legal jump teatable -> flag
+阿澄：证据还没齐，现在按不住。【旗响了一声，场面只是将起，又缓缓落回去。】
+PASS FIX-R1 F-03: the flag cannot rise while the lie is still unheard
+阿澄／阿勇：旗面抖响，压过满坪议论——全场都看向前坪。【小英攥着账页起身要问，又被这一下顿住。就差一声钟（或一记鼓），把场面定住。】
+PASS FIX-R1 F-03: with all six preconditions the flag rises
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to gong
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+PASS legal jump bridgerope -> palanquin
+PASS legal jump palanquin -> gong
+阿澄：惊走了。它跳去了别处，这件物件它不敢再回。
+PASS FIX-R1 F-02: scaring it off the paper figure in normal occupation leaves NO clean mark
+PASS FIX-R1 F-02: it still flees the paper figure when scared
+PASS BFS route to bridgerope
+PASS legal jump gong -> palanquin
+PASS legal jump palanquin -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS BFS route to bridgebell
+PASS legal jump bridgerope -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS BFS route to lampstand
+PASS legal jump bridgebell -> shrine
+PASS legal jump shrine -> lampstand
+阿勇／小英：灯光沿桥栏扫过去，正照在那处断口上——阿勇和小英，都看见了。【示警第二段：把断口送到他们眼前。】
+PASS BFS route to sedanrope
+PASS legal jump lampstand -> sedanrope
+阿勇：备具坪里绳响了一声——阿勇想起整捆备用轿绳，带人取绳，当众把桥栏割口一段缠固三层。【加固完成：桥栏，稳住了。】
+PASS BFS route to drum
+PASS legal jump sedanrope -> lampstand
+PASS legal jump lampstand -> drum
+阿勇：停轿！桥栏有问题！【示警第三段：一记不合节拍的重音——阿勇听出鼓点不对，吼停了队伍。】
+命运更新① · 阿勇／小英／陈六合：缠好了——过桥！【队伍起轿过桥：神轿行至桥面中段，栏绳在缠固处绷紧，发出一声闷响——没有断。命运更新①：桥，稳住了，金身安然过桥，桥头的人都亲眼看见了那处断口。河埠落轿，小英当众举起换下来的半截旧栏绳：这不是头一根了。人群里一句话当晚就传开——祠堂的绳，根根都是割的。陈六合伸手摸了摸断口，指尖一缩，「意外」两个字没说出来，只说：先过桥。阿勇整队：厝边头尾，歇脚食口茶再走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS ch4 crossing once rope seen + warning chain + reinforcement all hold
+PASS ch4 fate update 1: the bridge holds, the golden body crosses
+PASS FIX-R1 F-02: borrow-mouth still begins after the early paper-figure scare
+阿澄：「把我的路……」【锣声轻点……像在回它的话。它说话的时候，响器是回话，不是驱赶——在它旁边的响器（开道锣、神轿）上按 E，应答它。】
+PASS FIX-R1 F-02: the first answer window still opens
+PASS BFS route to gong
+PASS legal jump drum -> bridgerope
+PASS legal jump bridgerope -> palanquin
+PASS legal jump palanquin -> gong
+纸灶（借嘴）：「把我的路……」——「……还给我。」【第一句，成句了。活人那头，纸扎人只漏出一阵纸响，和一个「路」字。】
+PASS FIX-R1 F-02: answer round 1 still completes after the early scare
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+PASS BFS route to bridgerope
+PASS legal jump shrine -> bridgebell
+PASS legal jump bridgebell -> bridgerope
+阿澄：栏绳在手里一沉——分量不对。新换的栏绳上有一处断口，整齐、系利刃割过一半，与灯架、招牌同款。崩丝是从割口处起的：锣鼓一震、重轿一压，就是原命运。【必达明示：这桥，是被人害的。】
+PASS BFS route to bridgebell
+PASS legal jump bridgerope -> bridgebell
+阿澄／众人：铜铃声脆，桥头所有人的头，都抬了起来——看桥栏。【示警第一段：先以铃声把人叫起来。】
+PASS BFS route to lampstand
+PASS legal jump bridgebell -> shrine
+PASS legal jump shrine -> lampstand
+阿勇／小英：灯光沿桥栏扫过去，正照在那处断口上——阿勇和小英，都看见了。【示警第二段：把断口送到他们眼前。】
+PASS BFS route to sedanrope
+PASS legal jump lampstand -> sedanrope
+阿勇：备具坪里绳响了一声——阿勇想起整捆备用轿绳，带人取绳，当众把桥栏割口一段缠固三层。【加固完成：桥栏，稳住了。】
+PASS BFS route to drum
+PASS legal jump sedanrope -> lampstand
+PASS legal jump lampstand -> drum
+阿勇：停轿！桥栏有问题！【示警第三段：一记不合节拍的重音——阿勇听出鼓点不对，吼停了队伍。】
+命运更新① · 阿勇／小英／陈六合：缠好了——过桥！【队伍起轿过桥：神轿行至桥面中段，栏绳在缠固处绷紧，发出一声闷响——没有断。命运更新①：桥，稳住了，金身安然过桥，桥头的人都亲眼看见了那处断口。河埠落轿，小英当众举起换下来的半截旧栏绳：这不是头一根了。人群里一句话当晚就传开——祠堂的绳，根根都是割的。陈六合伸手摸了摸断口，指尖一缩，「意外」两个字没说出来，只说：先过桥。阿勇整队：厝边头尾，歇脚食口茶再走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS ch4 crossing once rope seen + warning chain + reinforcement all hold
+PASS ch4 fate update 1: the bridge holds, the golden body crosses
+阿澄：「把我的路……」【锣声轻点……像在回它的话。它说话的时候，响器是回话，不是驱赶——在它旁边的响器（开道锣、神轿）上按 E，应答它。】
+PASS BFS route to gong
+PASS legal jump drum -> bridgerope
+PASS legal jump bridgerope -> palanquin
+PASS legal jump palanquin -> gong
+纸灶（借嘴）：「把我的路……」——「……还给我。」【第一句，成句了。活人那头，纸扎人只漏出一阵纸响，和一个「路」字。】
+PASS FIX-R1 F-04 setup: round 1 answered
+阿澄：它话没说完——这时候的响，是驱赶，不是回话。【轮次之间它在攒气；等它把碎句说出口，再应答。这一次，不算惊走。】
+阿澄：赶走了……它还会回来。它想说的，还没说。【纸扎人没有留下「净」记——它绕序列一圈，还会回来，把话说完。】
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；相邻的响器能把它惊走。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+纸扎人：「宫门……土地庙……溪尾街……桥头……」【它在等回话。】
+PASS BFS route to palanquin
+纸灶（借嘴）／庙祝公／老花灯匠：「宫门……土地庙……溪尾街……桥头……」——「……西巷。」【命运更新②：它要的不是哪件物件，是西巷那一站。庙祝公听见纸响里漏出的「路」「锣」二字，脸色当场变了，当着小英与阿勇说出旧规：引路小轿本就是巡境的正式编制，是空轿，专供路上捡到的无主之物搭乘；正式经过一站，响器要应答一声，叫「报到」。金身在座的轿，他坐不进去。老花灯匠望着队尾，一字一句：扎那顶轿的人叫陈阿灶，西巷的纸扎匠；那年改道漏了西巷，他妻女没出来，他抱着轿在宫门口等队伍回来补走那一站，等到天亮。老爷保号，没保住他。那个背影走路的样子，像极了当年的灶叔。老人又拉住小英：你是西巷林家的丫头吧？你娘小时候跟我说，铃要响两遍，才算队伍到齐——她听了一辈子少掉的那一遍。】
+PASS FIX-R1 F-04 setup: round 2 answered
+PASS BFS route to papercargo
+PASS legal jump palanquin -> papercargo
+细叔：纸料一响，细叔抬起头——当着众人的面摊开竹篾色纸，扎一顶新的引路小轿，手稳得不像在赶夜工：编制里的引路轿，缺一顶正经的。旧的那顶……走了六十三年，该歇了。胶己人的活，慢慢做。【新轿扎成，先在河埠棚下供着。】
+PASS FIX-R1 F-04 setup: the new sedan is made
+PASS FIX-R1 F-04: round 3 borrow-mouth does NOT begin before the memory is recovered
+PASS BFS route to lampstand
+PASS legal jump papercargo -> boat
+PASS legal jump boat -> sedanrope
+阿澄（记忆）：花灯担的竹骨受潮发霉，触感裂开记忆——傍晚，我发现灯架主绳的割痕，攥着绳头去问庙祝公「这口子怎么齐得像刀裁的」，他支吾着没敢接话；我爬上戏台竹棚，脚下脆响；坠落前最后一眼——祠堂库房门口，水生站在那里，看着我，一个字也没说。【死因全揭：四件事，在同一瞬间对上了。我望向桥下的水，想起那一眼里闪过的不是求救，是——他怎么站在库房门口。】
+纸扎人：纸扎人的头，停住了。【嘴部一阵纸响，漏出不成句的字音——它在借纸扎人的嘴说话。它在等回话。】
+PASS legal jump sedanrope -> lampstand
+PASS FIX-R1 F-04: merely attaching to the lampstand after the crossing restores the memory (attach-to-get)
+PASS FIX-R1 F-04: with the memory held, round 3 borrow-mouth begins
+纸扎人：「那年……」【它在等回话。】
+PASS FIX-R1 F-04: the final answer window opens
+PASS BFS route to riverlamp
+PASS legal jump lampstand -> drum
+PASS legal jump drum -> bridgerope
+PASS legal jump bridgerope -> riverlamp
+PASS BFS route to gong
+PASS legal jump riverlamp -> gong
+纸灶（借嘴）：「那年……」——「……他们没响锣。」【它一字一顿说完，自愿离开纸扎人，退回棚后的小轿方向，雾沉下去。同一拍，桥那头人影晃动——祠堂的人传话到了：今年巡境，到此为止。】
+PASS FIX-R1 F-04: the round 3 answer completes the chapter
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS FIX-R1 F-01 setup: segment 1 trade opens the yield window
+PASS FIX-R1 F-01: a burned trade is refunded (the count returns to 0)
+PASS FIX-R1 F-01: the burned station's clean mark is revoked with the refund
+PASS BFS route (avoiding it) to palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS FIX-R1 F-01: the candle station can be bought again after the burn
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS FIX-R1 F-01: the segment 2 snapshot carries count 1 (not the dead-end 2)
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄／阿弟：锣声轻点，尾音放长——替它报到：宫埕站，报「宫门」。它离开纸扎人，退场时打宫门方向过——纸扎人的头追着它，缓缓转过去，正对上站在宫门口的阿弟。阿弟钉住了：它在看我。他攥签的手，慢慢松开，走回埕心，在神轿的轿杠边坐下。【命运更新②：要走的人，留下来了。更梆响过一记，第三炷香点起——守队伍。】
+PASS FIX-R1 F-01: segment 2's only entry (the paper-figure trade) still opens after a segment-1 burn
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS ch5 seg1: wick inspection first (the probe step is mandatory)
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS ch5 seg1: oil fetched to the altar by Xiaoying (dispatch)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS ch5 trade 1: reporting for it buys the candle station clean
+PASS ch5 trade 1: it withdraws to the small sedan, yield window open
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS ch5 fate update 1: the lamp that was out for ten years burns steady
+PASS ch5 segment 2 begins: 150 seconds, checkpoint taken
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄／阿弟：锣声轻点，尾音放长——替它报到：宫埕站，报「宫门」。它离开纸扎人，退场时打宫门方向过——纸扎人的头追着它，缓缓转过去，正对上站在宫门口的阿弟。阿弟钉住了：它在看我。他攥签的手，慢慢松开，走回埕心，在神轿的轿杠边坐下。【命运更新②：要走的人，留下来了。更梆响过一记，第三炷香点起——守队伍。】
+PASS BFS route (avoiding it) to porridge
+PASS legal jump everlamp -> oilpot
+PASS legal jump oilpot -> gengbang
+PASS legal jump gengbang -> porridge
+夜粥摊老阿伯：揭盖——蒸汽与粥香漫进宫埕。老阿伯把炉火拨旺，冲宫里喊：「守夜的人，出来食碗糜再守——厝边一场，算我的。」守夜的人陆续走出来，端碗蹲在埕边。【粥摊前有人闲谈：一个说明年去深圳打工，一个说他爹问他抬轿抬到几时。】
+PASS BFS route (avoiding it) to cake
+PASS legal jump porridge -> cake
+莲婶：粿盘轻响——莲婶端着那盘年节供桌上的红桃粿，一个一个分过去，红艳艳地冒着热气：「胶己人，先垫垫肚子。」【她是西巷后人——她留在宫里守夜，本身就是「补路」二字的人形注脚。】
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump cake -> palanquin
+PASS legal jump palanquin -> everlamp
+庙祝公：「绳是新换的。割口我傍晚就验出来了。我拿去问六叔公，他说祠堂的事，轮不到宫里管。我没敢再说。阿澄那晚……是看见了割口，才上的竹棚——他攥着绳头来问过我，问这口子怎么齐得像刀裁的，我支吾着没敢接话。他要是等到我一句话，就不会自己爬上去。」【他带出私签来历：「逢冲则避」是我早年自己塞进签筒的——我这辈子，话都让签替我说了。又说起善堂：纸灶的身后，是善堂的人收的。施棺簿上写着呢——陈阿灶，施棺一口，葬西巷尾。这事从来不是没人记，是没人敢提。说完，宫埕里静了很久，只有粥摊的蒸汽还在往上冒。】
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump everlamp -> palanquin
+命运更新③ · 水生／阿勇：人群散去一半时，水生从宫门外走进来——没人押他，没人喊他。他怀里抱着那截带割痕的旧绳，放在神轿前，跪下说全：绳是他割的，是六叔公授意的；阿澄坠落时，他就在库房门口。问他为什么留着这截绳，他说：「扔了，我就真当没这回事了。」埕角那几个年轻队员一个一个站回来，阿勇翻开名册逐个点名，声音稳了：老爷保号，人齐了。【命运更新③：要散的队伍，站齐了。】
+PASS FIX-R1 F-05 setup: the rope is laid, the pledge not yet spoken
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+阿澄：还差最后一件——它还在纸扎人里等着，等我亲口应它那一句。【先去应它：它在纸扎人处静候时，拿它旁边的响器（潮鼓／开道锣／神轿）应它一声，把承诺说出口。】
+PASS FIX-R1 F-05: without the pledge beat, the lamp does not close the chapter
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄：「最后一次，等你回家的时候，我亲手给你报到。」【响器以应答版轻响一声——它雾动如点头，自愿让开。宫埕地面上，一条淡淡的雾径一闪而过，指向西巷。】
+PASS FIX-R1 F-05: the pledge beat lands at the waiting paper figure
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump gong -> drum
+PASS legal jump drum -> candle
+PASS legal jump candle -> everlamp
+阿澄：三线皆守、真相在活人世界全揭。我望着重新亮稳的长明灯，第一次感到疲惫——香快烧完了，我能做的事正在变少，活人能做的事，正在变多。【第三炷香烧到最后一截，宫门口的暗处，有了动静。】
+PASS FIX-R1 F-05: after the pledge, the lamp closes the chapter
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+PASS ch2 opens inside the big sedan
+阿澄：轿铃响过，街尾小轿那头，慢半拍回了一声。【经香烟路去街口土地庙——庙祝公在那儿等着点第二炷香。准备好了，按 F 点香。】
+PASS ch2 tutorial bell opens exploration
+庙祝公：改道走老街的香……要烧得慢些。【第二炷香点燃：香过半，队伍才起轿过桥。街心那头，潮鼓的灵核怎么暗了一块红？】
+PASS ch2 second incense starts at the shrine censer
+PASS ch2 incense is 300 seconds
+阿勇／莲婶／细叔：都齐了？灯架堵了埕口，今晚改走老街！／我这匾的绳，是新换的。／我这店里，今晚没扎过轿。【纸扎店门口，纸扎人的头正缓缓转向神轿。】
+阿澄：香还燃着……回到没走完的那一步。
+PASS FIX-R1 F-06: ch2 flag window / small-sedan stay / attempts survive a save-continue round trip
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+PASS ch3 opens on the ancestral hall altar
+阿澄：火星上窜，惊起梁上燕子。我的手……能碰到它们。【顺着香烟能去后殿旧香炉——两处香火同源，烟能通，魂也能通。】
+PASS ch3 tutorial sparks open exploration
+阿澄：神轿临停祠堂前，祠堂燃香接驾。我顺着香烟，落到香案上。【第三炷香点起：临停之内，查清名册、绳源和那句谎——还要把队伍保住。】
+PASS ch3 third incense starts at the hall altar
+PASS ch3 incense is 330 seconds
+阿勇／队员：点名对不上数，祠堂管事说要核对排班——队伍在祠堂前临停查册。／临停查册，不算到站——这站，还欠着。【前坪有人小声念：老爷保号。廊下纸扎马的头，先动了半分。】
+阿澄：香还燃着……回到没走完的那一步。
+PASS FIX-R1 F-06: ch3 dispatch window and squeezed set survive a round trip
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+PASS ch4 opens on the bridgehead shrine
+阿澄：火星上窜，土地龛的香烟打了个旋。土地公有主之地——它从不近这儿；金身在座的轿，它也坐不进去。【准备好了，按 F 点过桥香。】
+PASS ch4 tutorial sparks open exploration
+庙祝公：过桥香点上了。香过半，才起轿。【第四炷香：桥头一停、过桥、河埠一休整，都在这一炷香里。河埠棚边的纸扎人，灵核已经暗了一块红。】
+PASS ch4 fourth incense starts at the shrine
+PASS ch4 incense is 360 seconds
+庙祝公／阿澄：过桥先敬土地，香过半，才起轿。【隔桥望去，河埠棚边的纸扎人，头正缓缓转向桥头——它在看过桥的队伍。桥头人群里有人小声说：今年这桥，不知稳不稳当。】
+阿澄：香还燃着……回到没走完的那一步。
+PASS FIX-R1 F-06: ch4 squeezed set and the open borrow-mouth window survive a round trip
+PASS FIX-R2 N-02: ch4 borrow-mouth gap (bm_gap) survives the save-continue round trip
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+阿澄：香还燃着……回到没守完的那一段。
+PASS FIX-R1 F-06: ch5 Adi pause and squeezed set survive a round trip
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS ch6 BFS route to palanquin
+阿澄／小轿方向：轿铃响，队伍起轿出宫门。小轿方向传来一声应答铃——第一次，没有慢半拍：它已经在队伍的节拍里了。【报到 · 宫门：出发即报到。宫门段收束。】队伍行至土地庙停轿——灵域里，檐下的铜铃灵核暗红、覆着水渍纹：雾锢，它停在这里了。【这一站欠的，是庙里断了的香。附土地公小香炉按 E，火星上窜，重燃庙香。】
+PASS ch6 BFS route to censer
+PASS ch6 legal jump palanquin -> censer
+阿澄／庙祝公：火星上窜——引燃庙祝公刚续上的新香，庙香重燃；同拍，铜铃上的雾退开。【解锢：它近不得有主的香火——这一站欠的，是庙里断了的香。补上，它就让开。】庙祝公停香行礼——起身时回望宫里的方向：那点灯火隔着一夜的路，还亮着。【附铜铃按 E——报到 · 土地庙。】
+PASS ch6 BFS route to templebell
+PASS ch6 legal jump censer -> templebell
+阿澄：铜铃响——报到 · 土地庙成立，队伍的锣鼓同拍跟上半套。【土地庙段收束。】队伍行至溪尾街：茶铺门口，莲婶站在挂好的新招牌下等队伍——绳是阿勇亲手换的，招牌稳稳的。【先附花灯担按 E 举高，照亮这条街。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+莲婶：灯光扫过整条街面：雾里显形——开道锣被锢住了，锣面覆着水渍纹，锣架旁的雾沉得比别处低。莲婶迎出两步，站到招牌正下方——六十三年前，她父辈就是站在这门口等队伍的：「今年走到我门口，锣要响大声点，我爹在天上也听听。」【莲婶到位。欠茶铺账的队员被她当众讨账，讪笑着说回来就还。先附潮鼓按 E 应它一声，解开锣；再响锣报到。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump lampstand -> drum
+阿澄：潮鼓以应答版在锢住的开道锣旁响一声——雾听了一下，缓缓退开。【解锢：这站欠的不是香，是没人应它一声。先应它，它才肯让人响。附开道锣按 E——报到 · 溪尾街。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump drum -> gong
+阿澄：开道锣响——报到 · 溪尾街成立。活人侧的锣手同拍把锣敲得又响又稳：莲婶那句「响大声点」，由活人自己的手兑现。【溪尾街段收束。】队伍行至桥头——桥面的雾比往年浓，花灯担被雾锢住，灯光发闷。【先应它一声：神轿轿铃或潮鼓，应答版。】
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump gong -> drum
+PASS ch6 legal jump drum -> palanquin
+阿澄：轿铃以应答版轻响——雾听了一下，缓缓退开：花灯重新亮起。【解锢：这站欠的，是没人应它一声。附花灯担按 E 举高，照开桥面。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump palanquin -> lampstand
+阿澄／摆渡人后代：花灯举高——灯光照开桥面，露出桥心干爽的路面；四章加固过的桥栏绳，在灯光里一闪。桥头站着摆渡人的后代送行：他爷爷那辈在溪上摆渡，六十三年前涨水的那夜，渡船拴在祠堂这岸，一整夜没人来坐——「不是河过不去，是没人想起西巷还有人。」他说他今年不摆渡了，要跟队走一趟西巷。【照桥完成。附神轿按 E 晃铃，阿勇点名。】
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump lampstand -> palanquin
+阿勇：轿铃轻响，阿勇就着灯光逐个点名：数到队尾时顿了顿，喊——「引路轿，跟上。」小轿的铃同拍应了一声。【第九个，被活人自己点名认领了。附潮鼓按 E 响鼓——报到 · 桥头。】
+PASS ch6 BFS route to drum
+PASS ch6 legal jump palanquin -> drum
+阿澄：潮鼓响——报到 · 桥头成立，大锣鼓的重音落在桥心，声场过溪。【队伍过桥。桥头段收束。】桥那头就是西巷：雾不沉、只是厚——它不在这里停住，它在等队伍进来。【附标旗按 E 展开进巷；旧宅门口，先叩门，再报到。】
+PASS ch6 BFS route to flag
+PASS ch6 legal jump drum -> palanquin
+PASS ch6 legal jump palanquin -> flag
+阿澄／小英：标旗在巷口展开——潮绣旗面在花灯光里立起来，小英领舞入巷，英歌槌起势。花灯光扫过连排的下山虎旧厝：有几家的门环上还缠着褪色的红绳——当年走的人家，门一直没锁过。【可选：西巷的空置不是荒废，是等。】队伍在旧宅门口停轿——附西巷门环按 E，先叩门。
+PASS ch6 BFS route to doorring
+PASS ch6 legal jump flag -> doorring
+阿澄／六叔公：队伍在旧宅门口停轿，六叔公放下轿杠，对着旧宅门口深深弯下腰。门环轻叩——第一叩，锈涩、声哑。【回家先叩门。附花灯担按 E 举高，把光移到门口，再叩。】
+PASS ch6 BFS route to lampstand
+PASS ch6 legal jump doorring -> flag
+PASS ch6 legal jump flag -> palanquin
+PASS ch6 legal jump palanquin -> lampstand
+阿澄：花灯举高，光移到旧宅门口——门环上的锈，在光里看得清清楚楚。【再附门环按 E 轻叩。】
+PASS ch6 BFS route to doorring
+PASS ch6 legal jump lampstand -> palanquin
+PASS ch6 legal jump palanquin -> flag
+PASS ch6 legal jump flag -> doorring
+阿澄：第二叩——锈屑落下，声清了。【叩门完成。报到三件：开道锣、潮鼓、深波锣，次序自由，各响一次——第一件响起，就是替它报到的那一次。】
+PASS ch6 BFS route to deepgong
+PASS ch6 legal jump doorring -> deepgong
+阿澄：「最后一次——我亲手给你报到。」【交易第 3 次，在此兑现：交易锣记最后一枚亮起、随声散去，计数归零。还剩两件。】
+PASS ch6 BFS route to gong
+PASS ch6 legal jump deepgong -> gong
+阿澄：报到三件，已响 2 件——还差 1 件。
+PASS ch6 BFS route to drum
+PASS ch6 legal jump gong -> drum
+命运更新① · 西巷：三件响完，整套报到成立——活人侧同拍：阿勇把锣槌递到阿弟手里：「这一声，你来。」阿弟双手握槌，亲手敲响补路的第一声锣；潮鼓、轿铃、深波锣、苏锣层层叠进来，唢呐在最后拔起一条亮线——六十三年前没响的那一声，被补成了一整套。灵域里，小轿旁的雾散开，纸灶恢复完整形态一瞬：一个抱着纸轿的普通中年人，衣角还带着六十三年前那夜的水。他把纸轿轻轻放在旧宅门口，转头望了一眼队伍，点了点头。纸扎人的头，缓缓垂下、正对前方。旧宅门口的水洼里，第一次映出纸轿完整的倒影——它有了倒影，等于它完整了。细叔上前把旧纸轿在门口摆正：「厝边的物件，厝边的人送到。」【命运更新①：欠了六十三年的一站，报到了。】天边开始发白——队伍回程，祠堂前还有一站。
+PASS FIX-R1 F-09 setup: the alley is reported, the return segment begins
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump drum -> palanquin
+六叔公／庙祝公：神轿在祠堂前停轿行礼——这一站的报到，是停轿礼成。六叔公当众认错：改道是他祖父定的、撕页是他父亲做的、割绳是他授意的，阿澄的死，祠堂担「失察」二字。庙祝公把名册递到他手里，他把撕掉的那一页补写回来——哪一站、漏了谁、谁家的人没回来，第一个签上自己的名，退了理事之位。水生站在他身后，把自己的名字写在补页的边角。阿勇接过名册，扬声点名收束：「胶己人，一个不少。」【死因线至此全格收束：不送官、不翻案为命案。】队伍回宫——天快亮了，香只剩最后一截。【灵域里点阿弟怀里的签——最后一附。】
+PASS FIX-R1 F-09 setup: the torn page is rewritten at the hall
+PASS ch6 BFS route to drum
+PASS ch6 legal jump palanquin -> drum
+阿澄：最后一附，得从队伍的头上落过去——神轿的铃、长明灯的火，才送得到阿弟怀里。【最后一附只能自神轿／长明灯附向签。】
+PASS FIX-R1 F-09: the last possession refuses any source but the sedan or the lamp
+PASS FIX-R1 F-09: the refusal names the two lawful sources
+PASS ch6 BFS route to palanquin
+PASS ch6 legal jump drum -> palanquin
+阿澄／阿弟：最后一附——我落在阿弟怀里的签上。签面浮起一行水汽般的字影，转瞬隐去。阿弟只来得及认出一个字的轮廓，没有读全；他先是愣住，然后把签贴在胸口，哭得站不稳，又慢慢站直。那行字的全文，他当晚在梦里逐字看清——写的是什么，故事不说。【命运更新②：该走的人，换成了自愿走的。】破晓的阳光越过宫墙时，我随最后一缕香烟散去——香尽，天亮。这一程，走完了。
+PASS FIX-R1 F-09: from the sedan, the last possession lands on the slip
+PASS FIX-R1 F-10: a canon clear records the canon variant
+PASS FIX-R1 F-10: epilogue rewatch opens the canon frame for a canon clear
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+阿澄／阿弟：最后一附——我落在阿弟怀里的签上。签面浮起一行水汽般的字影，转瞬隐去。阿弟只来得及认出一个字的轮廓，没有读全；他先是愣住，然后把签贴在胸口，哭得站不稳，又慢慢站直。那行字的全文，他当晚在梦里逐字看清——写的是什么，故事不说。【命运更新②：该走的人，换成了自愿走的。】破晓的阳光越过宫墙时，我随最后一缕香烟散去——香尽，天亮。这一程，走完了。
+PASS FIX-R1 F-10: a dispersal clear records the branch variant
+PASS FIX-R1 F-10: epilogue rewatch opens the dispersal frame for a branch clear
+庙祝公／阿澄：三线皆守、真相在活人世界全揭。六叔公站在宫门口的暗处，说完那句「那最后一程……我来抬」，天边开始发白——又压了回去。破晓前，最后一炷香。【这一程，不赶谁、不抢谁：队伍贯通七站，我替它把站，一站一站报全。】
+PASS ch6 opens on the ever-burning lamp
+庙祝公：出发前，他给长明灯添满油、剪齐灯芯——火苗稳稳的，这盏灯今夜不会再熄。六叔公换上轿夫的短打，站到神轿最后一程的轿杠旁。夜粥摊老阿伯在宫门口收摊相送：粥摊摆了四十年，头一回送整支队伍出门。【准备好了，按 F 点最后一炷香。】
+PASS ch6 tutorial: lamp filled and wick trimmed (lamp chain, final link)
+庙祝公：最后一炷香点上了。路线写得明明白白：宫门→土地庙→溪尾街→桥头→西巷→祠堂前→回宫，一站不少。【附神轿按 E 晃铃——起轿。】
+PASS ch6 final incense: a single 360 seconds, segment 1 at the palace gate
+PASS ch6: with no stored account, the harmony preset applies (answer >= 1)
+PASS FIX-R1 A-02: no reflection before the alley is reported (S-10: only this one place)
+PASS FIX-R1 A-02: after the report, the paper sedan's reflection shows in the puddle (spirit domain)
+PASS FIX-R1 A-02: the reflection also shows in the realm domain (dual-domain exception)
+PASS FIX-R2 A-02: the reflection whole flipped texture ends above the dialogue box (bottom 568.1 < 574)
+YEXUN FIX-R2 smoke: N-01 snapshot isolation via the legal R2 counterexample path
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+PASS ch5 opens on the ever-burning lamp
+阿澄：灯芯一拨，火苗立起来——熄了十年的灯，今夜是庙祝公亲手点的。【准备好了，按 F 点第一炷守宫香。】
+PASS ch5 tutorial wick opens exploration
+庙祝公：第一炷守宫香点上了。【守灯：长明灯只添了半瓶陈油，烧不到天亮。先附长明灯拨芯，看清油面。】
+PASS ch5 first watch incense starts at the lamp
+PASS ch5 segment 1 incense is 180 seconds (relay)
+PASS ch5 opponent opens waiting at the altar candle (segment 1)
+PASS BFS route (avoiding it) to everlamp
+阿澄：拨芯看油面：半瓶陈油只够烧到后半夜，油面正一点点见底。灯旁的供桌烛台上，灵核是环纹的，雾聚不散——它先一步到了灯旁，占着灯旁的位子。庙祝公几次想近灯又缩回手：那股冷得不对的气，活人说不出，身子先知道。【添油的整壶新油在庙祝公房里（添油壶）；近灯之前，先要灯旁没「东西」。】
+PASS FIX-R2 N-01 setup: the lamp is probed first
+PASS BFS route (avoiding it) to oilpot
+PASS legal jump everlamp -> oilpot
+小英：壶盖轻响——侧间里，小英听见动静，想起庙祝公房里那整壶新油，取来放在供桌边待用。【油已到供桌边。】
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump oilpot -> everlamp
+PASS legal jump everlamp -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS FIX-R2 N-01 setup: the candle trade opens the 120s yield window
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+PASS FIX-R2 N-01 setup: waited in reality until the window had under 5s left
+PASS FIX-R2 N-01: the burned window refunds the live trade (count 0, clean revoked)
+PASS FIX-R2 N-01: the pre-burn snapshot is NOT polluted by the refund (save isolation)
+PASS FIX-R2 N-01: paused back to the title before any further save
+庙祝公／阿澄：队伍奉命回宫，停办令先一步传回，宫里的人正在散。庙祝公站在正殿门口，攥着那盏熄了十年的长明灯，从神龛底下摸出自己留了十年的半瓶陈油，亲手把灯重新点起来，对小英说：「宫里的香，还没断。」阿勇把名册往怀里一塞，站到宫门口：「数人我来。少一个，我第一个不答应。」【半程巡境：不出巡，只把今晚的队伍、灯火和话，都守到能说完的时候。】
+阿澄：香还燃着……回到没守完的那一段。
+PASS FIX-R2 N-01: title-continue restores a self-consistent state (count 1, its clean mark, its open window)
+PASS FIX-R2 N-01: the restored window burns into a real refund (no ghost count survives)
+PASS BFS route (avoiding it) to drum
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+阿澄：惊走了。它绕去别处——赶得走它，报不了到，这一站没有留下「净」记。
+阿澄：那件物件里猛地一沉——我被挤了出来，香火跟着矮了一截。【被它占住的物件进不去；它静候时响器是开价，普通占位时响器是驱赶。】
+PASS FIX-R2 N-01 cycle: scaring the gong sends it to the drum (squeeze-out)
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump candle -> palanquin
+阿澄：惊走了。它绕去别处——赶得走它，报不了到，这一站没有留下「净」记。
+PASS FIX-R2 N-01 cycle: scaring the drum sends it to the paper figure
+PASS BFS route (avoiding it) to gong
+PASS legal jump palanquin -> drum
+PASS legal jump drum -> gong
+阿澄：惊走了。它绕去别处——赶得走它，报不了到，这一站没有留下「净」记。
+PASS FIX-R2 N-01 cycle: scaring the paper figure returns it to the candle, waiting
+PASS BFS route (avoiding it) to palanquin
+PASS legal jump gong -> drum
+PASS legal jump drum -> palanquin
+阿澄：锣声轻点，尾音放长——【应答版】这一声，是替它报到：正殿站，报「回宫」。它雾退到宫埕边缘的小轿处候着，灯旁的位子，让出来了。【交易一成立：让位窗口 120 秒内，小英能近灯添油。报到锣记，用去一枚。】
+PASS FIX-R2 N-01: the candle station is bought again after the cycle
+PASS BFS route (avoiding it) to everlamp
+PASS legal jump palanquin -> everlamp
+命运更新① · 小英／庙祝公：庙祝公这才得以近灯，小英添足新油、拨起灯芯——火苗重新立稳，亮过开场。【命运更新①：熄了十年的灯，亮稳了。】更梆响过一记，第二炷香点起。【守人：阿弟攥着那支签坐在宫门边——桥头那句「祠堂的绳，根根都是割的」，他听见了。】
+PASS FIX-R2 N-01: segment 2 begins and seg5_snap.trade reads exactly 1 (no dead-end count)
+PASS BFS route (avoiding it) to gong
+PASS legal jump everlamp -> candle
+PASS legal jump candle -> drum
+PASS legal jump drum -> gong
+阿澄／阿弟：锣声轻点，尾音放长——替它报到：宫埕站，报「宫门」。它离开纸扎人，退场时打宫门方向过——纸扎人的头追着它，缓缓转过去，正对上站在宫门口的阿弟。阿弟钉住了：它在看我。他攥签的手，慢慢松开，走回埕心，在神轿的轿杠边坐下。【命运更新②：要走的人，留下来了。更梆响过一记，第三炷香点起——守队伍。】
+PASS FIX-R2 N-01: segment 2 only entry (the paper-figure trade) still opens
+SMOKE RESULT: PASS checks=1582 failures=0
